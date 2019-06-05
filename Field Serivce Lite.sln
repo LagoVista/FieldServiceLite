@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LagoVista.FSLite.Models", "src\LagoVista.FSLite.Models\LagoVista.FSLite.Models.csproj", "{CE9AA3FA-313C-4D48-9672-C16CDE2A4BA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LagoVista.FSLite.Admin", "src\LagoVista.FSLite.Admin\LagoVista.FSLite.Admin.csproj", "{53775E19-1480-4CC0-8FB9-4A8EC535882D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LagoVista.FSLite.REST", "src\LagoVista.FSLite.REST\LagoVista.FSLite.REST.csproj", "{369E988E-259C-434D-AB65-8DBD066DA639}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LagoVista.FSLite.CloudRepos", "src\LagoVista.FSLite.CloudRepos\LagoVista.FSLite.CloudRepos.csproj", "{990056AD-26DE-49D5-8D71-FBCF9463ECCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LagoVista.FSLite.Admin.Tests", "tests\LagoVista.FSLite.Admin.Tests\LagoVista.FSLite.Admin.Tests.csproj", "{3C5C07B2-21DB-4CDB-BE04-51DC8467B883}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{975F1282-2C85-4E9D-96FF-CC4476C332E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{670ADE53-C7C5-4E0B-9E3A-D804AF982B81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE9AA3FA-313C-4D48-9672-C16CDE2A4BA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE9AA3FA-313C-4D48-9672-C16CDE2A4BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE9AA3FA-313C-4D48-9672-C16CDE2A4BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE9AA3FA-313C-4D48-9672-C16CDE2A4BA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53775E19-1480-4CC0-8FB9-4A8EC535882D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53775E19-1480-4CC0-8FB9-4A8EC535882D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53775E19-1480-4CC0-8FB9-4A8EC535882D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53775E19-1480-4CC0-8FB9-4A8EC535882D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{369E988E-259C-434D-AB65-8DBD066DA639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{369E988E-259C-434D-AB65-8DBD066DA639}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{369E988E-259C-434D-AB65-8DBD066DA639}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{369E988E-259C-434D-AB65-8DBD066DA639}.Release|Any CPU.Build.0 = Release|Any CPU
+		{990056AD-26DE-49D5-8D71-FBCF9463ECCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{990056AD-26DE-49D5-8D71-FBCF9463ECCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{990056AD-26DE-49D5-8D71-FBCF9463ECCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{990056AD-26DE-49D5-8D71-FBCF9463ECCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C5C07B2-21DB-4CDB-BE04-51DC8467B883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C5C07B2-21DB-4CDB-BE04-51DC8467B883}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C5C07B2-21DB-4CDB-BE04-51DC8467B883}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C5C07B2-21DB-4CDB-BE04-51DC8467B883}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CE9AA3FA-313C-4D48-9672-C16CDE2A4BA5} = {975F1282-2C85-4E9D-96FF-CC4476C332E8}
+		{53775E19-1480-4CC0-8FB9-4A8EC535882D} = {975F1282-2C85-4E9D-96FF-CC4476C332E8}
+		{369E988E-259C-434D-AB65-8DBD066DA639} = {975F1282-2C85-4E9D-96FF-CC4476C332E8}
+		{990056AD-26DE-49D5-8D71-FBCF9463ECCB} = {975F1282-2C85-4E9D-96FF-CC4476C332E8}
+		{3C5C07B2-21DB-4CDB-BE04-51DC8467B883} = {670ADE53-C7C5-4E0B-9E3A-D804AF982B81}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD7A766F-FB28-42E2-B1B9-22EDDCCE3EBD}
+	EndGlobalSection
+EndGlobal
