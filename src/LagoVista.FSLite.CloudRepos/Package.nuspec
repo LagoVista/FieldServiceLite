@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>LagoVista.FSLite.CloudRepos</id>
+    <version>2.1.751-beta1855</version>
+    <authors>Software Logistics, LLC</authors>
+    <owners>Software Logistics, LLC</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/LagoVista/IoTEngine</projectUrl>
+    <iconUrl>http://bytemaster.blob.core.windows.net/icons/LagoVistaIcon.png</iconUrl>
+    <description>Very simple field service implementation to create service tickets.  Primarily used to integrate with other systems.</description>
+    <releaseNotes>Initial and Unstable Release</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>HomeAutomation IoT FieldService</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="10.0.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\release\netstandard2.0\*.dll" target="lib\netstandard2.0" />
+  </files>
+</package>

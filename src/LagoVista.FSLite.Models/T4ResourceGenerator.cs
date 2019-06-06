@@ -1,4 +1,4 @@
-﻿/*6/5/2019 07:40:25*/
+﻿/*6/6/2019 17:12:28*/
 using System.Globalization;
 using System.Reflection;
 
@@ -105,15 +105,93 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:Common_ValidationErrors
 
 		public static string Common_ValidationErrors { get { return GetResourceString("Common_ValidationErrors"); } }
+//Resources:FSResources:ServiceTicket_Address
+
+		public static string ServiceTicket_Address { get { return GetResourceString("ServiceTicket_Address"); } }
+//Resources:FSResources:ServiceTicket_AssignedTo
+
+		public static string ServiceTicket_AssignedTo { get { return GetResourceString("ServiceTicket_AssignedTo"); } }
+//Resources:FSResources:ServiceTicket_ClosedBy
+
+		public static string ServiceTicket_ClosedBy { get { return GetResourceString("ServiceTicket_ClosedBy"); } }
+//Resources:FSResources:ServiceTicket_Company
+
+		public static string ServiceTicket_Company { get { return GetResourceString("ServiceTicket_Company"); } }
 //Resources:FSResources:ServiceTicket_Description
 
 		public static string ServiceTicket_Description { get { return GetResourceString("ServiceTicket_Description"); } }
+//Resources:FSResources:ServiceTicket_Device
+
+		public static string ServiceTicket_Device { get { return GetResourceString("ServiceTicket_Device"); } }
+//Resources:FSResources:ServiceTicket_DueDate
+
+		public static string ServiceTicket_DueDate { get { return GetResourceString("ServiceTicket_DueDate"); } }
 //Resources:FSResources:ServiceTicket_Help
 
 		public static string ServiceTicket_Help { get { return GetResourceString("ServiceTicket_Help"); } }
+//Resources:FSResources:ServiceTicket_History
+
+		public static string ServiceTicket_History { get { return GetResourceString("ServiceTicket_History"); } }
+//Resources:FSResources:ServiceTicket_IsClosed
+
+		public static string ServiceTicket_IsClosed { get { return GetResourceString("ServiceTicket_IsClosed"); } }
+//Resources:FSResources:ServiceTicket_Notes
+
+		public static string ServiceTicket_Notes { get { return GetResourceString("ServiceTicket_Notes"); } }
+//Resources:FSResources:ServiceTicket_Status
+
+		public static string ServiceTicket_Status { get { return GetResourceString("ServiceTicket_Status"); } }
+//Resources:FSResources:ServiceTicket_StatusDate
+
+		public static string ServiceTicket_StatusDate { get { return GetResourceString("ServiceTicket_StatusDate"); } }
+//Resources:FSResources:ServiceTicket_Subject
+
+		public static string ServiceTicket_Subject { get { return GetResourceString("ServiceTicket_Subject"); } }
+//Resources:FSResources:ServiceTicket_TicketId
+
+		public static string ServiceTicket_TicketId { get { return GetResourceString("ServiceTicket_TicketId"); } }
 //Resources:FSResources:ServiceTicket_Title
 
 		public static string ServiceTicket_Title { get { return GetResourceString("ServiceTicket_Title"); } }
+//Resources:FSResources:ServiceTicketNote_AddedBy
+
+		public static string ServiceTicketNote_AddedBy { get { return GetResourceString("ServiceTicketNote_AddedBy"); } }
+//Resources:FSResources:ServiceTicketNote_DateStamp
+
+		public static string ServiceTicketNote_DateStamp { get { return GetResourceString("ServiceTicketNote_DateStamp"); } }
+//Resources:FSResources:ServiceTicketNote_Description
+
+		public static string ServiceTicketNote_Description { get { return GetResourceString("ServiceTicketNote_Description"); } }
+//Resources:FSResources:ServiceTicketNote_Help
+
+		public static string ServiceTicketNote_Help { get { return GetResourceString("ServiceTicketNote_Help"); } }
+//Resources:FSResources:ServiceTicketNote_Note
+
+		public static string ServiceTicketNote_Note { get { return GetResourceString("ServiceTicketNote_Note"); } }
+//Resources:FSResources:ServiceTicketNote_Title
+
+		public static string ServiceTicketNote_Title { get { return GetResourceString("ServiceTicketNote_Title"); } }
+//Resources:FSResources:ServiceTicketStatusHistory_AddedBy
+
+		public static string ServiceTicketStatusHistory_AddedBy { get { return GetResourceString("ServiceTicketStatusHistory_AddedBy"); } }
+//Resources:FSResources:ServiceTicketStatusHistory_DateStamp
+
+		public static string ServiceTicketStatusHistory_DateStamp { get { return GetResourceString("ServiceTicketStatusHistory_DateStamp"); } }
+//Resources:FSResources:ServiceTicketStatusHistory_Description
+
+		public static string ServiceTicketStatusHistory_Description { get { return GetResourceString("ServiceTicketStatusHistory_Description"); } }
+//Resources:FSResources:ServiceTicketStatusHistory_Help
+
+		public static string ServiceTicketStatusHistory_Help { get { return GetResourceString("ServiceTicketStatusHistory_Help"); } }
+//Resources:FSResources:ServiceTicketStatusHistory_Notes
+
+		public static string ServiceTicketStatusHistory_Notes { get { return GetResourceString("ServiceTicketStatusHistory_Notes"); } }
+//Resources:FSResources:ServiceTicketStatusHistory_Status
+
+		public static string ServiceTicketStatusHistory_Status { get { return GetResourceString("ServiceTicketStatusHistory_Status"); } }
+//Resources:FSResources:ServiceTicketStatusHistory_Title
+
+		public static string ServiceTicketStatusHistory_Title { get { return GetResourceString("ServiceTicketStatusHistory_Title"); } }
 //Resources:FSResources:ServiceTicketTemplate_Description
 
 		public static string ServiceTicketTemplate_Description { get { return GetResourceString("ServiceTicketTemplate_Description"); } }
@@ -143,9 +221,35 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string Common_PageNumberOne = "Common_PageNumberOne";
 			public const string Common_UniqueId = "Common_UniqueId";
 			public const string Common_ValidationErrors = "Common_ValidationErrors";
+			public const string ServiceTicket_Address = "ServiceTicket_Address";
+			public const string ServiceTicket_AssignedTo = "ServiceTicket_AssignedTo";
+			public const string ServiceTicket_ClosedBy = "ServiceTicket_ClosedBy";
+			public const string ServiceTicket_Company = "ServiceTicket_Company";
 			public const string ServiceTicket_Description = "ServiceTicket_Description";
+			public const string ServiceTicket_Device = "ServiceTicket_Device";
+			public const string ServiceTicket_DueDate = "ServiceTicket_DueDate";
 			public const string ServiceTicket_Help = "ServiceTicket_Help";
+			public const string ServiceTicket_History = "ServiceTicket_History";
+			public const string ServiceTicket_IsClosed = "ServiceTicket_IsClosed";
+			public const string ServiceTicket_Notes = "ServiceTicket_Notes";
+			public const string ServiceTicket_Status = "ServiceTicket_Status";
+			public const string ServiceTicket_StatusDate = "ServiceTicket_StatusDate";
+			public const string ServiceTicket_Subject = "ServiceTicket_Subject";
+			public const string ServiceTicket_TicketId = "ServiceTicket_TicketId";
 			public const string ServiceTicket_Title = "ServiceTicket_Title";
+			public const string ServiceTicketNote_AddedBy = "ServiceTicketNote_AddedBy";
+			public const string ServiceTicketNote_DateStamp = "ServiceTicketNote_DateStamp";
+			public const string ServiceTicketNote_Description = "ServiceTicketNote_Description";
+			public const string ServiceTicketNote_Help = "ServiceTicketNote_Help";
+			public const string ServiceTicketNote_Note = "ServiceTicketNote_Note";
+			public const string ServiceTicketNote_Title = "ServiceTicketNote_Title";
+			public const string ServiceTicketStatusHistory_AddedBy = "ServiceTicketStatusHistory_AddedBy";
+			public const string ServiceTicketStatusHistory_DateStamp = "ServiceTicketStatusHistory_DateStamp";
+			public const string ServiceTicketStatusHistory_Description = "ServiceTicketStatusHistory_Description";
+			public const string ServiceTicketStatusHistory_Help = "ServiceTicketStatusHistory_Help";
+			public const string ServiceTicketStatusHistory_Notes = "ServiceTicketStatusHistory_Notes";
+			public const string ServiceTicketStatusHistory_Status = "ServiceTicketStatusHistory_Status";
+			public const string ServiceTicketStatusHistory_Title = "ServiceTicketStatusHistory_Title";
 			public const string ServiceTicketTemplate_Description = "ServiceTicketTemplate_Description";
 			public const string ServiceTicketTemplate_Help = "ServiceTicketTemplate_Help";
 			public const string ServiceTicketTemplate_Title = "ServiceTicketTemplate_Title";

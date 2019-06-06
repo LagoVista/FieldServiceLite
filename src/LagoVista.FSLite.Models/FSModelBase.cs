@@ -28,11 +28,9 @@ namespace LagoVista.FSLite.Models
         public string DatabaseName { get; set; }
         public string EntityType { get; set; }
 
-        [ListColumn(HeaderResource: FSResources.Names.Common_Name, ResourceType: typeof(FSResources))]
         [FormField(LabelResource: FSResources.Names.Common_Name, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public string Name { get; set; }
 
-        [ListColumn(HeaderResource: FSResources.Names.Common_Key, ResourceType: typeof(FSResources))]
         [FormField(LabelResource: FSResources.Names.Common_Key, HelpResource: FSResources.Names.Common_Key_Help, FieldType: FieldTypes.Key, RegExValidationMessageResource: FSResources.Names.Common_Key_Validation, ResourceType: typeof(FSResources), IsRequired: true)]
         public string Key { get; set; }
 

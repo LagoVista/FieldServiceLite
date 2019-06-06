@@ -4,4 +4,16 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="LagoVista.IoT.Web.Common" Version="2.1.751-beta1855" />
+    <PackageReference Include="LagoVista.UserAdmin" Version="2.1.751-beta1855" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LagoVista.FSLite.Admin\LagoVista.FSLite.Admin.csproj" />
+  </ItemGroup>
+
 </Project>

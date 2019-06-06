@@ -186,4 +186,82 @@
   <data name="ServiceTicket_Title" xml:space="preserve">
     <value>Service Ticket</value>
   </data>
+  <data name="ServiceTicketNote_AddedBy" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="ServiceTicketNote_DateStamp" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ServiceTicketNote_Description" xml:space="preserve">
+    <value>A simple note that can be attached to a service ticket.</value>
+  </data>
+  <data name="ServiceTicketNote_Help" xml:space="preserve">
+    <value>A simple note that can be attached to a service ticket.</value>
+  </data>
+  <data name="ServiceTicketNote_Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="ServiceTicketNote_Title" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="ServiceTicketStatusHistory_AddedBy" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="ServiceTicketStatusHistory_DateStamp" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ServiceTicketStatusHistory_Description" xml:space="preserve">
+    <value>Keeps track of the status history for a service ticket.</value>
+  </data>
+  <data name="ServiceTicketStatusHistory_Help" xml:space="preserve">
+    <value>Keeps track of the status history for a service ticket.</value>
+  </data>
+  <data name="ServiceTicketStatusHistory_Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="ServiceTicketStatusHistory_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ServiceTicketStatusHistory_Title" xml:space="preserve">
+    <value>Status History</value>
+  </data>
+  <data name="ServiceTicket_Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="ServiceTicket_AssignedTo" xml:space="preserve">
+    <value>Assigned To</value>
+  </data>
+  <data name="ServiceTicket_Device" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="ServiceTicket_DueDate" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="ServiceTicket_History" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="ServiceTicket_Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="ServiceTicket_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ServiceTicket_StatusDate" xml:space="preserve">
+    <value>Status Date</value>
+  </data>
+  <data name="ServiceTicket_Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="ServiceTicket_TicketId" xml:space="preserve">
+    <value>Ticket Id</value>
+  </data>
+  <data name="ServiceTicket_IsClosed" xml:space="preserve">
+    <value>Is Closed</value>
+  </data>
+  <data name="ServiceTicket_Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="ServiceTicket_ClosedBy" xml:space="preserve">
+    <value>Closed By</value>
+  </data>
 </root>
