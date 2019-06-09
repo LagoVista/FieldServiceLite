@@ -38,7 +38,7 @@ namespace LagoVista.FSLite.CloudRepos
         {
             var response = await base.QueryAsync(attr => (attr.OwnerOrganization.Id == orgId || attr.IsPublic == true), listRequest);
             //TODO: This is a broken pattern to be fixed another day...sorry.
-            var finalResponse = ListResponse<ServiceTicketTemplateSummary>.Create(response.Model.Select(mod => mod.GCreateSummary()));
+            var finalResponse = ListResponse<ServiceTicketTemplateSummary>.Create(response.Model.Select(mod => mod.CreateSummary()));
             finalResponse.NextPartitionKey = response.NextPartitionKey;
             finalResponse.NextRowKey = response.NextRowKey;
             finalResponse.PageCount = response.PageCount;
@@ -46,6 +46,12 @@ namespace LagoVista.FSLite.CloudRepos
             finalResponse.PageSize = response.PageSize;
             finalResponse.ResultId = response.ResultId;
             return finalResponse;
+        }
+
+        public async Task<bool> QueryKeyInUseAsync(string key, string orgId)
+        {
+            var items = await base.QueryAsync(attr => (attr.OwnerOrganization.Id == orgId || attr.IsPublic == true) && attr.Key == key);
+            return items.Any();
         }
 
         public Task UpdateServiceTicketTemplateAsync(ServiceTicketTemplate serviceTicket)

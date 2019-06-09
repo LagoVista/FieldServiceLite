@@ -2,6 +2,7 @@
 using LagoVista.Core.Models.UIMetaData;
 using LagoVista.Core.Validation;
 using LagoVista.FSLite.Models;
+using LagoVista.IoT.DeviceAdmin.Models;
 using System.Threading.Tasks;
 
 namespace LagoVista.FSLite.Admin.Interfaces
@@ -13,5 +14,11 @@ namespace LagoVista.FSLite.Admin.Interfaces
         Task<InvokeResult> DeleteServiceTicketTemplateAsync(string id, EntityHeader org, EntityHeader user);
         Task<ServiceTicketTemplate> GetServiceTicketTemplateAsync(string id, EntityHeader org, EntityHeader user);
         Task<ListResponse<ServiceTicketTemplateSummary>> GetServiceTicketTemplatesAsync(ListRequest listRequest, EntityHeader org, EntityHeader user);
+
+        Task<MediaItemResponse> GetTroubleshottingStepMediaAsync(string templateId, string stepId, string resourceId, EntityHeader org, EntityHeader user);
+        Task<MediaItemResponse> GetPartMediaAsync(string templateId, string partId, string resourceId, EntityHeader org, EntityHeader user);
+
+        Task<DependentObjectCheckResult> CheckInUseAsync(string id, EntityHeader org, EntityHeader user);
+        Task<bool> QueryKeyInUseAsync(string key, string orgId);
     }
 }

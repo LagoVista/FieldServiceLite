@@ -11,5 +11,6 @@ namespace LagoVista.FSLite.Admin.Interfaces
         Task DeleteServiceTicketTemplateAsync(string id);
         Task<ServiceTicketTemplate> GetServiceTicketTemplateAsync(string id);
         Task<ListResponse<ServiceTicketTemplateSummary>> GetServiceTicketTemplateSummariesForOrgAsync(string orgId, ListRequest listRequest);
+        Task<bool> QueryKeyInUseAsync(string key, string orgId);
     }
 }

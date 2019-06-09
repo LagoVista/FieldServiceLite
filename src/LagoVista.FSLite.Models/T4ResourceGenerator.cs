@@ -1,4 +1,4 @@
-﻿/*6/6/2019 17:12:28*/
+﻿/*6/9/2019 10:09:26*/
 using System.Globalization;
 using System.Reflection;
 
@@ -120,6 +120,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicket_Description
 
 		public static string ServiceTicket_Description { get { return GetResourceString("ServiceTicket_Description"); } }
+//Resources:FSResources:ServiceTicket_Details
+
+		public static string ServiceTicket_Details { get { return GetResourceString("ServiceTicket_Details"); } }
 //Resources:FSResources:ServiceTicket_Device
 
 		public static string ServiceTicket_Device { get { return GetResourceString("ServiceTicket_Device"); } }
@@ -192,15 +195,75 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketStatusHistory_Title
 
 		public static string ServiceTicketStatusHistory_Title { get { return GetResourceString("ServiceTicketStatusHistory_Title"); } }
+//Resources:FSResources:ServiceTicketTemplate_CostEstimate
+
+		public static string ServiceTicketTemplate_CostEstimate { get { return GetResourceString("ServiceTicketTemplate_CostEstimate"); } }
 //Resources:FSResources:ServiceTicketTemplate_Description
 
 		public static string ServiceTicketTemplate_Description { get { return GetResourceString("ServiceTicketTemplate_Description"); } }
 //Resources:FSResources:ServiceTicketTemplate_Help
 
 		public static string ServiceTicketTemplate_Help { get { return GetResourceString("ServiceTicketTemplate_Help"); } }
+//Resources:FSResources:ServiceTicketTemplate_HoursEstimate
+
+		public static string ServiceTicketTemplate_HoursEstimate { get { return GetResourceString("ServiceTicketTemplate_HoursEstimate"); } }
+//Resources:FSResources:ServiceTicketTemplate_Instructions
+
+		public static string ServiceTicketTemplate_Instructions { get { return GetResourceString("ServiceTicketTemplate_Instructions"); } }
+//Resources:FSResources:ServiceTicketTemplate_RequiredParts
+
+		public static string ServiceTicketTemplate_RequiredParts { get { return GetResourceString("ServiceTicketTemplate_RequiredParts"); } }
+//Resources:FSResources:ServiceTicketTemplate_RequiredTools
+
+		public static string ServiceTicketTemplate_RequiredTools { get { return GetResourceString("ServiceTicketTemplate_RequiredTools"); } }
+//Resources:FSResources:ServiceTicketTemplate_Skill
+
+		public static string ServiceTicketTemplate_Skill { get { return GetResourceString("ServiceTicketTemplate_Skill"); } }
+//Resources:FSResources:ServiceTicketTemplate_Skill_High
+
+		public static string ServiceTicketTemplate_Skill_High { get { return GetResourceString("ServiceTicketTemplate_Skill_High"); } }
+//Resources:FSResources:ServiceTicketTemplate_Skill_Low
+
+		public static string ServiceTicketTemplate_Skill_Low { get { return GetResourceString("ServiceTicketTemplate_Skill_Low"); } }
+//Resources:FSResources:ServiceTicketTemplate_Skill_Medium
+
+		public static string ServiceTicketTemplate_Skill_Medium { get { return GetResourceString("ServiceTicketTemplate_Skill_Medium"); } }
+//Resources:FSResources:ServiceTicketTemplate_Skill_Select
+
+		public static string ServiceTicketTemplate_Skill_Select { get { return GetResourceString("ServiceTicketTemplate_Skill_Select"); } }
 //Resources:FSResources:ServiceTicketTemplate_Title
 
 		public static string ServiceTicketTemplate_Title { get { return GetResourceString("ServiceTicketTemplate_Title"); } }
+//Resources:FSResources:ServiceTicketTemplate_TroubleshootingSteps
+
+		public static string ServiceTicketTemplate_TroubleshootingSteps { get { return GetResourceString("ServiceTicketTemplate_TroubleshootingSteps"); } }
+//Resources:FSResources:ServiceTicketTemplate_Urgency
+
+		public static string ServiceTicketTemplate_Urgency { get { return GetResourceString("ServiceTicketTemplate_Urgency"); } }
+//Resources:FSResources:ServiceTicketTemplate_Urgency_CriticalSafety
+
+		public static string ServiceTicketTemplate_Urgency_CriticalSafety { get { return GetResourceString("ServiceTicketTemplate_Urgency_CriticalSafety"); } }
+//Resources:FSResources:ServiceTicketTemplate_Urgency_Important
+
+		public static string ServiceTicketTemplate_Urgency_Important { get { return GetResourceString("ServiceTicketTemplate_Urgency_Important"); } }
+//Resources:FSResources:ServiceTicketTemplate_Urgency_Low
+
+		public static string ServiceTicketTemplate_Urgency_Low { get { return GetResourceString("ServiceTicketTemplate_Urgency_Low"); } }
+//Resources:FSResources:ServiceTicketTemplate_Urgency_Normal
+
+		public static string ServiceTicketTemplate_Urgency_Normal { get { return GetResourceString("ServiceTicketTemplate_Urgency_Normal"); } }
+//Resources:FSResources:ServiceTicketTemplate_Urgency_Select
+
+		public static string ServiceTicketTemplate_Urgency_Select { get { return GetResourceString("ServiceTicketTemplate_Urgency_Select"); } }
+//Resources:FSResources:ToolsRequired_Description
+
+		public static string ToolsRequired_Description { get { return GetResourceString("ToolsRequired_Description"); } }
+//Resources:FSResources:ToolsRequired_Help
+
+		public static string ToolsRequired_Help { get { return GetResourceString("ToolsRequired_Help"); } }
+//Resources:FSResources:ToolsRequired_Title
+
+		public static string ToolsRequired_Title { get { return GetResourceString("ToolsRequired_Title"); } }
 
 		public static class Names
 		{
@@ -226,6 +289,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicket_ClosedBy = "ServiceTicket_ClosedBy";
 			public const string ServiceTicket_Company = "ServiceTicket_Company";
 			public const string ServiceTicket_Description = "ServiceTicket_Description";
+			public const string ServiceTicket_Details = "ServiceTicket_Details";
 			public const string ServiceTicket_Device = "ServiceTicket_Device";
 			public const string ServiceTicket_DueDate = "ServiceTicket_DueDate";
 			public const string ServiceTicket_Help = "ServiceTicket_Help";
@@ -250,9 +314,29 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketStatusHistory_Notes = "ServiceTicketStatusHistory_Notes";
 			public const string ServiceTicketStatusHistory_Status = "ServiceTicketStatusHistory_Status";
 			public const string ServiceTicketStatusHistory_Title = "ServiceTicketStatusHistory_Title";
+			public const string ServiceTicketTemplate_CostEstimate = "ServiceTicketTemplate_CostEstimate";
 			public const string ServiceTicketTemplate_Description = "ServiceTicketTemplate_Description";
 			public const string ServiceTicketTemplate_Help = "ServiceTicketTemplate_Help";
+			public const string ServiceTicketTemplate_HoursEstimate = "ServiceTicketTemplate_HoursEstimate";
+			public const string ServiceTicketTemplate_Instructions = "ServiceTicketTemplate_Instructions";
+			public const string ServiceTicketTemplate_RequiredParts = "ServiceTicketTemplate_RequiredParts";
+			public const string ServiceTicketTemplate_RequiredTools = "ServiceTicketTemplate_RequiredTools";
+			public const string ServiceTicketTemplate_Skill = "ServiceTicketTemplate_Skill";
+			public const string ServiceTicketTemplate_Skill_High = "ServiceTicketTemplate_Skill_High";
+			public const string ServiceTicketTemplate_Skill_Low = "ServiceTicketTemplate_Skill_Low";
+			public const string ServiceTicketTemplate_Skill_Medium = "ServiceTicketTemplate_Skill_Medium";
+			public const string ServiceTicketTemplate_Skill_Select = "ServiceTicketTemplate_Skill_Select";
 			public const string ServiceTicketTemplate_Title = "ServiceTicketTemplate_Title";
+			public const string ServiceTicketTemplate_TroubleshootingSteps = "ServiceTicketTemplate_TroubleshootingSteps";
+			public const string ServiceTicketTemplate_Urgency = "ServiceTicketTemplate_Urgency";
+			public const string ServiceTicketTemplate_Urgency_CriticalSafety = "ServiceTicketTemplate_Urgency_CriticalSafety";
+			public const string ServiceTicketTemplate_Urgency_Important = "ServiceTicketTemplate_Urgency_Important";
+			public const string ServiceTicketTemplate_Urgency_Low = "ServiceTicketTemplate_Urgency_Low";
+			public const string ServiceTicketTemplate_Urgency_Normal = "ServiceTicketTemplate_Urgency_Normal";
+			public const string ServiceTicketTemplate_Urgency_Select = "ServiceTicketTemplate_Urgency_Select";
+			public const string ToolsRequired_Description = "ToolsRequired_Description";
+			public const string ToolsRequired_Help = "ToolsRequired_Help";
+			public const string ToolsRequired_Title = "ToolsRequired_Title";
 		}
 	}
 }
