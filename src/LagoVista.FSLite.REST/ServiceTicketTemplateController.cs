@@ -30,7 +30,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="serviceTicket"></param>
         /// <returns></returns>
-        [HttpPost("/api/tickets/template")]
+        [HttpPost("/api/fslite/tickets/template")]
         public Task<InvokeResult> AddServiceTicketTemplateAsync([FromBody] ServiceTicketTemplate serviceTicket)
         {
             return _mgr.AddServiceTicketTemplateAsync(serviceTicket, OrgEntityHeader, UserEntityHeader);
@@ -41,7 +41,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="serviceTicket"></param>
         /// <returns></returns>
-        [HttpPut("/api/tickets/template")]
+        [HttpPut("/api/fslite/tickets/template")]
         public Task<InvokeResult> UpdateServiceTicketTemplateAsync([FromBody] ServiceTicketTemplate serviceTicket)
         {
             return _mgr.UpdateServiceTicketTemplateAsync(serviceTicket, OrgEntityHeader, UserEntityHeader);
@@ -52,7 +52,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("/api/tickets/template/{id}")]
+        [HttpDelete("/api/fslite/tickets/template/{id}")]
         public Task<InvokeResult> DeleteServiceTicketTemplateAsync(string id)
         {
             return _mgr.DeleteServiceTicketTemplateAsync(id, OrgEntityHeader, UserEntityHeader);
@@ -63,7 +63,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("/api/tickets/template/{id}")]
+        [HttpGet("/api/fslite/tickets/template/{id}")]
         public async Task<DetailResponse<ServiceTicketTemplate>> GetServiceTicketTemplateAsync(string id)
         {
             return DetailResponse<ServiceTicketTemplate>.Create(await _mgr.GetServiceTicketTemplateAsync(id, OrgEntityHeader, UserEntityHeader));
@@ -74,7 +74,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("/api/tickets/template/factory")]
+        [HttpGet("/api/fslite/tickets/template/factory")]
         public DetailResponse<ServiceTicketTemplate> CreateServiceTicketTemplateAsync(string id)
         {
             var template = DetailResponse<ServiceTicketTemplate>.Create();
@@ -88,7 +88,7 @@ namespace LagoVista.FSLite.REST
         /// FS Lite - Get Ticket Templates
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/tickets/templates")]
+        [HttpGet("/api/fslite/tickets/templates")]
         public Task<ListResponse<ServiceTicketTemplateSummary>> GetServiceTicketTemplatesAsync()
         {
             return _mgr.GetServiceTicketTemplatesAsync(GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
@@ -98,7 +98,7 @@ namespace LagoVista.FSLite.REST
         /// FS Lite - Key In Use
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/t/templatickets/{key}/keyinuse")]
+        [HttpGet("/api/fslite/tickets/templates/{key}/keyinuse")]
         public Task<bool> GetDeviceTypeKeyInUseAsync(String key)
         {
             return _mgr.QueryKeyInUseAsync(key, CurrentOrgId);
@@ -108,7 +108,7 @@ namespace LagoVista.FSLite.REST
         /// FS Lite - Get Required Parts Resource
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/tickets/template/{templateid}/troubleshooting/{partid}/media/{resourceid}")]
+        [HttpGet("/api/fslite/template/{templateid}/troubleshooting/{partid}/media/{resourceid}")]
         public async Task<IActionResult> GetRequiredPartsResourceAsync(string templateid, string partid, string resourceid)
         {
             var response = await _mgr.GetPartMediaAsync(templateid, partid, resourceid, OrgEntityHeader, UserEntityHeader);
@@ -120,10 +120,9 @@ namespace LagoVista.FSLite.REST
         /// FS Lite - Get Troubleshooting Steps Resource
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/tickets/template/{templateid}/troubleshooting/{tsid}/media/{resourceid}")]
+        [HttpGet("/api/fslite/template/{templateid}/troubleshooting/{tsid}/media/{resourceid}")]
         public async Task<IActionResult> GetTroubleshootingStepResourceAsync(string templateid, string tsid, string resourceid)
         {
-
             var response = await _mgr.GetTroubleshottingStepMediaAsync(templateid, tsid, resourceid, OrgEntityHeader, UserEntityHeader);
 
             var ms = new MemoryStream(response.ImageBytes);

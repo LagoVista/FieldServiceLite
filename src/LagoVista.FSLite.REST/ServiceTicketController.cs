@@ -31,7 +31,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="serviceTicket"></param>
         /// <returns></returns>
-        [HttpPost("/api/serviceticket")]
+        [HttpPost("/api/fslite/ticket")]
         public Task<InvokeResult> AddServiceTicketAsync([FromBody] ServiceTicket serviceTicket)
         {
             return _mgr.AddServiceTicketAsync(serviceTicket, OrgEntityHeader, UserEntityHeader);
@@ -42,7 +42,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="serviceTicket"></param>
         /// <returns></returns>
-        [HttpPut("/api/serviceticket")]
+        [HttpPut("/api/fslite/ticket")]
         public Task<InvokeResult> UpdateServiceTicketAsync([FromBody] ServiceTicket serviceTicket)
         {
             return _mgr.UpdateServiceTicketAsync(serviceTicket, OrgEntityHeader, UserEntityHeader);
@@ -53,7 +53,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("/api/serviceticket/{id}")]
+        [HttpGet("/api/fslite/ticket/{id}")]
         public async Task<DetailResponse<ServiceTicket>> GetServiceTicketAsync(string id)
         {
             return DetailResponse<ServiceTicket>.Create(await  _mgr.GetServiceTicketAsync(id, OrgEntityHeader, UserEntityHeader));
@@ -63,7 +63,7 @@ namespace LagoVista.FSLite.REST
         /// FS Lite -  Create a new service ticket template
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/serviceticket/factory")]
+        [HttpGet("/api/fslite/ticket/factory")]
         public DetailResponse<ServiceTicket> CreateServiceTicketAsync()
         {
             var ticket = new ServiceTicket()
@@ -81,7 +81,7 @@ namespace LagoVista.FSLite.REST
         /// FS Lite - Get all open tickets
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/servicetickets/open")]
+        [HttpGet("/api/fslite/ticket/open")]
         public Task<ListResponse<ServiceTicketSummary>> GetOpenServiceTicketAsync()
         {
             return _mgr.GetOpenServiceTicketAsync(GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
@@ -91,7 +91,7 @@ namespace LagoVista.FSLite.REST
         /// FS Lite - get closed tickets
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/servicetickets/closed")]
+        [HttpGet("/api/fslite/ticket/closed")]
         public Task<ListResponse<ServiceTicketSummary>> GetClosedServiceTicketAsync()
         {
             return _mgr.GetClosedServiceTicketAsync(GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
@@ -102,7 +102,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("/api/servicetickets/device/{id}")]
+        [HttpGet("/api/fslite/ticket/device/{id}")]
         public Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsForDeviceAsync(string id)
         {
             return _mgr.GetOpenServiceTicketAsync(GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
@@ -112,7 +112,7 @@ namespace LagoVista.FSLite.REST
         /// FS Lite - Get tickets for org
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/servicetickets")]
+        [HttpGet("/api/fslite/tickets")]
         public Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsForOrgAsync()
         {
             return _mgr.GetServiceTicketsForOrgAsync(GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
@@ -123,7 +123,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="status"></param>
         /// <returns></returns>
-        [HttpGet("/api/servicetickets/status/{status}")]
+        [HttpGet("/api/fslite/tickets/status/{status}")]
         public Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByStatusAsync(string status)
         {
             return _mgr.GetServiceTicketsByStatusAsync(status, GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
@@ -134,19 +134,18 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("/api/serviceticket/close/{id}")]
+        [HttpDelete("/api/fslite/tickets/close/{id}")]
         public Task<InvokeResult> CloseServiceTicketAsync(string id)
         {
             return _mgr.CloseServiceTicketAsync(id, OrgEntityHeader, UserEntityHeader);
         }
-
 
         /// <summary>
         /// FS Lite - Delete service ticket
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("/api/serviceticket/{id}")]
+        [HttpDelete("/api/fslite/tickets/{id}")]
         public Task<InvokeResult> DeleteServiceTicketAsync(string id)
         {
             return _mgr.DeleteServiceTicketAsync(id, OrgEntityHeader, UserEntityHeader);

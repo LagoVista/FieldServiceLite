@@ -318,4 +318,34 @@
   <data name="ServiceTicket_Details" xml:space="preserve">
     <value>Details</value>
   </data>
+  <data name="ServiceTicketTemplate_StatusType" xml:space="preserve">
+    <value>Status Type</value>
+  </data>
+  <data name="Common_Resources" xml:space="preserve">
+    <value>Resources</value>
+  </data>
+  <data name="ServiceTicketTemplate_StatusType_Help" xml:space="preserve">
+    <value>Select the set of states or status that this service ticket can be set to.  If you are integrating with an external tool you can copy those status items here.</value>
+  </data>
+  <data name="ServiceTicketTemplate_StatusType_Select" xml:space="preserve">
+    <value>-select status type-</value>
+  </data>
+  <data name="TemplateInstruction_Description" xml:space="preserve">
+    <value>A specific task or instruction that needs to be completed for tickets created with this template.</value>
+  </data>
+  <data name="TemplateInstruction_Help" xml:space="preserve">
+    <value>A specific task or instruction that needs to be completed for tickets created with this template.</value>
+  </data>
+  <data name="TemplateInstruction_Hints" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="TemplateInstruction_Instruction" xml:space="preserve">
+    <value>Instruction</value>
+  </data>
+  <data name="TemplateInstruction_StepId" xml:space="preserve">
+    <value>Step Id</value>
+  </data>
+  <data name="TemplateInstruction_Title" xml:space="preserve">
+    <value>Service Ticket Template Instruction</value>
+  </data>
 </root>

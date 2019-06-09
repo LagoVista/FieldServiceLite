@@ -49,10 +49,11 @@ namespace LagoVista.FSLite.Models
             TroubleshootingSteps = new List<TroubleshootingStep>();
             RequiredParts = new List<BOMItem>();
             AssociatedEquipment = new List<EntityHeader<Equipment>>();
+            Instructions = new List<ServiceTicketTemplateInstruction>();
         }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Instructions, FieldType: FieldTypes.Text, IsRequired: true, ResourceType: typeof(FSResources))]
-        public string Instructions { get; set; }
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Instructions, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
+        public IEnumerable<ServiceTicketTemplateInstruction> Instructions { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_HoursEstimate, FieldType: FieldTypes.Decimal, ResourceType: typeof(FSResources))]
         public double HoursEstimate { get; set; }
@@ -60,20 +61,22 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_CostEstimate, FieldType: FieldTypes.Decimal, ResourceType: typeof(FSResources))]
         public double CostEstimate { get; set; }
 
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_StatusType, WaterMark: FSResources.Names.ServiceTicketTemplate_StatusType_Select, HelpResource:FSResources.Names.ServiceTicketTemplate_StatusType_Help,  FieldType: FieldTypes.EntityHeaderPicker, IsRequired: true, ResourceType: typeof(FSResources))]
+        public EntityHeader<StateSet> StatusType { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Urgency, WaterMark: FSResources.Names.ServiceTicketTemplate_Urgency_Select, IsRequired: true, EnumType: typeof(Urgency), FieldType: FieldTypes.Picker, ResourceType: typeof(FSResources))]
         public EntityHeader<Urgency> Urgency {get; set;}
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Skill, WaterMark: FSResources.Names.ServiceTicketTemplate_Skill_Select, IsRequired: true, EnumType: typeof(Urgency), FieldType: FieldTypes.Picker, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Skill, WaterMark: FSResources.Names.ServiceTicketTemplate_Skill_Select, IsRequired: true, EnumType: typeof(SkillLevels), FieldType: FieldTypes.Picker, ResourceType: typeof(FSResources))]
         public EntityHeader<SkillLevels> SkillLevel { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_TroubleshootingSteps, FieldType: FieldTypes.ChildList, IsRequired: true, ResourceType: typeof(FSResources))]
         public IEnumerable<TroubleshootingStep> TroubleshootingSteps { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_RequiredParts, FieldType: FieldTypes.ChildList, IsRequired: true, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_RequiredParts, FieldType: FieldTypes.ChildList,  ResourceType: typeof(FSResources))]
         public IEnumerable<BOMItem> RequiredParts { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_AssociatedEquipment, FieldType: FieldTypes.ChildList, IsRequired: true, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_AssociatedEquipment, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public IEnumerable<EntityHeader<Equipment>> AssociatedEquipment { get; set; }
         public ServiceTicketTemplateSummary CreateSummary()
         {

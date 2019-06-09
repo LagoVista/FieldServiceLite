@@ -1,4 +1,4 @@
-﻿/*6/9/2019 12:26:25*/
+﻿/*6/9/2019 16:33:34*/
 using System.Globalization;
 using System.Reflection;
 
@@ -99,6 +99,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:Common_PageNumberOne
 
 		public static string Common_PageNumberOne { get { return GetResourceString("Common_PageNumberOne"); } }
+//Resources:FSResources:Common_Resources
+
+		public static string Common_Resources { get { return GetResourceString("Common_Resources"); } }
 //Resources:FSResources:Common_UniqueId
 
 		public static string Common_UniqueId { get { return GetResourceString("Common_UniqueId"); } }
@@ -231,6 +234,15 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_Skill_Select
 
 		public static string ServiceTicketTemplate_Skill_Select { get { return GetResourceString("ServiceTicketTemplate_Skill_Select"); } }
+//Resources:FSResources:ServiceTicketTemplate_StatusType
+
+		public static string ServiceTicketTemplate_StatusType { get { return GetResourceString("ServiceTicketTemplate_StatusType"); } }
+//Resources:FSResources:ServiceTicketTemplate_StatusType_Help
+
+		public static string ServiceTicketTemplate_StatusType_Help { get { return GetResourceString("ServiceTicketTemplate_StatusType_Help"); } }
+//Resources:FSResources:ServiceTicketTemplate_StatusType_Select
+
+		public static string ServiceTicketTemplate_StatusType_Select { get { return GetResourceString("ServiceTicketTemplate_StatusType_Select"); } }
 //Resources:FSResources:ServiceTicketTemplate_Title
 
 		public static string ServiceTicketTemplate_Title { get { return GetResourceString("ServiceTicketTemplate_Title"); } }
@@ -255,6 +267,24 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_Urgency_Select
 
 		public static string ServiceTicketTemplate_Urgency_Select { get { return GetResourceString("ServiceTicketTemplate_Urgency_Select"); } }
+//Resources:FSResources:TemplateInstruction_Description
+
+		public static string TemplateInstruction_Description { get { return GetResourceString("TemplateInstruction_Description"); } }
+//Resources:FSResources:TemplateInstruction_Help
+
+		public static string TemplateInstruction_Help { get { return GetResourceString("TemplateInstruction_Help"); } }
+//Resources:FSResources:TemplateInstruction_Hints
+
+		public static string TemplateInstruction_Hints { get { return GetResourceString("TemplateInstruction_Hints"); } }
+//Resources:FSResources:TemplateInstruction_Instruction
+
+		public static string TemplateInstruction_Instruction { get { return GetResourceString("TemplateInstruction_Instruction"); } }
+//Resources:FSResources:TemplateInstruction_StepId
+
+		public static string TemplateInstruction_StepId { get { return GetResourceString("TemplateInstruction_StepId"); } }
+//Resources:FSResources:TemplateInstruction_Title
+
+		public static string TemplateInstruction_Title { get { return GetResourceString("TemplateInstruction_Title"); } }
 
 		public static class Names
 		{
@@ -273,6 +303,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string Common_Note = "Common_Note";
 			public const string Common_Notes = "Common_Notes";
 			public const string Common_PageNumberOne = "Common_PageNumberOne";
+			public const string Common_Resources = "Common_Resources";
 			public const string Common_UniqueId = "Common_UniqueId";
 			public const string Common_ValidationErrors = "Common_ValidationErrors";
 			public const string ServiceTicket_Address = "ServiceTicket_Address";
@@ -317,6 +348,9 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_Skill_Low = "ServiceTicketTemplate_Skill_Low";
 			public const string ServiceTicketTemplate_Skill_Medium = "ServiceTicketTemplate_Skill_Medium";
 			public const string ServiceTicketTemplate_Skill_Select = "ServiceTicketTemplate_Skill_Select";
+			public const string ServiceTicketTemplate_StatusType = "ServiceTicketTemplate_StatusType";
+			public const string ServiceTicketTemplate_StatusType_Help = "ServiceTicketTemplate_StatusType_Help";
+			public const string ServiceTicketTemplate_StatusType_Select = "ServiceTicketTemplate_StatusType_Select";
 			public const string ServiceTicketTemplate_Title = "ServiceTicketTemplate_Title";
 			public const string ServiceTicketTemplate_TroubleshootingSteps = "ServiceTicketTemplate_TroubleshootingSteps";
 			public const string ServiceTicketTemplate_Urgency = "ServiceTicketTemplate_Urgency";
@@ -325,6 +359,12 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_Urgency_Low = "ServiceTicketTemplate_Urgency_Low";
 			public const string ServiceTicketTemplate_Urgency_Normal = "ServiceTicketTemplate_Urgency_Normal";
 			public const string ServiceTicketTemplate_Urgency_Select = "ServiceTicketTemplate_Urgency_Select";
+			public const string TemplateInstruction_Description = "TemplateInstruction_Description";
+			public const string TemplateInstruction_Help = "TemplateInstruction_Help";
+			public const string TemplateInstruction_Hints = "TemplateInstruction_Hints";
+			public const string TemplateInstruction_Instruction = "TemplateInstruction_Instruction";
+			public const string TemplateInstruction_StepId = "TemplateInstruction_StepId";
+			public const string TemplateInstruction_Title = "TemplateInstruction_Title";
 		}
 	}
 }
