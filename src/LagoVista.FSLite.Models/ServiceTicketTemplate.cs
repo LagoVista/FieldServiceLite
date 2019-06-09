@@ -48,6 +48,7 @@ namespace LagoVista.FSLite.Models
         {
             TroubleshootingSteps = new List<TroubleshootingStep>();
             RequiredParts = new List<BOMItem>();
+            AssociatedEquipment = new List<EntityHeader<Equipment>>();
         }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Instructions, FieldType: FieldTypes.Text, IsRequired: true, ResourceType: typeof(FSResources))]
@@ -72,8 +73,8 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_RequiredParts, FieldType: FieldTypes.ChildList, IsRequired: true, ResourceType: typeof(FSResources))]
         public IEnumerable<BOMItem> RequiredParts { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_RequiredTools, FieldType: FieldTypes.ChildList, IsRequired: true, ResourceType: typeof(FSResources))]
-        public IEnumerable<EntityHeader<Equipment>> RequiredTools { get; set; }
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_AssociatedEquipment, FieldType: FieldTypes.ChildList, IsRequired: true, ResourceType: typeof(FSResources))]
+        public IEnumerable<EntityHeader<Equipment>> AssociatedEquipment { get; set; }
         public ServiceTicketTemplateSummary CreateSummary()
         {
             return new ServiceTicketTemplateSummary()

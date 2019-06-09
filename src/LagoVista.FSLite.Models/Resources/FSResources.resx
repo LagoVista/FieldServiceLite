@@ -297,15 +297,6 @@
   <data name="ServiceTicketTemplate_Urgency_Select" xml:space="preserve">
     <value>-select urgency-</value>
   </data>
-  <data name="ToolsRequired_Description" xml:space="preserve">
-    <value>Tools that are required to complete this Service Ticket</value>
-  </data>
-  <data name="ToolsRequired_Help" xml:space="preserve">
-    <value>Tools that are required to complete this Service Ticket</value>
-  </data>
-  <data name="ToolsRequired_Title" xml:space="preserve">
-    <value>Tools Required</value>
-  </data>
   <data name="ServiceTicketTemplate_HoursEstimate" xml:space="preserve">
     <value>Hours Estimate</value>
   </data>
@@ -318,8 +309,8 @@
   <data name="ServiceTicketTemplate_RequiredParts" xml:space="preserve">
     <value>Required Parts</value>
   </data>
-  <data name="ServiceTicketTemplate_RequiredTools" xml:space="preserve">
-    <value>Required Tools</value>
+  <data name="ServiceTicketTemplate_AssociatedEquipment" xml:space="preserve">
+    <value>Associated Equipment</value>
   </data>
   <data name="ServiceTicketTemplate_TroubleshootingSteps" xml:space="preserve">
     <value>Troubleshooting Steps</value>

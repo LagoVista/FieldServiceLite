@@ -1,4 +1,4 @@
-﻿/*6/9/2019 10:09:26*/
+﻿/*6/9/2019 12:26:25*/
 using System.Globalization;
 using System.Reflection;
 
@@ -195,6 +195,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketStatusHistory_Title
 
 		public static string ServiceTicketStatusHistory_Title { get { return GetResourceString("ServiceTicketStatusHistory_Title"); } }
+//Resources:FSResources:ServiceTicketTemplate_AssociatedEquipment
+
+		public static string ServiceTicketTemplate_AssociatedEquipment { get { return GetResourceString("ServiceTicketTemplate_AssociatedEquipment"); } }
 //Resources:FSResources:ServiceTicketTemplate_CostEstimate
 
 		public static string ServiceTicketTemplate_CostEstimate { get { return GetResourceString("ServiceTicketTemplate_CostEstimate"); } }
@@ -213,9 +216,6 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_RequiredParts
 
 		public static string ServiceTicketTemplate_RequiredParts { get { return GetResourceString("ServiceTicketTemplate_RequiredParts"); } }
-//Resources:FSResources:ServiceTicketTemplate_RequiredTools
-
-		public static string ServiceTicketTemplate_RequiredTools { get { return GetResourceString("ServiceTicketTemplate_RequiredTools"); } }
 //Resources:FSResources:ServiceTicketTemplate_Skill
 
 		public static string ServiceTicketTemplate_Skill { get { return GetResourceString("ServiceTicketTemplate_Skill"); } }
@@ -255,15 +255,6 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_Urgency_Select
 
 		public static string ServiceTicketTemplate_Urgency_Select { get { return GetResourceString("ServiceTicketTemplate_Urgency_Select"); } }
-//Resources:FSResources:ToolsRequired_Description
-
-		public static string ToolsRequired_Description { get { return GetResourceString("ToolsRequired_Description"); } }
-//Resources:FSResources:ToolsRequired_Help
-
-		public static string ToolsRequired_Help { get { return GetResourceString("ToolsRequired_Help"); } }
-//Resources:FSResources:ToolsRequired_Title
-
-		public static string ToolsRequired_Title { get { return GetResourceString("ToolsRequired_Title"); } }
 
 		public static class Names
 		{
@@ -314,13 +305,13 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketStatusHistory_Notes = "ServiceTicketStatusHistory_Notes";
 			public const string ServiceTicketStatusHistory_Status = "ServiceTicketStatusHistory_Status";
 			public const string ServiceTicketStatusHistory_Title = "ServiceTicketStatusHistory_Title";
+			public const string ServiceTicketTemplate_AssociatedEquipment = "ServiceTicketTemplate_AssociatedEquipment";
 			public const string ServiceTicketTemplate_CostEstimate = "ServiceTicketTemplate_CostEstimate";
 			public const string ServiceTicketTemplate_Description = "ServiceTicketTemplate_Description";
 			public const string ServiceTicketTemplate_Help = "ServiceTicketTemplate_Help";
 			public const string ServiceTicketTemplate_HoursEstimate = "ServiceTicketTemplate_HoursEstimate";
 			public const string ServiceTicketTemplate_Instructions = "ServiceTicketTemplate_Instructions";
 			public const string ServiceTicketTemplate_RequiredParts = "ServiceTicketTemplate_RequiredParts";
-			public const string ServiceTicketTemplate_RequiredTools = "ServiceTicketTemplate_RequiredTools";
 			public const string ServiceTicketTemplate_Skill = "ServiceTicketTemplate_Skill";
 			public const string ServiceTicketTemplate_Skill_High = "ServiceTicketTemplate_Skill_High";
 			public const string ServiceTicketTemplate_Skill_Low = "ServiceTicketTemplate_Skill_Low";
@@ -334,9 +325,6 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_Urgency_Low = "ServiceTicketTemplate_Urgency_Low";
 			public const string ServiceTicketTemplate_Urgency_Normal = "ServiceTicketTemplate_Urgency_Normal";
 			public const string ServiceTicketTemplate_Urgency_Select = "ServiceTicketTemplate_Urgency_Select";
-			public const string ToolsRequired_Description = "ToolsRequired_Description";
-			public const string ToolsRequired_Help = "ToolsRequired_Help";
-			public const string ToolsRequired_Title = "ToolsRequired_Title";
 		}
 	}
 }
