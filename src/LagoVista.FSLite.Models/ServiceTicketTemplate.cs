@@ -50,6 +50,7 @@ namespace LagoVista.FSLite.Models
             RequiredParts = new List<BOMItem>();
             AssociatedEquipment = new List<EntityHeader<Equipment>>();
             Instructions = new List<ServiceTicketTemplateInstruction>();
+            Resources = new List<MediaResource>();
         }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Instructions, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
@@ -75,6 +76,9 @@ namespace LagoVista.FSLite.Models
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_RequiredParts, FieldType: FieldTypes.ChildList,  ResourceType: typeof(FSResources))]
         public IEnumerable<BOMItem> RequiredParts { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.Common_Resources, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
+        public IEnumerable<MediaResource> Resources { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_AssociatedEquipment, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public IEnumerable<EntityHeader<Equipment>> AssociatedEquipment { get; set; }
