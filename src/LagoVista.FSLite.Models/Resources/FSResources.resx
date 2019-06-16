@@ -348,4 +348,19 @@
   <data name="TemplateInstruction_Title" xml:space="preserve">
     <value>Service Ticket Template Instruction</value>
   </data>
+  <data name="ServiceTicketTemplateDefault_Assigned_Help" xml:space="preserve">
+    <value>When creating service tickets, if an individual on the device has been assigned, the ticket will be assigned to that person first.  Next the person on the device repository will be assigned.  If neither of those have been set, the individual assigned on the template will be used.  </value>
+  </data>
+  <data name="ServiceTicketTemplate_DefaultAssigned" xml:space="preserve">
+    <value>Default Assigned</value>
+  </data>
+  <data name="ServiceTicketTemplate_PrimaryContact" xml:space="preserve">
+    <value>Primary Contact</value>
+  </data>
+  <data name="ServiceTicketTemplate_PrimaryContact_Help" xml:space="preserve">
+    <value>The primary contact is the individual that will be the primary contact for any questions or be assigned to any tickets created from thsi template if there are not any assinged users on the device or device repository.</value>
+  </data>
+  <data name="ServiceTicketTemplate_PrimaryContact_Select" xml:space="preserve">
+    <value>-select primary contact-</value>
+  </data>
 </root>

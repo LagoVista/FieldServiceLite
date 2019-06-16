@@ -79,5 +79,56 @@ namespace LagoVista.FSLite.CloudRepos
         {
             return UpdateServiceTicketAsync(ticket);
         }
+
+        public Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByUserAsync(string userId, string orgId, ListRequest listRequest)
+        {
+            return GetServiceTickets(tkt => tkt.OwnerOrganization.Id == orgId && tkt.AssignedTo != null && tkt.AssignedTo.Id == userId, listRequest);
+        }
+
+        public Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByTemplateAsync(string templateId, string orgId, ListRequest listRequest)
+        {
+            return GetServiceTickets(tkt => tkt.OwnerOrganization.Id == orgId && tkt.Details != null && tkt.Details.Id == templateId, listRequest);
+        }
+
+        public Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsAsync(TicketFilter filter, string orgId, ListRequest listRequest)
+        {
+            Expression<Func<ServiceTicket, bool>> mthd = (exp => exp.OwnerOrganization.Id == orgId);
+            if (filter.IsClosed.HasValue)
+            {
+                Expression<Func<ServiceTicket, bool>> closeExpression = (exp => exp.IsClosed == filter.IsClosed);
+                var combined = Expression.And(mthd, closeExpression);
+                mthd = Expression.Lambda<Func<ServiceTicket, bool>>(combined);
+            }
+
+            if (!String.IsNullOrEmpty(filter.StatusKey))
+            {
+                Expression<Func<ServiceTicket, bool>> closeExpression = (exp => exp.Status != null && exp.Status.Id == filter.StatusKey);
+                var combined = Expression.And(mthd, closeExpression);
+                mthd = Expression.Lambda<Func<ServiceTicket, bool>>(combined);
+            }
+
+            if (!String.IsNullOrEmpty(filter.TemplateId))
+            {
+                Expression<Func<ServiceTicket, bool>> closeExpression = (exp => exp.Details != null && exp.Details.Id == filter.TemplateId);
+                var combined = Expression.And(mthd, closeExpression);
+                mthd = Expression.Lambda<Func<ServiceTicket, bool>>(combined);
+            }
+
+            if (!String.IsNullOrEmpty(filter.UserId))
+            {
+                Expression<Func<ServiceTicket, bool>> closeExpression = (exp => exp.AssignedTo != null && exp.AssignedTo.Id == filter.TemplateId);
+                var combined = Expression.And(mthd, closeExpression);
+                mthd = Expression.Lambda<Func<ServiceTicket, bool>>(combined);
+            }
+
+            if (!String.IsNullOrEmpty(filter.DeviceId))
+            {
+                Expression<Func<ServiceTicket, bool>> closeExpression = (exp => exp.Device != null && exp.Device.Id == filter.TemplateId);
+                var combined = Expression.And(mthd, closeExpression);
+                mthd = Expression.Lambda<Func<ServiceTicket, bool>>(combined);
+            }
+
+            return GetServiceTickets(mthd, listRequest);
+        }
     }
 }

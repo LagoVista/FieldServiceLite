@@ -15,12 +15,16 @@ namespace LagoVista.FSLite.Admin.Interfaces
 
         Task<ServiceTicket> GetServiceTicketAsync(string id, EntityHeader org, EntityHeader user);
 
+        Task<InvokeResult> CreateTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId);
+
         Task<ListResponse<ServiceTicketSummary>> GetOpenServiceTicketAsync(ListRequest listRequest, EntityHeader org, EntityHeader user);
         Task<ListResponse<ServiceTicketSummary>> GetClosedServiceTicketAsync(ListRequest listRequest, EntityHeader org, EntityHeader user);
         Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsForDeviceAsync(string deviceId, ListRequest listRequest, EntityHeader org, EntityHeader user);
         Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsForOrgAsync(ListRequest listRequest, EntityHeader org, EntityHeader user);
-        Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByStatusAsync(String statusId, ListRequest listRequest, EntityHeader org, EntityHeader user);
-
+        Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByStatusAsync(String statusKey, ListRequest listRequest, EntityHeader org, EntityHeader user);
+        Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByUserAsync(String userId, ListRequest listRequest, EntityHeader org, EntityHeader user);
+        Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByTemplateAsync(String templateId, ListRequest listRequest, EntityHeader org, EntityHeader user);
+        Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsAsync(TicketFilter filter, ListRequest listRequest, EntityHeader org, EntityHeader user);
 
         Task<InvokeResult> CloseServiceTicketAsync(string id, EntityHeader org, EntityHeader user);
         Task<InvokeResult> DeleteServiceTicketAsync(string id, EntityHeader org, EntityHeader user);

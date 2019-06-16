@@ -19,5 +19,8 @@ namespace LagoVista.FSLite.Admin.Interfaces
         Task<ListResponse<ServiceTicketSummary>> GetTicketsWithStatusAsync(string statusId, string orgId, ListRequest listRequest);
         Task<ListResponse<ServiceTicketSummary>> GetOpenTicketsAsyncAsync(string orgId, ListRequest listRequest);
         Task<ListResponse<ServiceTicketSummary>> GetClosedTicketsAsyncAsync(string orgId, ListRequest listRequest);
+        Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByUserAsync(string userId, string orgId, ListRequest listRequest);
+        Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByTemplateAsync(string userId, string orgId, ListRequest listRequest);
+        Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsAsync(TicketFilter filter, string orgId, ListRequest listRequest);
     }
 }

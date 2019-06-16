@@ -134,7 +134,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("/api/fslite/tickets/close/{id}")]
+        [HttpGet("/api/fslite/tickets/close/{id}")]
         public Task<InvokeResult> CloseServiceTicketAsync(string id)
         {
             return _mgr.CloseServiceTicketAsync(id, OrgEntityHeader, UserEntityHeader);
@@ -149,6 +149,17 @@ namespace LagoVista.FSLite.REST
         public Task<InvokeResult> DeleteServiceTicketAsync(string id)
         {
             return _mgr.DeleteServiceTicketAsync(id, OrgEntityHeader, UserEntityHeader);
+        }
+
+        /// <summary>
+        /// FS Lite - Get a list of tickets with a filter
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        [HttpPost("/api/fslite/tickets")]
+        public Task<ListResponse<ServiceTicketSummary>> GetFilteredtickets([FromBody] TicketFilter filter)
+        {
+            return _mgr.GetServiceTicketsAsync(filter, GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
         }
     }
 }

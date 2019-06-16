@@ -9,23 +9,23 @@ namespace LagoVista.FSLite.Models
 {
     public enum Urgency
     {
-        [EnumLabel(DeviceType.DeviceResourceTypes_Other, FSResources.Names.ServiceTicketTemplate_Urgency_CriticalSafety, typeof(FSResources))]
+        [EnumLabel(ServiceTicketTemplate.ServiceTicketTemplate_Urgency_CriticalSafety, FSResources.Names.ServiceTicketTemplate_Urgency_CriticalSafety, typeof(FSResources))]
         CriticalSafety,
-        [EnumLabel(DeviceType.DeviceResourceTypes_Other, FSResources.Names.ServiceTicketTemplate_Urgency_Important, typeof(FSResources))]
+        [EnumLabel(ServiceTicketTemplate.ServiceTicketTemplate_Urgency_Important, FSResources.Names.ServiceTicketTemplate_Urgency_Important, typeof(FSResources))]
         Important,
-        [EnumLabel(DeviceType.DeviceResourceTypes_Other, FSResources.Names.ServiceTicketTemplate_Urgency_Normal, typeof(FSResources))]
+        [EnumLabel(ServiceTicketTemplate.ServiceTicketTemplate_Urgency_Normal, FSResources.Names.ServiceTicketTemplate_Urgency_Normal, typeof(FSResources))]
         Normal,
-        [EnumLabel(DeviceType.DeviceResourceTypes_Other, FSResources.Names.ServiceTicketTemplate_Urgency_Low, typeof(FSResources))]
+        [EnumLabel(ServiceTicketTemplate.ServiceTicketTemplate_Urgency_Low, FSResources.Names.ServiceTicketTemplate_Urgency_Low, typeof(FSResources))]
         LowPriority
     }
 
     public enum SkillLevels
     {
-        [EnumLabel(DeviceType.DeviceResourceTypes_Other, FSResources.Names.ServiceTicketTemplate_Skill_High, typeof(FSResources))]
+        [EnumLabel(ServiceTicketTemplate.ServiceTicketTemplate_Skill_High, FSResources.Names.ServiceTicketTemplate_Skill_High, typeof(FSResources))]
         High,
-        [EnumLabel(DeviceType.DeviceResourceTypes_Other, FSResources.Names.ServiceTicketTemplate_Skill_Medium, typeof(FSResources))]
+        [EnumLabel(ServiceTicketTemplate.ServiceTicketTemplate_Skill_Medium, FSResources.Names.ServiceTicketTemplate_Skill_Medium, typeof(FSResources))]
         Medium,
-        [EnumLabel(DeviceType.DeviceResourceTypes_Other, FSResources.Names.ServiceTicketTemplate_Skill_Low, typeof(FSResources))]
+        [EnumLabel(ServiceTicketTemplate.ServiceTicketTemplate_Skill_Low, FSResources.Names.ServiceTicketTemplate_Skill_Low, typeof(FSResources))]
         Low,
     }
 
@@ -33,7 +33,6 @@ namespace LagoVista.FSLite.Models
         FSResources.Names.ServiceTicketTemplate_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources))]
     public class ServiceTicketTemplate : FSModelBase
     {
-
         public const string ServiceTicketTemplate_Urgency_CriticalSafety = "criticalsafety";
         public const string ServiceTicketTemplate_Urgency_Important = "important";
         public const string ServiceTicketTemplate_Urgency_Normal = "normal";
@@ -64,6 +63,9 @@ namespace LagoVista.FSLite.Models
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_StatusType, WaterMark: FSResources.Names.ServiceTicketTemplate_StatusType_Select, HelpResource:FSResources.Names.ServiceTicketTemplate_StatusType_Help,  FieldType: FieldTypes.EntityHeaderPicker, IsRequired: true, ResourceType: typeof(FSResources))]
         public EntityHeader<StateSet> StatusType { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_PrimaryContact, WaterMark: FSResources.Names.ServiceTicketTemplate_PrimaryContact_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_PrimaryContact_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
+        public EntityHeader PrimaryContact { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Urgency, WaterMark: FSResources.Names.ServiceTicketTemplate_Urgency_Select, IsRequired: true, EnumType: typeof(Urgency), FieldType: FieldTypes.Picker, ResourceType: typeof(FSResources))]
         public EntityHeader<Urgency> Urgency {get; set;}

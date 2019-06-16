@@ -1,4 +1,4 @@
-﻿/*6/9/2019 16:33:34*/
+﻿/*6/16/2019 08:06:35*/
 using System.Globalization;
 using System.Reflection;
 
@@ -204,6 +204,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_CostEstimate
 
 		public static string ServiceTicketTemplate_CostEstimate { get { return GetResourceString("ServiceTicketTemplate_CostEstimate"); } }
+//Resources:FSResources:ServiceTicketTemplate_DefaultAssigned
+
+		public static string ServiceTicketTemplate_DefaultAssigned { get { return GetResourceString("ServiceTicketTemplate_DefaultAssigned"); } }
 //Resources:FSResources:ServiceTicketTemplate_Description
 
 		public static string ServiceTicketTemplate_Description { get { return GetResourceString("ServiceTicketTemplate_Description"); } }
@@ -216,6 +219,15 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_Instructions
 
 		public static string ServiceTicketTemplate_Instructions { get { return GetResourceString("ServiceTicketTemplate_Instructions"); } }
+//Resources:FSResources:ServiceTicketTemplate_PrimaryContact
+
+		public static string ServiceTicketTemplate_PrimaryContact { get { return GetResourceString("ServiceTicketTemplate_PrimaryContact"); } }
+//Resources:FSResources:ServiceTicketTemplate_PrimaryContact_Help
+
+		public static string ServiceTicketTemplate_PrimaryContact_Help { get { return GetResourceString("ServiceTicketTemplate_PrimaryContact_Help"); } }
+//Resources:FSResources:ServiceTicketTemplate_PrimaryContact_Select
+
+		public static string ServiceTicketTemplate_PrimaryContact_Select { get { return GetResourceString("ServiceTicketTemplate_PrimaryContact_Select"); } }
 //Resources:FSResources:ServiceTicketTemplate_RequiredParts
 
 		public static string ServiceTicketTemplate_RequiredParts { get { return GetResourceString("ServiceTicketTemplate_RequiredParts"); } }
@@ -267,6 +279,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_Urgency_Select
 
 		public static string ServiceTicketTemplate_Urgency_Select { get { return GetResourceString("ServiceTicketTemplate_Urgency_Select"); } }
+//Resources:FSResources:ServiceTicketTemplateDefault_Assigned_Help
+
+		public static string ServiceTicketTemplateDefault_Assigned_Help { get { return GetResourceString("ServiceTicketTemplateDefault_Assigned_Help"); } }
 //Resources:FSResources:TemplateInstruction_Description
 
 		public static string TemplateInstruction_Description { get { return GetResourceString("TemplateInstruction_Description"); } }
@@ -338,10 +353,14 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketStatusHistory_Title = "ServiceTicketStatusHistory_Title";
 			public const string ServiceTicketTemplate_AssociatedEquipment = "ServiceTicketTemplate_AssociatedEquipment";
 			public const string ServiceTicketTemplate_CostEstimate = "ServiceTicketTemplate_CostEstimate";
+			public const string ServiceTicketTemplate_DefaultAssigned = "ServiceTicketTemplate_DefaultAssigned";
 			public const string ServiceTicketTemplate_Description = "ServiceTicketTemplate_Description";
 			public const string ServiceTicketTemplate_Help = "ServiceTicketTemplate_Help";
 			public const string ServiceTicketTemplate_HoursEstimate = "ServiceTicketTemplate_HoursEstimate";
 			public const string ServiceTicketTemplate_Instructions = "ServiceTicketTemplate_Instructions";
+			public const string ServiceTicketTemplate_PrimaryContact = "ServiceTicketTemplate_PrimaryContact";
+			public const string ServiceTicketTemplate_PrimaryContact_Help = "ServiceTicketTemplate_PrimaryContact_Help";
+			public const string ServiceTicketTemplate_PrimaryContact_Select = "ServiceTicketTemplate_PrimaryContact_Select";
 			public const string ServiceTicketTemplate_RequiredParts = "ServiceTicketTemplate_RequiredParts";
 			public const string ServiceTicketTemplate_Skill = "ServiceTicketTemplate_Skill";
 			public const string ServiceTicketTemplate_Skill_High = "ServiceTicketTemplate_Skill_High";
@@ -359,6 +378,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_Urgency_Low = "ServiceTicketTemplate_Urgency_Low";
 			public const string ServiceTicketTemplate_Urgency_Normal = "ServiceTicketTemplate_Urgency_Normal";
 			public const string ServiceTicketTemplate_Urgency_Select = "ServiceTicketTemplate_Urgency_Select";
+			public const string ServiceTicketTemplateDefault_Assigned_Help = "ServiceTicketTemplateDefault_Assigned_Help";
 			public const string TemplateInstruction_Description = "TemplateInstruction_Description";
 			public const string TemplateInstruction_Help = "TemplateInstruction_Help";
 			public const string TemplateInstruction_Hints = "TemplateInstruction_Hints";

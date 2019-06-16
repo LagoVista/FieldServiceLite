@@ -10,6 +10,12 @@ namespace LagoVista.FSLite.Models
      FSResources.Names.ServiceTicket_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources))]
     public class ServiceTicket : FSModelBase
     {
+        public ServiceTicket()
+        {
+            Notes = new List<ServiceTicketNote>();
+            History = new List<ServiceTicketStatusHistory>();
+        }
+
         [FormField(LabelResource: FSResources.Names.ServiceTicket_TicketId, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public string TicketId { get; set; }
 
@@ -18,6 +24,28 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Device, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public EntityHeader<Device> Device { get; set; }
 
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_AssignedTo, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
+        public EntityHeader AssignedTo { get; set; }
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_Status, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
+        public EntityHeader Status { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_StatusDate, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: false)]
+        public string StatusDate { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_Address, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
+        public Address Address { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_Details, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
+        public EntityHeader<ServiceTicketTemplate> Details { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_AssignedTo, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
+        public EntityHeader Company { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_Subject, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
+        public string Subject { get; set; }
+
+
+
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_IsClosed, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public bool IsClosed { get; set; }
@@ -25,33 +53,8 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicket_ClosedBy, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
         public EntityHeader ClosedBy { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_AssignedTo, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
-        public EntityHeader AssignedTo { get; set; }
-
-
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_AssignedTo, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
-        public EntityHeader Company { get; set; }
-
-
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_Address, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
-        public Address Address { get; set; }
-
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_Subject, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
-        public string Subject { get; set; }
-
         [FormField(LabelResource: FSResources.Names.ServiceTicket_DueDate, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsUserEditable: true)]
         public string DueDate { get; set; }
-
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_Status, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
-        public EntityHeader Status { get; set; }
-
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_StatusDate, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: false)]
-        public string StatusDate { get; set; }
-
-
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_Details, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
-        public EntityHeader<ServiceTicketTemplate> Details { get; set; }
-
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Notes, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<ServiceTicketNote> Notes { get; set; }
