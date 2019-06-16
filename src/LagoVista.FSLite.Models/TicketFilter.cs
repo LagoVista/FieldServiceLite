@@ -11,5 +11,6 @@ namespace LagoVista.FSLite.Models
         public string StatusKey { get; set; }
         public bool? IsClosed { get; set; }
         public string DeviceId { get; set; }
+        public string ServiceBoardId { get; set; }
     }
 }

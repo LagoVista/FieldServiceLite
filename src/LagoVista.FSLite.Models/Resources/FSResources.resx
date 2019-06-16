@@ -363,4 +363,25 @@
   <data name="ServiceTicketTemplate_PrimaryContact_Select" xml:space="preserve">
     <value>-select primary contact-</value>
   </data>
+  <data name="ServiceBoard_Description" xml:space="preserve">
+    <value>A service board is used to show a collection of service tickets.</value>
+  </data>
+  <data name="ServiceBoard_Help" xml:space="preserve">
+    <value>A service board is used to show a collection of service tickets.</value>
+  </data>
+  <data name="ServiceBoard_Title" xml:space="preserve">
+    <value>Service Board</value>
+  </data>
+  <data name="ServiceTicket_ServiceBoard" xml:space="preserve">
+    <value>Service Board</value>
+  </data>
+  <data name="ServiceBoard_BoardOwner_Help" xml:space="preserve">
+    <value>The board owner is the person that is responsible for this board.  If the any tickets are created on this board that are not assigned, they will be assigned to the board owner.</value>
+  </data>
+  <data name="ServiceBoard_BoardOwner" xml:space="preserve">
+    <value>Board Owner</value>
+  </data>
+  <data name="ServiceBoard_BoardOwner_Select" xml:space="preserve">
+    <value>-select board owner-</value>
+  </data>
 </root>

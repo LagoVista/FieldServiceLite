@@ -13,6 +13,7 @@ namespace LagoVista.FSLite.Admin
         {
             services.AddTransient<Interfaces.IServiceTicketManager, Managers.ServiceTicketManager>();
             services.AddTransient<Interfaces.IServiceTicketTemplateManager, Managers.ServiceTicketTemplateManager>();
+            services.AddTransient<Interfaces.IServiceBoardManager, Managers.ServiceBoardManager>();
         }
     }
 }

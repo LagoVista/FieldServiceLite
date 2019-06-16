@@ -38,14 +38,11 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Details, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
         public EntityHeader<ServiceTicketTemplate> Details { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_AssignedTo, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
-        public EntityHeader Company { get; set; }
-
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Subject, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public string Subject { get; set; }
-
-
-
+        
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_ServiceBoard, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
+        public EntityHeader ServiceBoard { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_IsClosed, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public bool IsClosed { get; set; }
@@ -73,7 +70,6 @@ namespace LagoVista.FSLite.Models
                 Status = Status.Text,
                 DueDate = DueDate,
                 AssignedTo = AssignedTo.Text,
-                Company = Company.Text
             };
         }
     }

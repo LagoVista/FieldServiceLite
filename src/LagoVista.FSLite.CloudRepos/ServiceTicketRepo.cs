@@ -128,6 +128,13 @@ namespace LagoVista.FSLite.CloudRepos
                 mthd = Expression.Lambda<Func<ServiceTicket, bool>>(combined);
             }
 
+            if (!String.IsNullOrEmpty(filter.ServiceBoardId))
+            {
+                Expression<Func<ServiceTicket, bool>> closeExpression = (exp => exp.ServiceBoard != null && exp.ServiceBoard.Id == filter.ServiceBoardId);
+                var combined = Expression.And(mthd, closeExpression);
+                mthd = Expression.Lambda<Func<ServiceTicket, bool>>(combined);
+            }
+
             return GetServiceTickets(mthd, listRequest);
         }
     }

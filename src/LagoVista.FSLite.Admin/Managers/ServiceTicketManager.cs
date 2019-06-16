@@ -74,6 +74,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 Name = $"{template.Name} ({device.DeviceId})",
                 Address = device.Address,
                 IsClosed = false,
+                ServiceBoard = repo.ServiceBoard,
                 Description = template.Description,
                 AssignedTo = assignedToUser,
                 Device = new EntityHeader<IoT.DeviceManagement.Core.Models.Device>() { Id = device.Id, Text = device.Name },

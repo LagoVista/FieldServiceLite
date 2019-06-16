@@ -1,4 +1,4 @@
-﻿/*6/16/2019 08:06:35*/
+﻿/*6/16/2019 12:45:35*/
 using System.Globalization;
 using System.Reflection;
 
@@ -108,6 +108,24 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:Common_ValidationErrors
 
 		public static string Common_ValidationErrors { get { return GetResourceString("Common_ValidationErrors"); } }
+//Resources:FSResources:ServiceBoard_BoardOwner
+
+		public static string ServiceBoard_BoardOwner { get { return GetResourceString("ServiceBoard_BoardOwner"); } }
+//Resources:FSResources:ServiceBoard_BoardOwner_Help
+
+		public static string ServiceBoard_BoardOwner_Help { get { return GetResourceString("ServiceBoard_BoardOwner_Help"); } }
+//Resources:FSResources:ServiceBoard_BoardOwner_Select
+
+		public static string ServiceBoard_BoardOwner_Select { get { return GetResourceString("ServiceBoard_BoardOwner_Select"); } }
+//Resources:FSResources:ServiceBoard_Description
+
+		public static string ServiceBoard_Description { get { return GetResourceString("ServiceBoard_Description"); } }
+//Resources:FSResources:ServiceBoard_Help
+
+		public static string ServiceBoard_Help { get { return GetResourceString("ServiceBoard_Help"); } }
+//Resources:FSResources:ServiceBoard_Title
+
+		public static string ServiceBoard_Title { get { return GetResourceString("ServiceBoard_Title"); } }
 //Resources:FSResources:ServiceTicket_Address
 
 		public static string ServiceTicket_Address { get { return GetResourceString("ServiceTicket_Address"); } }
@@ -144,6 +162,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicket_Notes
 
 		public static string ServiceTicket_Notes { get { return GetResourceString("ServiceTicket_Notes"); } }
+//Resources:FSResources:ServiceTicket_ServiceBoard
+
+		public static string ServiceTicket_ServiceBoard { get { return GetResourceString("ServiceTicket_ServiceBoard"); } }
 //Resources:FSResources:ServiceTicket_Status
 
 		public static string ServiceTicket_Status { get { return GetResourceString("ServiceTicket_Status"); } }
@@ -321,6 +342,12 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string Common_Resources = "Common_Resources";
 			public const string Common_UniqueId = "Common_UniqueId";
 			public const string Common_ValidationErrors = "Common_ValidationErrors";
+			public const string ServiceBoard_BoardOwner = "ServiceBoard_BoardOwner";
+			public const string ServiceBoard_BoardOwner_Help = "ServiceBoard_BoardOwner_Help";
+			public const string ServiceBoard_BoardOwner_Select = "ServiceBoard_BoardOwner_Select";
+			public const string ServiceBoard_Description = "ServiceBoard_Description";
+			public const string ServiceBoard_Help = "ServiceBoard_Help";
+			public const string ServiceBoard_Title = "ServiceBoard_Title";
 			public const string ServiceTicket_Address = "ServiceTicket_Address";
 			public const string ServiceTicket_AssignedTo = "ServiceTicket_AssignedTo";
 			public const string ServiceTicket_ClosedBy = "ServiceTicket_ClosedBy";
@@ -333,6 +360,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicket_History = "ServiceTicket_History";
 			public const string ServiceTicket_IsClosed = "ServiceTicket_IsClosed";
 			public const string ServiceTicket_Notes = "ServiceTicket_Notes";
+			public const string ServiceTicket_ServiceBoard = "ServiceTicket_ServiceBoard";
 			public const string ServiceTicket_Status = "ServiceTicket_Status";
 			public const string ServiceTicket_StatusDate = "ServiceTicket_StatusDate";
 			public const string ServiceTicket_Subject = "ServiceTicket_Subject";
