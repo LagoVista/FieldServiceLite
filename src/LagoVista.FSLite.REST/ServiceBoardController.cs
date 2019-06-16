@@ -78,6 +78,7 @@ namespace LagoVista.FSLite.REST
         public DetailResponse<ServiceBoard> CreateServiceBoard(string id)
         {
             var board = DetailResponse<ServiceBoard>.Create();
+            board.Model.TicketSequenceNumber = 1;
             board.Model.Id = Guid.NewGuid().ToId();
             SetAuditProperties(board.Model);
             SetOwnedProperties(board.Model);

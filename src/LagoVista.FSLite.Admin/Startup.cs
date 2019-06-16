@@ -1,5 +1,6 @@
 ﻿
 using LagoVista.Core.Interfaces;
+using LagoVista.IoT.Deployment.Admin.Interfaces;
 using System.Resources;
 
 [assembly: NeutralResourcesLanguage("en")]
@@ -12,6 +13,7 @@ namespace LagoVista.FSLite.Admin
         public static void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<Interfaces.IServiceTicketManager, Managers.ServiceTicketManager>();
+            services.AddTransient<IServiceTicketCreator, Managers.ServiceTicketManager>();
             services.AddTransient<Interfaces.IServiceTicketTemplateManager, Managers.ServiceTicketTemplateManager>();
             services.AddTransient<Interfaces.IServiceBoardManager, Managers.ServiceBoardManager>();
         }

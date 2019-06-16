@@ -4,6 +4,8 @@ using LagoVista.FSLite.Admin.Interfaces;
 using LagoVista.FSLite.Models;
 using LagoVista.IoT.Logging.Loggers;
 using System.Linq;
+using System;
+using LagoVista.Core;
 using System.Threading.Tasks;
 
 namespace LagoVista.FSLite.CloudRepos
@@ -32,6 +34,15 @@ namespace LagoVista.FSLite.CloudRepos
         public Task<ServiceBoard> GetServiceBoardAsync(string id)
         {
             return GetDocumentAsync(id);
+        }
+
+        public async Task<int> GetNextTicketNumber(string id)
+        {
+            var board = await GetServiceBoardAsync(id);
+            board.TicketSequenceNumber++;
+            board.LastUpdatedDate = DateTime.UtcNow.ToJSONString();
+            await UpdateServiceBoardAsync(board);
+            return board.TicketSequenceNumber;
         }
 
         public async Task<ListResponse<ServiceBoardSummary>> GetServiceBoardForOrgAsync(string orgId, ListRequest listRequest)

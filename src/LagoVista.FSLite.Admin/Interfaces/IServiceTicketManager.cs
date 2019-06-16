@@ -15,7 +15,7 @@ namespace LagoVista.FSLite.Admin.Interfaces
 
         Task<ServiceTicket> GetServiceTicketAsync(string id, EntityHeader org, EntityHeader user);
 
-        Task<InvokeResult> CreateTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId);
+        Task<InvokeResult<string>> CreateServiceTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId);
 
         Task<ListResponse<ServiceTicketSummary>> GetOpenServiceTicketAsync(ListRequest listRequest, EntityHeader org, EntityHeader user);
         Task<ListResponse<ServiceTicketSummary>> GetClosedServiceTicketAsync(ListRequest listRequest, EntityHeader org, EntityHeader user);

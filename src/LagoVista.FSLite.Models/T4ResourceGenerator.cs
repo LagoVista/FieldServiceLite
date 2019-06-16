@@ -1,4 +1,4 @@
-﻿/*6/16/2019 12:45:35*/
+﻿/*6/16/2019 13:39:10*/
 using System.Globalization;
 using System.Reflection;
 
@@ -108,6 +108,12 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:Common_ValidationErrors
 
 		public static string Common_ValidationErrors { get { return GetResourceString("Common_ValidationErrors"); } }
+//Resources:FSResources:ServiceBoard_Abbreviation
+
+		public static string ServiceBoard_Abbreviation { get { return GetResourceString("ServiceBoard_Abbreviation"); } }
+//Resources:FSResources:ServiceBoard_Abbreviation_Help
+
+		public static string ServiceBoard_Abbreviation_Help { get { return GetResourceString("ServiceBoard_Abbreviation_Help"); } }
 //Resources:FSResources:ServiceBoard_BoardOwner
 
 		public static string ServiceBoard_BoardOwner { get { return GetResourceString("ServiceBoard_BoardOwner"); } }
@@ -123,6 +129,12 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceBoard_Help
 
 		public static string ServiceBoard_Help { get { return GetResourceString("ServiceBoard_Help"); } }
+//Resources:FSResources:ServiceBoard_SequenceNumber
+
+		public static string ServiceBoard_SequenceNumber { get { return GetResourceString("ServiceBoard_SequenceNumber"); } }
+//Resources:FSResources:ServiceBoard_SequenceNumber_Help
+
+		public static string ServiceBoard_SequenceNumber_Help { get { return GetResourceString("ServiceBoard_SequenceNumber_Help"); } }
 //Resources:FSResources:ServiceBoard_Title
 
 		public static string ServiceBoard_Title { get { return GetResourceString("ServiceBoard_Title"); } }
@@ -342,11 +354,15 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string Common_Resources = "Common_Resources";
 			public const string Common_UniqueId = "Common_UniqueId";
 			public const string Common_ValidationErrors = "Common_ValidationErrors";
+			public const string ServiceBoard_Abbreviation = "ServiceBoard_Abbreviation";
+			public const string ServiceBoard_Abbreviation_Help = "ServiceBoard_Abbreviation_Help";
 			public const string ServiceBoard_BoardOwner = "ServiceBoard_BoardOwner";
 			public const string ServiceBoard_BoardOwner_Help = "ServiceBoard_BoardOwner_Help";
 			public const string ServiceBoard_BoardOwner_Select = "ServiceBoard_BoardOwner_Select";
 			public const string ServiceBoard_Description = "ServiceBoard_Description";
 			public const string ServiceBoard_Help = "ServiceBoard_Help";
+			public const string ServiceBoard_SequenceNumber = "ServiceBoard_SequenceNumber";
+			public const string ServiceBoard_SequenceNumber_Help = "ServiceBoard_SequenceNumber_Help";
 			public const string ServiceBoard_Title = "ServiceBoard_Title";
 			public const string ServiceTicket_Address = "ServiceTicket_Address";
 			public const string ServiceTicket_AssignedTo = "ServiceTicket_AssignedTo";

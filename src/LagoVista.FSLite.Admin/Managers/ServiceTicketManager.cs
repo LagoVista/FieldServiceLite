@@ -12,11 +12,12 @@ using LagoVista.IoT.Logging.Loggers;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
+using LagoVista.IoT.Deployment.Admin.Interfaces;
 using LagoVista.Core;
 
 namespace LagoVista.FSLite.Admin.Managers
 {
-    public class ServiceTicketManager : ManagerBase, IServiceTicketManager
+    public class ServiceTicketManager : ManagerBase, IServiceTicketManager, IServiceTicketCreator
     {
         IServiceTicketRepo _repo;
         ISecureStorage _secureStorage;
@@ -24,12 +25,14 @@ namespace LagoVista.FSLite.Admin.Managers
         IDeviceManager _deviceManager;
         IServiceTicketTemplateRepo _templateRepo;
         IStateSetRepo _stateSetRepo;
+        IServiceBoardRepo _serviceBoardRepo;
 
-        public ServiceTicketManager(IServiceTicketRepo repo, IDeviceRepositoryRepo repoRepository, IDeviceManager deviceManager, IAppConfig appConfig, IAdminLogger logger,
+        public ServiceTicketManager(IServiceTicketRepo repo, IServiceBoardRepo boardRepo, IDeviceRepositoryRepo repoRepository, IDeviceManager deviceManager, IAppConfig appConfig, IAdminLogger logger,
                                     IStateSetRepo stateSetRepo, IServiceTicketTemplateRepo templateRepo, ISecureStorage secureStorage, IDependencyManager depmanager, ISecurity security)
             : base(logger, appConfig, depmanager, security)
         {
             _repo = repo;
+            _serviceBoardRepo = boardRepo;
             _repositoryRepo = repoRepository;
             _deviceManager = deviceManager;
             _secureStorage = secureStorage;
@@ -47,7 +50,7 @@ namespace LagoVista.FSLite.Admin.Managers
             return InvokeResult.Success;
         }
 
-        public async Task<InvokeResult> CreateTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId)
+        public async Task<InvokeResult<string>> CreateServiceTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId)
         {
             var repo = await _repositoryRepo.GetDeviceRepositoryAsync(deviceRepoId);
             var template = await _templateRepo.GetServiceTicketTemplateAsync(ticketTemplateId);
@@ -84,6 +87,17 @@ namespace LagoVista.FSLite.Admin.Managers
                 CreatedBy = template.PrimaryContact
             };
 
+            if(!EntityHeader.IsNullOrEmpty(ticket.ServiceBoard))
+            {
+                var board = await _serviceBoardRepo.GetServiceBoardAsync(ticket.ServiceBoard.Id);
+                var ticketNumber = await _serviceBoardRepo.GetNextTicketNumber(ticket.ServiceBoard.Id);
+                ticket.TicketId = $"{board.BoardAbbreviation}-{ticketNumber}";
+            }
+            else
+            {
+                ticket.TicketId = Guid.NewGuid().ToId();
+            }
+
             ticket.History.Add(new ServiceTicketStatusHistory()
             {
                 AddedBy = template.PrimaryContact,
@@ -94,7 +108,7 @@ namespace LagoVista.FSLite.Admin.Managers
 
             await _repo.AddServiceTicketAsync(ticket);
 
-            return InvokeResult.Success;
+            return InvokeResult<string>.Create(ticket.TicketId);
         }
 
         public async Task<InvokeResult> CloseServiceTicketAsync(string id, EntityHeader org, EntityHeader user)
