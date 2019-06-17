@@ -8,7 +8,7 @@
     <ProjectReference Include="..\LagoVista.FSLite.Admin\LagoVista.FSLite.Admin.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="LagoVista.CloudStorage" Version="2.1.751-beta1855" />
+    <PackageReference Include="LagoVista.CloudStorage" Version="2.1.761-beta1511" />
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="2.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
