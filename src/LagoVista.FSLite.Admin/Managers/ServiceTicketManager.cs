@@ -52,10 +52,33 @@ namespace LagoVista.FSLite.Admin.Managers
 
         public async Task<InvokeResult<string>> CreateServiceTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId)
         {
-            var repo = await _repositoryRepo.GetDeviceRepositoryAsync(deviceRepoId);
-            var template = await _templateRepo.GetServiceTicketTemplateAsync(ticketTemplateId);
+            var ticket = await CreateServiceTicketAsync(new CreateServiceTicketRequest()
+            {
+                DeviceId = deviceId,
+                RepoId = deviceRepoId,
+                TemplateId = ticketTemplateId
+            });
 
-            var device = await _deviceManager.GetDeviceByIdAsync(repo, deviceId, template.OwnerOrganization, template.PrimaryContact);
+            return InvokeResult<string>.Create(ticket.Result.TicketId);
+        }
+
+        public async Task<InvokeResult<ServiceTicket>> CreateServiceTicketAsync(CreateServiceTicketRequest request, EntityHeader org = null, EntityHeader user = null)
+        {
+            var repo = await _repositoryRepo.GetDeviceRepositoryAsync(request.RepoId);
+            var template = await _templateRepo.GetServiceTicketTemplateAsync(request.TemplateId);
+
+            if (org != null && template.OwnerOrganization != org)
+            {
+                throw new InvalidOperationException("Template, org mismatch.");
+            }
+
+            var device = await _deviceManager.GetDeviceByIdAsync(repo, request.DeviceId, template.OwnerOrganization, template.PrimaryContact);
+
+            if (org != null && device.OwnerOrganization != org)
+            {
+                throw new InvalidOperationException("Device, org mismatch.");
+            }
+
             var stateSet = await _stateSetRepo.GetStateSetAsync(template.StatusType.Id);
             var defaultState = stateSet.States.Where(st => st.IsInitialState).First();
 
@@ -79,15 +102,16 @@ namespace LagoVista.FSLite.Admin.Managers
                 IsClosed = false,
                 ServiceBoard = repo.ServiceBoard,
                 Description = template.Description,
+                Subject = request.Subject,
                 AssignedTo = assignedToUser,
                 Device = new EntityHeader<IoT.DeviceManagement.Core.Models.Device>() { Id = device.Id, Text = device.Name },
                 Status = EntityHeader.Create(defaultState.Key, defaultState.Name),
                 StatusDate = DateTime.UtcNow.ToJSONString(),
                 OwnerOrganization = template.OwnerOrganization,
-                CreatedBy = template.PrimaryContact
+                CreatedBy = user == null ? template.PrimaryContact : user,
             };
 
-            if(!EntityHeader.IsNullOrEmpty(ticket.ServiceBoard))
+            if (!EntityHeader.IsNullOrEmpty(ticket.ServiceBoard))
             {
                 var board = await _serviceBoardRepo.GetServiceBoardAsync(ticket.ServiceBoard.Id);
                 var ticketNumber = await _serviceBoardRepo.GetNextTicketNumber(ticket.ServiceBoard.Id);
@@ -104,11 +128,11 @@ namespace LagoVista.FSLite.Admin.Managers
                 DateStamp = DateTime.UtcNow.ToJSONString(),
                 Status = ticket.Status.Text,
                 Notes = $"Service ticket created and assigned to {assignedToUser.Text}."
-            }); 
+            });
 
             await _repo.AddServiceTicketAsync(ticket);
 
-            return InvokeResult<string>.Create(ticket.TicketId);
+            return InvokeResult<ServiceTicket>.Create(ticket);
         }
 
         public async Task<InvokeResult> CloseServiceTicketAsync(string id, EntityHeader org, EntityHeader user)
