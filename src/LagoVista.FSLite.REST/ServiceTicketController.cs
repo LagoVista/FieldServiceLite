@@ -87,7 +87,7 @@ namespace LagoVista.FSLite.REST
             return _mgr.GetOpenServiceTicketAsync(GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
         }
 
-        [HttpPost("/api/fslite/ticket")]
+        [HttpPost("/api/fslite/ticket/create")]
         public Task<InvokeResult<ServiceTicket>> CreateTicket([FromBody] CreateServiceTicketRequest request)
         {
             return _mgr.CreateServiceTicketAsync(request, OrgEntityHeader, UserEntityHeader);

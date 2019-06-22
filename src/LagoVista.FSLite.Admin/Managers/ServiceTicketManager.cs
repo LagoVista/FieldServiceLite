@@ -14,28 +14,27 @@ using System.Linq;
 using System;
 using LagoVista.IoT.Deployment.Admin.Interfaces;
 using LagoVista.Core;
+using LagoVista.IoT.DeviceManagement.Core.Managers;
 
 namespace LagoVista.FSLite.Admin.Managers
 {
     public class ServiceTicketManager : ManagerBase, IServiceTicketManager, IServiceTicketCreator
     {
         IServiceTicketRepo _repo;
-        ISecureStorage _secureStorage;
-        IDeviceRepositoryRepo _repositoryRepo;
         IDeviceManager _deviceManager;
         IServiceTicketTemplateRepo _templateRepo;
-        IStateSetRepo _stateSetRepo;
         IServiceBoardRepo _serviceBoardRepo;
+        IDeviceRepositoryManager _repoManager;
+        IStateSetRepo _stateSetRepo;
 
-        public ServiceTicketManager(IServiceTicketRepo repo, IServiceBoardRepo boardRepo, IDeviceRepositoryRepo repoRepository, IDeviceManager deviceManager, IAppConfig appConfig, IAdminLogger logger,
-                                    IStateSetRepo stateSetRepo, IServiceTicketTemplateRepo templateRepo, ISecureStorage secureStorage, IDependencyManager depmanager, ISecurity security)
+        public ServiceTicketManager(IServiceTicketRepo repo, IServiceBoardRepo boardRepo, IDeviceRepositoryManager repoManager, IDeviceManager deviceManager, IAppConfig appConfig, IAdminLogger logger,
+                                    IStateSetRepo stateSetRepo, IServiceTicketTemplateRepo templateRepo, IDependencyManager depmanager, ISecurity security)
             : base(logger, appConfig, depmanager, security)
         {
             _repo = repo;
             _serviceBoardRepo = boardRepo;
-            _repositoryRepo = repoRepository;
+            _repoManager = repoManager;
             _deviceManager = deviceManager;
-            _secureStorage = secureStorage;
             _templateRepo = templateRepo;
             _stateSetRepo = stateSetRepo;
         }
@@ -64,15 +63,30 @@ namespace LagoVista.FSLite.Admin.Managers
 
         public async Task<InvokeResult<ServiceTicket>> CreateServiceTicketAsync(CreateServiceTicketRequest request, EntityHeader org = null, EntityHeader user = null)
         {
-            var repo = await _repositoryRepo.GetDeviceRepositoryAsync(request.RepoId);
+            if (String.IsNullOrEmpty(request.RepoId)) throw new NullReferenceException("RepoId");
+            if (String.IsNullOrEmpty(request.DeviceId)) throw new NullReferenceException("DeviceId");
+            if (String.IsNullOrEmpty(request.TemplateId)) throw new NullReferenceException("TemplateId");
+
             var template = await _templateRepo.GetServiceTicketTemplateAsync(request.TemplateId);
+            org = org ?? template.OwnerOrganization;
+            user = user ?? template.PrimaryContact ?? template.CreatedBy;
+
+            if (org == null) throw new NullReferenceException(nameof(org));
+            if (user == null) throw new NullReferenceException(nameof(user));
+
+            var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(request.RepoId, org, user);
+            if(repo == null)
+            {
+                throw new InvalidOperationException($"Could not find repository for id {request.RepoId}");
+            }
+
 
             if (org != null && template.OwnerOrganization != org)
             {
                 throw new InvalidOperationException("Template, org mismatch.");
             }
 
-            var device = await _deviceManager.GetDeviceByIdAsync(repo, request.DeviceId, template.OwnerOrganization, template.PrimaryContact);
+            var device = await _deviceManager.GetDeviceByIdAsync(repo, request.DeviceId, template.OwnerOrganization, user ?? template.PrimaryContact);
 
             if (org != null && device.OwnerOrganization != org)
             {
@@ -93,22 +107,27 @@ namespace LagoVista.FSLite.Admin.Managers
                 assignedToUser = template.PrimaryContact;
             }
 
+            var currentTimeStamp = DateTime.UtcNow.ToJSONString();
+
             var ticket = new ServiceTicket()
             {
                 Details = new EntityHeader<ServiceTicketTemplate>() { Id = template.Id, Text = template.Name },
                 Key = template.Key,
+                CreationDate = currentTimeStamp,
+                LastUpdatedDate = currentTimeStamp,
                 Name = $"{template.Name} ({device.DeviceId})",
                 Address = device.Address,
                 IsClosed = false,
                 ServiceBoard = repo.ServiceBoard,
                 Description = template.Description,
-                Subject = request.Subject,
+                Subject = String.IsNullOrEmpty(request.Subject) ? $"{template.Name} ({device.DeviceId})" : request.Subject,
                 AssignedTo = assignedToUser,
                 Device = new EntityHeader<IoT.DeviceManagement.Core.Models.Device>() { Id = device.Id, Text = device.Name },
                 Status = EntityHeader.Create(defaultState.Key, defaultState.Name),
                 StatusDate = DateTime.UtcNow.ToJSONString(),
                 OwnerOrganization = template.OwnerOrganization,
-                CreatedBy = user == null ? template.PrimaryContact : user,
+                CreatedBy = user,
+                LastUpdatedBy = user 
             };
 
             if (!EntityHeader.IsNullOrEmpty(ticket.ServiceBoard))

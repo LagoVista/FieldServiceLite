@@ -66,10 +66,12 @@ namespace LagoVista.FSLite.Models
                 Id = Id,
                 Subject = Subject,
                 DeviceId = Device != null ? Device.Id : "-",
+                Device = Device != null ? Device.Text : "-",
                 IsClosed = IsClosed,
                 Status = Status.Text,
                 DueDate = DueDate,
                 AssignedTo = AssignedTo.Text,
+                TicketId = TicketId,
             };
         }
     }
@@ -77,8 +79,10 @@ namespace LagoVista.FSLite.Models
     public class ServiceTicketSummary
     {
         public string Id { get; set; }
+        public string TicketId { get; set; }
         public string Subject { get; set; }
         public string DeviceId { get; set; }
+        public string Device { get; set; }
         public bool IsClosed { get; set; }
         public string Status { get; set; }
         public string DueDate { get; set; }
