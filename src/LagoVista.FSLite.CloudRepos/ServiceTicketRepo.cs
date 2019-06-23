@@ -137,5 +137,10 @@ namespace LagoVista.FSLite.CloudRepos
 
             return GetServiceTickets(mthd, listRequest);
         }
+
+        public Task<ListResponse<ServiceTicketSummary>> GetTicketsForBoardAsync(string boardId, ListRequest listRequest)
+        {
+            return GetServiceTickets(tkt => tkt.ServiceBoard != null && tkt.ServiceBoard.Id == boardId, listRequest);
+        }
     }
 }

@@ -396,4 +396,7 @@
   <data name="ServiceBoard_SequenceNumber_Help" xml:space="preserve">
     <value>The sequence number is a number that is used to generate ticket numbers when combinded with the board abbreviation.  It can be set to any number when the board is created however it can not be changed after the board is created.</value>
   </data>
+  <data name="ServiceTicket_DeviceRepo" xml:space="preserve">
+    <value>Device Repository</value>
+  </data>
 </root>

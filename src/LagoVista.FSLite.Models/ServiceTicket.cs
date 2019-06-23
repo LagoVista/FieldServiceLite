@@ -16,7 +16,7 @@ namespace LagoVista.FSLite.Models
             History = new List<ServiceTicketStatusHistory>();
         }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_TicketId, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_TicketId, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public string TicketId { get; set; }
 
         public string DeviceLabel { get; set; }
@@ -26,10 +26,11 @@ namespace LagoVista.FSLite.Models
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_AssignedTo, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
         public EntityHeader AssignedTo { get; set; }
+
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Status, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public EntityHeader Status { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_StatusDate, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: false)]
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_StatusDate, FieldType: FieldTypes.DateTime, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: false)]
         public string StatusDate { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Address, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
@@ -42,7 +43,7 @@ namespace LagoVista.FSLite.Models
         public string Subject { get; set; }
         
         [FormField(LabelResource: FSResources.Names.ServiceTicket_ServiceBoard, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
-        public EntityHeader ServiceBoard { get; set; }
+        public EntityHeader<ServiceBoard> ServiceBoard { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_IsClosed, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public bool IsClosed { get; set; }
@@ -59,6 +60,9 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicket_History, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<ServiceTicketStatusHistory> History { get; set; }
 
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_DeviceRepo, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
+        public EntityHeader DeviceRepo { get; set; }
+
         public ServiceTicketSummary CreateSummary()
         {
             return new ServiceTicketSummary()
@@ -69,8 +73,9 @@ namespace LagoVista.FSLite.Models
                 Device = Device != null ? Device.Text : "-",
                 IsClosed = IsClosed,
                 Status = Status.Text,
-                DueDate = DueDate,
-                AssignedTo = AssignedTo.Text,
+                Board = ServiceBoard != null ? ServiceBoard.Text : "-",
+                DueDate = string.IsNullOrEmpty(DueDate) ? "-" : DueDate,
+                AssignedTo = AssignedTo != null ? AssignedTo.Text : "-",
                 TicketId = TicketId,
             };
         }
@@ -86,6 +91,7 @@ namespace LagoVista.FSLite.Models
         public bool IsClosed { get; set; }
         public string Status { get; set; }
         public string DueDate { get; set; }
+        public string Board { get; set; }
         public string AssignedTo { get; set; }
         public string Company { get; set; }
     }

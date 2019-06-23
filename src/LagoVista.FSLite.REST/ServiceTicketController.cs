@@ -136,6 +136,17 @@ namespace LagoVista.FSLite.REST
         }
 
         /// <summary>
+        /// FS Lite - Get Tickets for a Service Board
+        /// </summary>
+        /// <param name="boardid"></param>
+        /// <returns></returns>
+        [HttpGet("/api/fslite/{boardid}/tickets")]
+        public Task<ListResponse<ServiceTicketSummary>> GetTicketsForBoard(string boardid)
+        {
+            return _mgr.GetTicketsForBoardAsync(boardid, GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
+        }
+
+        /// <summary>
         /// FS Lite - Get closed tickets
         /// </summary>
         /// <param name="id"></param>
@@ -151,7 +162,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("/api/fslite/tickets/{id}")]
+        [HttpDelete("/api/fslite/ticket/{id}")]
         public Task<InvokeResult> DeleteServiceTicketAsync(string id)
         {
             return _mgr.DeleteServiceTicketAsync(id, OrgEntityHeader, UserEntityHeader);
@@ -166,6 +177,42 @@ namespace LagoVista.FSLite.REST
         public Task<ListResponse<ServiceTicketSummary>> GetFilteredtickets([FromBody] TicketFilter filter)
         {
             return _mgr.GetServiceTicketsAsync(filter, GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
+        }
+
+        /// <summary>
+        /// FS Lite - Create an empty note..
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="note"></param>
+        /// <returns></returns>
+        [HttpPost("/api/fslite/ticket/note/factory")]
+        public DetailResponse<ServiceTicketNote> CreateTicketNote()
+        {
+            return DetailResponse<ServiceTicketNote>.Create();
+        }
+
+        /// <summary>
+        /// FS Lite - Add a note to the service ticket.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="note"></param>
+        /// <returns></returns>
+        [HttpPost("/api/fslite/ticket/{id}/note")]
+        public Task<InvokeResult> AddTicketNoteAsync(string id, [FromBody] ServiceTicketNote note)
+        {
+            return _mgr.AddTicketNoteAsync(id, note, OrgEntityHeader, UserEntityHeader);
+        }
+
+        /// <summary>
+        /// FS Lite - Set Ticket Status
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        [HttpPost("/api/fslite/ticket/{id}/status")]
+        public Task<InvokeResult> SetTicketStatusAsync(string id, [FromBody] EntityHeader newStatus)
+        {
+            return _mgr.SetTicketStatusAsync(id, newStatus, OrgEntityHeader, UserEntityHeader);
         }
     }
 }

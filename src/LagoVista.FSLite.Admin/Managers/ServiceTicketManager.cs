@@ -7,7 +7,6 @@ using LagoVista.FSLite.Admin.Interfaces;
 using LagoVista.FSLite.Models;
 using LagoVista.IoT.DeviceAdmin.Interfaces.Repos;
 using LagoVista.IoT.DeviceManagement.Core;
-using LagoVista.IoT.DeviceManagement.Core.Repos;
 using LagoVista.IoT.Logging.Loggers;
 using System.Threading.Tasks;
 using System.Linq;
@@ -75,11 +74,10 @@ namespace LagoVista.FSLite.Admin.Managers
             if (user == null) throw new NullReferenceException(nameof(user));
 
             var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(request.RepoId, org, user);
-            if(repo == null)
+            if (repo == null)
             {
                 throw new InvalidOperationException($"Could not find repository for id {request.RepoId}");
             }
-
 
             if (org != null && template.OwnerOrganization != org)
             {
@@ -109,44 +107,62 @@ namespace LagoVista.FSLite.Admin.Managers
 
             var currentTimeStamp = DateTime.UtcNow.ToJSONString();
 
+            EntityHeader<ServiceBoard> boardEH = null;
+
+            var ticketId = Guid.NewGuid().ToString();
+
+            if (!String.IsNullOrEmpty(request.BoardId))
+            {
+                var board = await _serviceBoardRepo.GetServiceBoardAsync(request.BoardId);
+                boardEH = new EntityHeader<ServiceBoard>() { Id = board.Id, Text = board.Name };
+                var ticketNumber = await _serviceBoardRepo.GetNextTicketNumber(request.BoardId);
+                ticketId = $"{board.BoardAbbreviation}-{ticketNumber}";
+            }
+            else if (!EntityHeader.IsNullOrEmpty(repo.ServiceBoard))
+            {
+                boardEH = new EntityHeader<ServiceBoard>() { Id = repo.ServiceBoard.Id, Text = repo.ServiceBoard.Text };
+
+                var board = await _serviceBoardRepo.GetServiceBoardAsync(repo.ServiceBoard.Id);
+                var ticketNumber = await _serviceBoardRepo.GetNextTicketNumber(repo.ServiceBoard.Id);
+                ticketId = $"{board.BoardAbbreviation}-{ticketNumber}";
+            }
+
             var ticket = new ServiceTicket()
             {
-                Details = new EntityHeader<ServiceTicketTemplate>() { Id = template.Id, Text = template.Name },
                 Key = template.Key,
+                TicketId = ticketId,
+                DeviceRepo = EntityHeader.Create(repo.Id, repo.Name),
                 CreationDate = currentTimeStamp,
                 LastUpdatedDate = currentTimeStamp,
                 Name = $"{template.Name} ({device.DeviceId})",
                 Address = device.Address,
                 IsClosed = false,
-                ServiceBoard = repo.ServiceBoard,
                 Description = template.Description,
                 Subject = String.IsNullOrEmpty(request.Subject) ? $"{template.Name} ({device.DeviceId})" : request.Subject,
                 AssignedTo = assignedToUser,
+                Details = new EntityHeader<ServiceTicketTemplate>() { Id = template.Id, Text = template.Name },
+                ServiceBoard = boardEH,
                 Device = new EntityHeader<IoT.DeviceManagement.Core.Models.Device>() { Id = device.Id, Text = device.Name },
                 Status = EntityHeader.Create(defaultState.Key, defaultState.Name),
                 StatusDate = DateTime.UtcNow.ToJSONString(),
                 OwnerOrganization = template.OwnerOrganization,
                 CreatedBy = user,
-                LastUpdatedBy = user 
+                LastUpdatedBy = user
             };
-
-            if (!EntityHeader.IsNullOrEmpty(ticket.ServiceBoard))
-            {
-                var board = await _serviceBoardRepo.GetServiceBoardAsync(ticket.ServiceBoard.Id);
-                var ticketNumber = await _serviceBoardRepo.GetNextTicketNumber(ticket.ServiceBoard.Id);
-                ticket.TicketId = $"{board.BoardAbbreviation}-{ticketNumber}";
-            }
-            else
-            {
-                ticket.TicketId = Guid.NewGuid().ToId();
-            }
 
             ticket.History.Add(new ServiceTicketStatusHistory()
             {
-                AddedBy = template.PrimaryContact,
+                AddedBy = user,
                 DateStamp = DateTime.UtcNow.ToJSONString(),
                 Status = ticket.Status.Text,
-                Notes = $"Service ticket created and assigned to {assignedToUser.Text}."
+                Note = $"Created service ticket with {defaultState.Name} status."
+            }); ;
+
+            ticket.Notes.Add(new ServiceTicketNote()
+            {
+                AddedBy = user,
+                DateStamp = currentTimeStamp,
+                Note = assignedToUser != null ? $"Service ticket created and assigned to {assignedToUser.Text}." : "Service ticket creatd and not assigned to technician."
             });
 
             await _repo.AddServiceTicketAsync(ticket);
@@ -175,8 +191,8 @@ namespace LagoVista.FSLite.Admin.Managers
 
         public async Task<InvokeResult> DeleteServiceTicketAsync(string id, EntityHeader org, EntityHeader user)
         {
-            var template = await _repo.GetServiceTicketAsync(id);
-            await AuthorizeAsync(template, AuthorizeResult.AuthorizeActions.Delete, user, org);
+            var ticket = await _repo.GetServiceTicketAsync(id);
+            await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Delete, user, org);
             await _repo.DeleteServiceTicketAsync(id);
 
             return InvokeResult.Success;
@@ -184,10 +200,16 @@ namespace LagoVista.FSLite.Admin.Managers
 
         public async Task<ServiceTicket> GetServiceTicketAsync(string id, EntityHeader org, EntityHeader user)
         {
-            var template = await _repo.GetServiceTicketAsync(id);
-            await AuthorizeAsync(template, AuthorizeResult.AuthorizeActions.Delete, user, org);
+            var ticket = await _repo.GetServiceTicketAsync(id);
+            await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Read, user, org);
 
-            return template;
+            var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(ticket.DeviceRepo.Id, org, user);
+
+            ticket.Device.Value = await _deviceManager.GetDeviceByIdAsync(repo, ticket.Device.Id, org, user, true);
+            ticket.Details.Value = await _templateRepo.GetServiceTicketTemplateAsync(ticket.Details.Id);
+            ticket.ServiceBoard.Value = await _serviceBoardRepo.GetServiceBoardAsync(ticket.ServiceBoard.Id);
+
+            return ticket;
         }
 
         public async Task<ListResponse<ServiceTicketSummary>> GetClosedServiceTicketAsync(ListRequest listRequest, EntityHeader org, EntityHeader user)
@@ -230,6 +252,9 @@ namespace LagoVista.FSLite.Admin.Managers
         {
             ValidationCheck(serviceTicket, Actions.Update);
 
+            serviceTicket.LastUpdatedBy = user;
+            serviceTicket.LastUpdatedDate = DateTime.UtcNow.ToJSONString();
+
             await AuthorizeAsync(serviceTicket, AuthorizeResult.AuthorizeActions.Create, user, org);
             await _repo.UpdateServiceTicketAsync(serviceTicket);
 
@@ -256,6 +281,54 @@ namespace LagoVista.FSLite.Admin.Managers
             await AuthorizeOrgAccessAsync(user, org, typeof(ServiceTicket));
 
             return await _repo.GetServiceTicketsAsync(filter, org.Id, listRequest);
+        }
+
+        public async Task<InvokeResult> SetTicketStatusAsync(string id, EntityHeader newStatus, EntityHeader org, EntityHeader user)
+        {
+            var date = DateTime.UtcNow.ToJSONString();
+
+            var ticket = await _repo.GetServiceTicketAsync(id);
+
+            await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org, "SetStatus");
+
+            ticket.Status = newStatus;
+            ticket.StatusDate = date;
+            ticket.History.Add(new ServiceTicketStatusHistory()
+            {
+                AddedBy = user,
+                DateStamp = date,
+                Status = newStatus.Text,
+                Note = $"Status changed to {newStatus.Text}"
+                
+            });
+
+            ticket.LastUpdatedBy = user;
+            ticket.LastUpdatedDate = date;
+
+            return InvokeResult.Success;
+        }
+
+        public async Task<InvokeResult> AddTicketNoteAsync(string id, ServiceTicketNote note, EntityHeader org, EntityHeader user)
+        {
+            var ticket = await _repo.GetServiceTicketAsync(id);
+
+            await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org, "AddNote");
+
+            ValidationCheck(note, Actions.Create);
+
+            ticket.Notes.Add(note);
+            ticket.LastUpdatedBy = user;
+            ticket.LastUpdatedDate = note.DateStamp;
+            await _repo.UpdateServiceTicketAsync(ticket);
+
+            return InvokeResult.Success;
+        }
+
+        public async Task<ListResponse<ServiceTicketSummary>> GetTicketsForBoardAsync(string boardId, ListRequest listRequest, EntityHeader org, EntityHeader user)
+        {
+            await AuthorizeOrgAccessAsync(user, org, typeof(ServiceTicket));
+
+            return await _repo.GetTicketsForBoardAsync(boardId, listRequest);
         }
     }
 }

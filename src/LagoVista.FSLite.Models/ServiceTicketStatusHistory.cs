@@ -18,6 +18,6 @@ namespace LagoVista.FSLite.Models
         public string Status { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketStatusHistory_Notes, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
-        public string Notes { get; set; }
+        public string Note { get; set; }
     }
 }
