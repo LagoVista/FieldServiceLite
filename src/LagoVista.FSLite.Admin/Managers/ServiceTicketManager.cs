@@ -140,15 +140,27 @@ namespace LagoVista.FSLite.Admin.Managers
                 Description = template.Description,
                 Subject = String.IsNullOrEmpty(request.Subject) ? $"{template.Name} ({device.DeviceId})" : request.Subject,
                 AssignedTo = assignedToUser,
-                Details = new EntityHeader<ServiceTicketTemplate>() { Id = template.Id, Text = template.Name },
+                Template = new EntityHeader() { Id = template.Id, Text = template.Name },
                 ServiceBoard = boardEH,
                 Device = new EntityHeader<IoT.DeviceManagement.Core.Models.Device>() { Id = device.Id, Text = device.Name },
                 Status = EntityHeader.Create(defaultState.Key, defaultState.Name),
                 StatusDate = DateTime.UtcNow.ToJSONString(),
                 OwnerOrganization = template.OwnerOrganization,
+                HoursEstimate = template.HoursEstimate,
+                CostEstimate = template.CostEstimate,
+                SkillLevel = template.SkillLevel,
+                Urgency = template.Urgency,
+                RequiredParts = template.RequiredParts,
+                Resources = template.Resources,
+                Instructions = template.Instructions,
+                StatusType = template.StatusType,
+                AssociatedEquipment = template.AssociatedEquipment,
+                TroubleshootingSteps = template.TroubleshootingSteps,
                 CreatedBy = user,
                 LastUpdatedBy = user
             };
+
+            ticket.StatusType.Value = stateSet;
 
             ticket.History.Add(new ServiceTicketStatusHistory()
             {
@@ -204,10 +216,11 @@ namespace LagoVista.FSLite.Admin.Managers
             await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Read, user, org);
 
             var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(ticket.DeviceRepo.Id, org, user);
-
             ticket.Device.Value = await _deviceManager.GetDeviceByIdAsync(repo, ticket.Device.Id, org, user, true);
-            ticket.Details.Value = await _templateRepo.GetServiceTicketTemplateAsync(ticket.Details.Id);
-            ticket.ServiceBoard.Value = await _serviceBoardRepo.GetServiceBoardAsync(ticket.ServiceBoard.Id);
+            if (!EntityHeader.IsNullOrEmpty(ticket.ServiceBoard))
+            {
+                ticket.ServiceBoard.Value = await _serviceBoardRepo.GetServiceBoardAsync(ticket.ServiceBoard.Id);
+            }
 
             return ticket;
         }
@@ -299,7 +312,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 DateStamp = date,
                 Status = newStatus.Text,
                 Note = $"Status changed to {newStatus.Text}"
-                
+
             });
 
             ticket.LastUpdatedBy = user;

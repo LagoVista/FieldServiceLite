@@ -84,6 +84,7 @@ namespace LagoVista.FSLite.Models
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_AssociatedEquipment, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public IEnumerable<EntityHeader<Equipment>> AssociatedEquipment { get; set; }
+
         public ServiceTicketTemplateSummary CreateSummary()
         {
             return new ServiceTicketTemplateSummary()

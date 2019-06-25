@@ -87,7 +87,7 @@ namespace LagoVista.FSLite.CloudRepos
 
         public Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByTemplateAsync(string templateId, string orgId, ListRequest listRequest)
         {
-            return GetServiceTickets(tkt => tkt.OwnerOrganization.Id == orgId && tkt.Details != null && tkt.Details.Id == templateId, listRequest);
+            return GetServiceTickets(tkt => tkt.OwnerOrganization.Id == orgId && tkt.Template != null && tkt.Template.Id == templateId, listRequest);
         }
 
         public Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsAsync(TicketFilter filter, string orgId, ListRequest listRequest)
@@ -109,7 +109,7 @@ namespace LagoVista.FSLite.CloudRepos
 
             if (!String.IsNullOrEmpty(filter.TemplateId))
             {
-                Expression<Func<ServiceTicket, bool>> closeExpression = (exp => exp.Details != null && exp.Details.Id == filter.TemplateId);
+                Expression<Func<ServiceTicket, bool>> closeExpression = (exp => exp.Template != null && exp.Template.Id == filter.TemplateId);
                 var combined = Expression.And(mthd, closeExpression);
                 mthd = Expression.Lambda<Func<ServiceTicket, bool>>(combined);
             }
