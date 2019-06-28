@@ -296,7 +296,7 @@ namespace LagoVista.FSLite.Admin.Managers
             return await _repo.GetServiceTicketsAsync(filter, org.Id, listRequest);
         }
 
-        public async Task<InvokeResult> SetTicketStatusAsync(string id, EntityHeader newStatus, EntityHeader org, EntityHeader user)
+        public async Task<InvokeResult<ServiceTicketStatusHistory>> SetTicketStatusAsync(string id, EntityHeader newStatus, EntityHeader org, EntityHeader user)
         {
             var date = DateTime.UtcNow.ToJSONString();
 
@@ -304,29 +304,34 @@ namespace LagoVista.FSLite.Admin.Managers
 
             await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org, "SetStatus");
 
-            ticket.Status = newStatus;
-            ticket.StatusDate = date;
-            ticket.History.Add(new ServiceTicketStatusHistory()
+            var history = new ServiceTicketStatusHistory()
             {
                 AddedBy = user,
                 DateStamp = date,
                 Status = newStatus.Text,
                 Note = $"Status changed to {newStatus.Text}"
+            };
 
-            });
+            ticket.Status = newStatus;
+            ticket.StatusDate = date;
+            ticket.History.Insert(0, history);
 
             ticket.LastUpdatedBy = user;
             ticket.LastUpdatedDate = date;
 
-            return InvokeResult.Success;
+            await _repo.UpdateServiceTicketAsync(ticket);
+
+            return InvokeResult<ServiceTicketStatusHistory>.Create(history);
         }
 
-        public async Task<InvokeResult> AddTicketNoteAsync(string id, ServiceTicketNote note, EntityHeader org, EntityHeader user)
+        public async Task<InvokeResult<ServiceTicketNote>> AddTicketNoteAsync(string id, ServiceTicketNote note, EntityHeader org, EntityHeader user)
         {
+            Console.WriteLine("A");
             var ticket = await _repo.GetServiceTicketAsync(id);
 
             await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org, "AddNote");
 
+            Console.WriteLine("B");
             ValidationCheck(note, Actions.Create);
 
             ticket.Notes.Add(note);
@@ -334,7 +339,10 @@ namespace LagoVista.FSLite.Admin.Managers
             ticket.LastUpdatedDate = note.DateStamp;
             await _repo.UpdateServiceTicketAsync(ticket);
 
-            return InvokeResult.Success;
+
+            Console.WriteLine("C");
+
+            return InvokeResult<ServiceTicketNote>.Create(note);
         }
 
         public async Task<ListResponse<ServiceTicketSummary>> GetTicketsForBoardAsync(string boardId, ListRequest listRequest, EntityHeader org, EntityHeader user)

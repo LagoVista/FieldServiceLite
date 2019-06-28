@@ -77,7 +77,7 @@ namespace LagoVista.FSLite.CloudRepos
 
         public Task UpdateServiceTicketAsync(ServiceTicket ticket)
         {
-            return UpdateServiceTicketAsync(ticket);
+            return UpsertDocumentAsync(ticket);
         }
 
         public Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByUserAsync(string userId, string orgId, ListRequest listRequest)

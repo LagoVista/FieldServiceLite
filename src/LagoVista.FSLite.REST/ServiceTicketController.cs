@@ -198,8 +198,12 @@ namespace LagoVista.FSLite.REST
         /// <param name="note"></param>
         /// <returns></returns>
         [HttpPost("/api/fslite/ticket/{id}/note")]
-        public Task<InvokeResult> AddTicketNoteAsync(string id, [FromBody] ServiceTicketNote note)
+        public Task<InvokeResult<ServiceTicketNote>> AddTicketNoteAsync(string id, [FromBody] ServiceTicketNote note)
         {
+            note.Id = Guid.NewGuid().ToId();
+            note.AddedBy = UserEntityHeader;
+            note.DateStamp = DateTime.UtcNow.ToJSONString();
+
             return _mgr.AddTicketNoteAsync(id, note, OrgEntityHeader, UserEntityHeader);
         }
 
@@ -210,7 +214,7 @@ namespace LagoVista.FSLite.REST
         /// <param name="status"></param>
         /// <returns></returns>
         [HttpPost("/api/fslite/ticket/{id}/status")]
-        public Task<InvokeResult> SetTicketStatusAsync(string id, [FromBody] EntityHeader newStatus)
+        public Task<InvokeResult<ServiceTicketStatusHistory>> SetTicketStatusAsync(string id, [FromBody] EntityHeader newStatus)
         {
             return _mgr.SetTicketStatusAsync(id, newStatus, OrgEntityHeader, UserEntityHeader);
         }

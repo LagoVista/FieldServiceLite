@@ -9,8 +9,9 @@ namespace LagoVista.FSLite.Models
         FSResources.Names.ServiceTicketStatusHistory_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources))]
     public class ServiceTicketNote : IValidateable
     {
-        [FormField(LabelResource: FSResources.Names.ServiceTicketNote_AddedBy, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
+        public string Id { get; set; }
 
+        [FormField(LabelResource: FSResources.Names.ServiceTicketNote_AddedBy, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public EntityHeader AddedBy { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketNote_DateStamp, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
