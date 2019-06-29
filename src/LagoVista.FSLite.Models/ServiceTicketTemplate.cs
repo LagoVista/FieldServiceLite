@@ -52,6 +52,11 @@ namespace LagoVista.FSLite.Models
             Resources = new List<MediaResource>();
         }
 
+        public EntityHeader DeviceType { get; set; }
+
+        public EntityHeader DeviceConfiguration { get; set; }
+
+
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Instructions, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public IEnumerable<ServiceTicketTemplateInstruction> Instructions { get; set; }
 

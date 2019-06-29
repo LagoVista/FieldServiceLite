@@ -399,4 +399,25 @@
   <data name="ServiceTicket_DeviceRepo" xml:space="preserve">
     <value>Device Repository</value>
   </data>
+  <data name="ServiceTicketTemplate_DeviceConfig" xml:space="preserve">
+    <value>For Device Configuration</value>
+  </data>
+  <data name="ServiceTicketTemplate_DeviceType" xml:space="preserve">
+    <value>For Device Type</value>
+  </data>
+  <data name="ServiceTicketTemplate_DeviceConfig_Help" xml:space="preserve">
+    <value>This service ticket template should primarily be used by this one specific device configuration.</value>
+  </data>
+  <data name="ServiceTicketTemplate_DeviceType_Help" xml:space="preserve">
+    <value>This service ticket template should be primarily be used by this one specific device type.</value>
+  </data>
+  <data name="Template_Category" xml:space="preserve">
+    <value>Template Category</value>
+  </data>
+  <data name="Template_Category_Help" xml:space="preserve">
+    <value>The Template Category is used to organize templates.</value>
+  </data>
+  <data name="Template_Cateogry_Description" xml:space="preserve">
+    <value>The Template Category is used to organize templates.</value>
+  </data>
 </root>

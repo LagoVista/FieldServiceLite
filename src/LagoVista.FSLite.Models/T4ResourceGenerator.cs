@@ -1,4 +1,4 @@
-﻿/*6/23/2019 07:12:36*/
+﻿/*6/28/2019 14:02:27*/
 using System.Globalization;
 using System.Reflection;
 
@@ -246,6 +246,18 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_Description
 
 		public static string ServiceTicketTemplate_Description { get { return GetResourceString("ServiceTicketTemplate_Description"); } }
+//Resources:FSResources:ServiceTicketTemplate_DeviceConfig
+
+		public static string ServiceTicketTemplate_DeviceConfig { get { return GetResourceString("ServiceTicketTemplate_DeviceConfig"); } }
+//Resources:FSResources:ServiceTicketTemplate_DeviceConfig_Help
+
+		public static string ServiceTicketTemplate_DeviceConfig_Help { get { return GetResourceString("ServiceTicketTemplate_DeviceConfig_Help"); } }
+//Resources:FSResources:ServiceTicketTemplate_DeviceType
+
+		public static string ServiceTicketTemplate_DeviceType { get { return GetResourceString("ServiceTicketTemplate_DeviceType"); } }
+//Resources:FSResources:ServiceTicketTemplate_DeviceType_Help
+
+		public static string ServiceTicketTemplate_DeviceType_Help { get { return GetResourceString("ServiceTicketTemplate_DeviceType_Help"); } }
 //Resources:FSResources:ServiceTicketTemplate_Help
 
 		public static string ServiceTicketTemplate_Help { get { return GetResourceString("ServiceTicketTemplate_Help"); } }
@@ -318,6 +330,15 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplateDefault_Assigned_Help
 
 		public static string ServiceTicketTemplateDefault_Assigned_Help { get { return GetResourceString("ServiceTicketTemplateDefault_Assigned_Help"); } }
+//Resources:FSResources:Template_Category
+
+		public static string Template_Category { get { return GetResourceString("Template_Category"); } }
+//Resources:FSResources:Template_Category_Help
+
+		public static string Template_Category_Help { get { return GetResourceString("Template_Category_Help"); } }
+//Resources:FSResources:Template_Cateogry_Description
+
+		public static string Template_Cateogry_Description { get { return GetResourceString("Template_Cateogry_Description"); } }
 //Resources:FSResources:TemplateInstruction_Description
 
 		public static string TemplateInstruction_Description { get { return GetResourceString("TemplateInstruction_Description"); } }
@@ -403,6 +424,10 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_CostEstimate = "ServiceTicketTemplate_CostEstimate";
 			public const string ServiceTicketTemplate_DefaultAssigned = "ServiceTicketTemplate_DefaultAssigned";
 			public const string ServiceTicketTemplate_Description = "ServiceTicketTemplate_Description";
+			public const string ServiceTicketTemplate_DeviceConfig = "ServiceTicketTemplate_DeviceConfig";
+			public const string ServiceTicketTemplate_DeviceConfig_Help = "ServiceTicketTemplate_DeviceConfig_Help";
+			public const string ServiceTicketTemplate_DeviceType = "ServiceTicketTemplate_DeviceType";
+			public const string ServiceTicketTemplate_DeviceType_Help = "ServiceTicketTemplate_DeviceType_Help";
 			public const string ServiceTicketTemplate_Help = "ServiceTicketTemplate_Help";
 			public const string ServiceTicketTemplate_HoursEstimate = "ServiceTicketTemplate_HoursEstimate";
 			public const string ServiceTicketTemplate_Instructions = "ServiceTicketTemplate_Instructions";
@@ -427,6 +452,9 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_Urgency_Normal = "ServiceTicketTemplate_Urgency_Normal";
 			public const string ServiceTicketTemplate_Urgency_Select = "ServiceTicketTemplate_Urgency_Select";
 			public const string ServiceTicketTemplateDefault_Assigned_Help = "ServiceTicketTemplateDefault_Assigned_Help";
+			public const string Template_Category = "Template_Category";
+			public const string Template_Category_Help = "Template_Category_Help";
+			public const string Template_Cateogry_Description = "Template_Cateogry_Description";
 			public const string TemplateInstruction_Description = "TemplateInstruction_Description";
 			public const string TemplateInstruction_Help = "TemplateInstruction_Help";
 			public const string TemplateInstruction_Hints = "TemplateInstruction_Hints";
