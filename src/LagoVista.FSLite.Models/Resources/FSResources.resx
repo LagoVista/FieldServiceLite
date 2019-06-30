@@ -354,14 +354,14 @@
   <data name="ServiceTicketTemplate_DefaultAssigned" xml:space="preserve">
     <value>Default Assigned</value>
   </data>
-  <data name="ServiceTicketTemplate_PrimaryContact" xml:space="preserve">
-    <value>Primary Contact</value>
+  <data name="ServiceTicketTemplate_DefaultContact" xml:space="preserve">
+    <value>Default Contact</value>
   </data>
-  <data name="ServiceTicketTemplate_PrimaryContact_Help" xml:space="preserve">
-    <value>The primary contact is the individual that will be the primary contact for any questions or be assigned to any tickets created from thsi template if there are not any assinged users on the device or device repository.</value>
+  <data name="ServiceTicketTemplate_DefaultContact_Help" xml:space="preserve">
+    <value>The default contact is the individual that will be the default contact for any questions or be assigned to any tickets created from thsi template if there are not any assinged users on the device or device repository.</value>
   </data>
-  <data name="ServiceTicketTemplate_PrimaryContact_Select" xml:space="preserve">
-    <value>-select primary contact-</value>
+  <data name="ServiceTicketTemplate_DefaultContact_Select" xml:space="preserve">
+    <value>-select default contact-</value>
   </data>
   <data name="ServiceBoard_Description" xml:space="preserve">
     <value>A service board is used to show a collection of service tickets.</value>
@@ -419,5 +419,11 @@
   </data>
   <data name="Template_Cateogry_Description" xml:space="preserve">
     <value>The Template Category is used to organize templates.</value>
+  </data>
+  <data name="ServiceTicketTemplate_DeviceConfig_Select" xml:space="preserve">
+    <value>-select device configuration-</value>
+  </data>
+  <data name="ServiceTicketTemplate_DeviceType_Select" xml:space="preserve">
+    <value>-select device type-</value>
   </data>
 </root>

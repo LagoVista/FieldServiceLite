@@ -3,6 +3,7 @@ using LagoVista.Core.Models;
 using LagoVista.FSLite.Models.Resources;
 using LagoVista.IoT.DeviceAdmin.Models;
 using LagoVista.IoT.DeviceManagement.Core.Models;
+using LagoVista.MediaServices.Models;
 using System.Collections.Generic;
 
 namespace LagoVista.FSLite.Models
@@ -15,6 +16,10 @@ namespace LagoVista.FSLite.Models
         {
             Notes = new List<ServiceTicketNote>();
             History = new List<ServiceTicketStatusHistory>();
+            AssociatedEquipment = new List<Equipment>();
+            Resources = new List<MediaResource>();
+            RequiredParts = new List<BOMItem>();
+            TroubleshootingSteps = new List<TroubleshootingStep>();
         }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_TicketId, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
@@ -89,7 +94,7 @@ namespace LagoVista.FSLite.Models
         public IEnumerable<TroubleshootingStep> TroubleshootingSteps { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_AssociatedEquipment, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
-        public IEnumerable<EntityHeader<Equipment>> AssociatedEquipment { get; set; }
+        public IEnumerable<Equipment> AssociatedEquipment { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_DeviceRepo, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
         public EntityHeader DeviceRepo { get; set; }

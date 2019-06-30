@@ -1,4 +1,4 @@
-﻿/*6/28/2019 14:02:27*/
+﻿/*6/29/2019 07:10:49*/
 using System.Globalization;
 using System.Reflection;
 
@@ -243,6 +243,15 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_DefaultAssigned
 
 		public static string ServiceTicketTemplate_DefaultAssigned { get { return GetResourceString("ServiceTicketTemplate_DefaultAssigned"); } }
+//Resources:FSResources:ServiceTicketTemplate_DefaultContact
+
+		public static string ServiceTicketTemplate_DefaultContact { get { return GetResourceString("ServiceTicketTemplate_DefaultContact"); } }
+//Resources:FSResources:ServiceTicketTemplate_DefaultContact_Help
+
+		public static string ServiceTicketTemplate_DefaultContact_Help { get { return GetResourceString("ServiceTicketTemplate_DefaultContact_Help"); } }
+//Resources:FSResources:ServiceTicketTemplate_DefaultContact_Select
+
+		public static string ServiceTicketTemplate_DefaultContact_Select { get { return GetResourceString("ServiceTicketTemplate_DefaultContact_Select"); } }
 //Resources:FSResources:ServiceTicketTemplate_Description
 
 		public static string ServiceTicketTemplate_Description { get { return GetResourceString("ServiceTicketTemplate_Description"); } }
@@ -252,12 +261,18 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_DeviceConfig_Help
 
 		public static string ServiceTicketTemplate_DeviceConfig_Help { get { return GetResourceString("ServiceTicketTemplate_DeviceConfig_Help"); } }
+//Resources:FSResources:ServiceTicketTemplate_DeviceConfig_Select
+
+		public static string ServiceTicketTemplate_DeviceConfig_Select { get { return GetResourceString("ServiceTicketTemplate_DeviceConfig_Select"); } }
 //Resources:FSResources:ServiceTicketTemplate_DeviceType
 
 		public static string ServiceTicketTemplate_DeviceType { get { return GetResourceString("ServiceTicketTemplate_DeviceType"); } }
 //Resources:FSResources:ServiceTicketTemplate_DeviceType_Help
 
 		public static string ServiceTicketTemplate_DeviceType_Help { get { return GetResourceString("ServiceTicketTemplate_DeviceType_Help"); } }
+//Resources:FSResources:ServiceTicketTemplate_DeviceType_Select
+
+		public static string ServiceTicketTemplate_DeviceType_Select { get { return GetResourceString("ServiceTicketTemplate_DeviceType_Select"); } }
 //Resources:FSResources:ServiceTicketTemplate_Help
 
 		public static string ServiceTicketTemplate_Help { get { return GetResourceString("ServiceTicketTemplate_Help"); } }
@@ -267,15 +282,6 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_Instructions
 
 		public static string ServiceTicketTemplate_Instructions { get { return GetResourceString("ServiceTicketTemplate_Instructions"); } }
-//Resources:FSResources:ServiceTicketTemplate_PrimaryContact
-
-		public static string ServiceTicketTemplate_PrimaryContact { get { return GetResourceString("ServiceTicketTemplate_PrimaryContact"); } }
-//Resources:FSResources:ServiceTicketTemplate_PrimaryContact_Help
-
-		public static string ServiceTicketTemplate_PrimaryContact_Help { get { return GetResourceString("ServiceTicketTemplate_PrimaryContact_Help"); } }
-//Resources:FSResources:ServiceTicketTemplate_PrimaryContact_Select
-
-		public static string ServiceTicketTemplate_PrimaryContact_Select { get { return GetResourceString("ServiceTicketTemplate_PrimaryContact_Select"); } }
 //Resources:FSResources:ServiceTicketTemplate_RequiredParts
 
 		public static string ServiceTicketTemplate_RequiredParts { get { return GetResourceString("ServiceTicketTemplate_RequiredParts"); } }
@@ -423,17 +429,19 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_AssociatedEquipment = "ServiceTicketTemplate_AssociatedEquipment";
 			public const string ServiceTicketTemplate_CostEstimate = "ServiceTicketTemplate_CostEstimate";
 			public const string ServiceTicketTemplate_DefaultAssigned = "ServiceTicketTemplate_DefaultAssigned";
+			public const string ServiceTicketTemplate_DefaultContact = "ServiceTicketTemplate_DefaultContact";
+			public const string ServiceTicketTemplate_DefaultContact_Help = "ServiceTicketTemplate_DefaultContact_Help";
+			public const string ServiceTicketTemplate_DefaultContact_Select = "ServiceTicketTemplate_DefaultContact_Select";
 			public const string ServiceTicketTemplate_Description = "ServiceTicketTemplate_Description";
 			public const string ServiceTicketTemplate_DeviceConfig = "ServiceTicketTemplate_DeviceConfig";
 			public const string ServiceTicketTemplate_DeviceConfig_Help = "ServiceTicketTemplate_DeviceConfig_Help";
+			public const string ServiceTicketTemplate_DeviceConfig_Select = "ServiceTicketTemplate_DeviceConfig_Select";
 			public const string ServiceTicketTemplate_DeviceType = "ServiceTicketTemplate_DeviceType";
 			public const string ServiceTicketTemplate_DeviceType_Help = "ServiceTicketTemplate_DeviceType_Help";
+			public const string ServiceTicketTemplate_DeviceType_Select = "ServiceTicketTemplate_DeviceType_Select";
 			public const string ServiceTicketTemplate_Help = "ServiceTicketTemplate_Help";
 			public const string ServiceTicketTemplate_HoursEstimate = "ServiceTicketTemplate_HoursEstimate";
 			public const string ServiceTicketTemplate_Instructions = "ServiceTicketTemplate_Instructions";
-			public const string ServiceTicketTemplate_PrimaryContact = "ServiceTicketTemplate_PrimaryContact";
-			public const string ServiceTicketTemplate_PrimaryContact_Help = "ServiceTicketTemplate_PrimaryContact_Help";
-			public const string ServiceTicketTemplate_PrimaryContact_Select = "ServiceTicketTemplate_PrimaryContact_Select";
 			public const string ServiceTicketTemplate_RequiredParts = "ServiceTicketTemplate_RequiredParts";
 			public const string ServiceTicketTemplate_Skill = "ServiceTicketTemplate_Skill";
 			public const string ServiceTicketTemplate_Skill_High = "ServiceTicketTemplate_Skill_High";

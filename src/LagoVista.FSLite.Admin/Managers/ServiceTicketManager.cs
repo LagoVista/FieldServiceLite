@@ -68,7 +68,7 @@ namespace LagoVista.FSLite.Admin.Managers
 
             var template = await _templateRepo.GetServiceTicketTemplateAsync(request.TemplateId);
             org = org ?? template.OwnerOrganization;
-            user = user ?? template.PrimaryContact ?? template.CreatedBy;
+            user = user ?? template.DefaultContact ?? template.CreatedBy;
 
             if (org == null) throw new NullReferenceException(nameof(org));
             if (user == null) throw new NullReferenceException(nameof(user));
@@ -84,7 +84,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 throw new InvalidOperationException("Template, org mismatch.");
             }
 
-            var device = await _deviceManager.GetDeviceByIdAsync(repo, request.DeviceId, template.OwnerOrganization, user ?? template.PrimaryContact);
+            var device = await _deviceManager.GetDeviceByIdAsync(repo, request.DeviceId, template.OwnerOrganization, user ?? template.DefaultContact);
 
             if (org != null && device.OwnerOrganization != org)
             {
@@ -102,7 +102,7 @@ namespace LagoVista.FSLite.Admin.Managers
 
             if (assignedToUser == null)
             {
-                assignedToUser = template.PrimaryContact;
+                assignedToUser = template.DefaultContact;
             }
 
             var currentTimeStamp = DateTime.UtcNow.ToJSONString();
@@ -151,10 +151,8 @@ namespace LagoVista.FSLite.Admin.Managers
                 SkillLevel = template.SkillLevel,
                 Urgency = template.Urgency,
                 RequiredParts = template.RequiredParts,
-                Resources = template.Resources,
                 Instructions = template.Instructions,
                 StatusType = template.StatusType,
-                AssociatedEquipment = template.AssociatedEquipment,
                 TroubleshootingSteps = template.TroubleshootingSteps,
                 CreatedBy = user,
                 LastUpdatedBy = user

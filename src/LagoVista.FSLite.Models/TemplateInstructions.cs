@@ -1,4 +1,5 @@
 ﻿using LagoVista.Core.Attributes;
+using LagoVista.Core.Models;
 using LagoVista.FSLite.Models.Resources;
 using LagoVista.IoT.DeviceAdmin.Models;
 using System;
@@ -13,7 +14,7 @@ namespace LagoVista.FSLite.Models
     {
         public ServiceTicketTemplateInstruction()
         {
-            Resources = new List<MediaResource>();
+            Resources = new List<EntityHeader>();
         }
 
         public string Id { get; set; }
@@ -31,6 +32,6 @@ namespace LagoVista.FSLite.Models
         public string Hints { get; set; }
 
         [FormField(LabelResource: FSResources.Names.Common_Resources, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
-        public List<MediaResource> Resources { get; set; }
+        public List<EntityHeader> Resources { get; set; }
     }
 }

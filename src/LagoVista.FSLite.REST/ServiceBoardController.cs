@@ -26,7 +26,7 @@ namespace LagoVista.FSLite.REST
         }
 
         /// <summary>
-        /// FS Lite - Add Service Baord
+        /// FS Lite - Add a service board.
         /// </summary>
         /// <param name="board"></param>
         /// <returns></returns>
@@ -37,7 +37,7 @@ namespace LagoVista.FSLite.REST
         }
 
         /// <summary>
-        /// FS Lite - Update Service Board
+        /// FS Lite - Update a service board
         /// </summary>
         /// <param name="board"></param>
         /// <returns></returns>
@@ -48,7 +48,7 @@ namespace LagoVista.FSLite.REST
         }
 
         /// <summary>
-        /// FS Lite - Delete Servie Boarde
+        /// FS Lite - Delete a service board.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

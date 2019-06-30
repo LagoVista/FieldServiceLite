@@ -49,12 +49,17 @@ namespace LagoVista.FSLite.Models
             RequiredParts = new List<BOMItem>();
             AssociatedEquipment = new List<EntityHeader<Equipment>>();
             Instructions = new List<ServiceTicketTemplateInstruction>();
-            Resources = new List<MediaResource>();
+            Resources = new List<EntityHeader>();
         }
 
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_DeviceConfig, WaterMark: FSResources.Names.ServiceTicketTemplate_DeviceType_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_DeviceType_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
         public EntityHeader DeviceType { get; set; }
 
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_DeviceConfig, WaterMark: FSResources.Names.ServiceTicketTemplate_DeviceConfig_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_DeviceConfig_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
         public EntityHeader DeviceConfiguration { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_DefaultContact, WaterMark: FSResources.Names.ServiceTicketTemplate_DefaultContact_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_DefaultContact_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
+        public EntityHeader TemplateCateogry { get; set; }
 
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Instructions, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
@@ -69,8 +74,8 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_StatusType, WaterMark: FSResources.Names.ServiceTicketTemplate_StatusType_Select, HelpResource:FSResources.Names.ServiceTicketTemplate_StatusType_Help,  FieldType: FieldTypes.EntityHeaderPicker, IsRequired: true, ResourceType: typeof(FSResources))]
         public EntityHeader<StateSet> StatusType { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_PrimaryContact, WaterMark: FSResources.Names.ServiceTicketTemplate_PrimaryContact_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_PrimaryContact_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
-        public EntityHeader PrimaryContact { get; set; }
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_DefaultContact, WaterMark: FSResources.Names.ServiceTicketTemplate_DefaultContact_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_DefaultContact_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
+        public EntityHeader DefaultContact { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Urgency, WaterMark: FSResources.Names.ServiceTicketTemplate_Urgency_Select, IsRequired: true, EnumType: typeof(Urgency), FieldType: FieldTypes.Picker, ResourceType: typeof(FSResources))]
         public EntityHeader<Urgency> Urgency {get; set;}
@@ -85,7 +90,7 @@ namespace LagoVista.FSLite.Models
         public IEnumerable<BOMItem> RequiredParts { get; set; }
 
         [FormField(LabelResource: FSResources.Names.Common_Resources, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
-        public IEnumerable<MediaResource> Resources { get; set; }
+        public IEnumerable<EntityHeader> Resources { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_AssociatedEquipment, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public IEnumerable<EntityHeader<Equipment>> AssociatedEquipment { get; set; }

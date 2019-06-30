@@ -11,6 +11,7 @@ namespace LagoVista.FSLite.CloudRepos
             services.AddTransient<Admin.Interfaces.IServiceTicketTemplateRepo, ServiceTicketTemplateRepo>();
             services.AddTransient<Admin.Interfaces.IServiceTicketRepo, ServiceTicketRepo>();
             services.AddTransient<Admin.Interfaces.IServiceBoardRepo, ServiceBoardRepo>();
+            services.AddTransient<Admin.Interfaces.ITemplateCategoryRep, TemplateCategoryRepo>();
         }
     }
 }

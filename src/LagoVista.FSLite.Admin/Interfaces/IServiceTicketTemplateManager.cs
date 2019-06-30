@@ -14,10 +14,6 @@ namespace LagoVista.FSLite.Admin.Interfaces
         Task<InvokeResult> DeleteServiceTicketTemplateAsync(string id, EntityHeader org, EntityHeader user);
         Task<ServiceTicketTemplate> GetServiceTicketTemplateAsync(string id, EntityHeader org, EntityHeader user);
         Task<ListResponse<ServiceTicketTemplateSummary>> GetServiceTicketTemplatesAsync(ListRequest listRequest, EntityHeader org, EntityHeader user);
-
-        Task<MediaItemResponse> GetTroubleshottingStepMediaAsync(string templateId, string stepId, string resourceId, EntityHeader org, EntityHeader user);
-        Task<MediaItemResponse> GetPartMediaAsync(string templateId, string partId, string resourceId, EntityHeader org, EntityHeader user);
-
         Task<DependentObjectCheckResult> CheckInUseAsync(string id, EntityHeader org, EntityHeader user);
         Task<bool> QueryKeyInUseAsync(string key, string orgId);
     }

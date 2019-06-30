@@ -52,7 +52,7 @@ namespace LagoVista.FSLite.Admin.Managers
         public async Task<ServiceBoard> GetServiceBoardAsync(string id, EntityHeader org, EntityHeader user)
         {
             var board = await _repo.GetServiceBoardAsync(id);
-            await AuthorizeAsync(board, AuthorizeResult.AuthorizeActions.Delete, user, org);
+            await AuthorizeAsync(board, AuthorizeResult.AuthorizeActions.GetForOrgs, user, org);
 
             return board;
         }

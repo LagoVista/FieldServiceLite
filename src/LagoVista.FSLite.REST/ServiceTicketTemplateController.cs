@@ -103,30 +103,5 @@ namespace LagoVista.FSLite.REST
         {
             return _mgr.QueryKeyInUseAsync(key, CurrentOrgId);
         }
-
-        /// <summary>
-        /// FS Lite - Get Required Parts Resource
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("/api/fslite/template/{templateid}/troubleshooting/{partid}/media/{resourceid}")]
-        public async Task<IActionResult> GetRequiredPartsResourceAsync(string templateid, string partid, string resourceid)
-        {
-            var response = await _mgr.GetPartMediaAsync(templateid, partid, resourceid, OrgEntityHeader, UserEntityHeader);
-            var ms = new MemoryStream(response.ImageBytes);
-            return new FileStreamResult(ms, response.ContentType);
-        }
-
-        /// <summary>
-        /// FS Lite - Get Troubleshooting Steps Resource
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("/api/fslite/template/{templateid}/troubleshooting/{tsid}/media/{resourceid}")]
-        public async Task<IActionResult> GetTroubleshootingStepResourceAsync(string templateid, string tsid, string resourceid)
-        {
-            var response = await _mgr.GetTroubleshottingStepMediaAsync(templateid, tsid, resourceid, OrgEntityHeader, UserEntityHeader);
-
-            var ms = new MemoryStream(response.ImageBytes);
-            return new FileStreamResult(ms, response.ContentType);
-        }
     }
 }
