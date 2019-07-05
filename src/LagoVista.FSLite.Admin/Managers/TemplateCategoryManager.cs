@@ -15,8 +15,8 @@ namespace LagoVista.FSLite.Admin.Managers
 {
     public class TemplateCategoryManager : ManagerBase, ITemplateCategoryManager
     {
-        ITemplateCategoryRep _repo;
-        public TemplateCategoryManager(ITemplateCategoryRep repo, IAppConfig appConfig, IAdminLogger logger,
+        ITemplateCategoryRepo _repo;
+        public TemplateCategoryManager(ITemplateCategoryRepo repo, IAppConfig appConfig, IAdminLogger logger,
                                    IDependencyManager depmanager, ISecurity security)
             : base(logger, appConfig, depmanager, security)
         {
