@@ -1,4 +1,4 @@
-﻿/*6/29/2019 07:10:49*/
+﻿/*7/8/2019 06:59:37*/
 using System.Globalization;
 using System.Reflection;
 
@@ -282,9 +282,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_Instructions
 
 		public static string ServiceTicketTemplate_Instructions { get { return GetResourceString("ServiceTicketTemplate_Instructions"); } }
-//Resources:FSResources:ServiceTicketTemplate_RequiredParts
+//Resources:FSResources:ServiceTicketTemplate_ServiceParts
 
-		public static string ServiceTicketTemplate_RequiredParts { get { return GetResourceString("ServiceTicketTemplate_RequiredParts"); } }
+		public static string ServiceTicketTemplate_ServiceParts { get { return GetResourceString("ServiceTicketTemplate_ServiceParts"); } }
 //Resources:FSResources:ServiceTicketTemplate_Skill
 
 		public static string ServiceTicketTemplate_Skill { get { return GetResourceString("ServiceTicketTemplate_Skill"); } }
@@ -442,7 +442,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_Help = "ServiceTicketTemplate_Help";
 			public const string ServiceTicketTemplate_HoursEstimate = "ServiceTicketTemplate_HoursEstimate";
 			public const string ServiceTicketTemplate_Instructions = "ServiceTicketTemplate_Instructions";
-			public const string ServiceTicketTemplate_RequiredParts = "ServiceTicketTemplate_RequiredParts";
+			public const string ServiceTicketTemplate_ServiceParts = "ServiceTicketTemplate_ServiceParts";
 			public const string ServiceTicketTemplate_Skill = "ServiceTicketTemplate_Skill";
 			public const string ServiceTicketTemplate_Skill_High = "ServiceTicketTemplate_Skill_High";
 			public const string ServiceTicketTemplate_Skill_Low = "ServiceTicketTemplate_Skill_Low";

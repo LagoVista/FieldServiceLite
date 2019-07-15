@@ -2,6 +2,7 @@
 using LagoVista.Core.Models;
 using LagoVista.FSLite.Models.Resources;
 using LagoVista.IoT.DeviceAdmin.Models;
+using LagoVista.MediaServices.Models;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -45,11 +46,11 @@ namespace LagoVista.FSLite.Models
 
         public ServiceTicketTemplate()
         {
-            TroubleshootingSteps = new List<TroubleshootingStep>();
-            RequiredParts = new List<BOMItem>();
-            AssociatedEquipment = new List<EntityHeader<Equipment>>();
-            Instructions = new List<ServiceTicketTemplateInstruction>();
-            Resources = new List<EntityHeader>();
+            TroubleshootingSteps = new SectionGrouping<TroubleshootingStep>();
+            ServiceParts = new SectionGrouping<BOMItem>();
+            AssociatedEquipment = new SectionGrouping<EntityHeader<Equipment>>();
+            Instructions = new SectionGrouping<ServiceTicketTemplateInstruction>();
+            Resources = new List<MediaResourceSummary>();
         }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_DeviceConfig, WaterMark: FSResources.Names.ServiceTicketTemplate_DeviceType_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_DeviceType_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
@@ -63,7 +64,7 @@ namespace LagoVista.FSLite.Models
 
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Instructions, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
-        public IEnumerable<ServiceTicketTemplateInstruction> Instructions { get; set; }
+        public SectionGrouping<ServiceTicketTemplateInstruction> Instructions { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_HoursEstimate, FieldType: FieldTypes.Decimal, ResourceType: typeof(FSResources))]
         public double HoursEstimate { get; set; }
@@ -84,16 +85,16 @@ namespace LagoVista.FSLite.Models
         public EntityHeader<SkillLevels> SkillLevel { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_TroubleshootingSteps, FieldType: FieldTypes.ChildList, IsRequired: true, ResourceType: typeof(FSResources))]
-        public IEnumerable<TroubleshootingStep> TroubleshootingSteps { get; set; }
+        public SectionGrouping<TroubleshootingStep> TroubleshootingSteps { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_RequiredParts, FieldType: FieldTypes.ChildList,  ResourceType: typeof(FSResources))]
-        public IEnumerable<BOMItem> RequiredParts { get; set; }
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_ServiceParts, FieldType: FieldTypes.ChildList,  ResourceType: typeof(FSResources))]
+        public SectionGrouping<BOMItem> ServiceParts { get; set; }
 
         [FormField(LabelResource: FSResources.Names.Common_Resources, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
-        public IEnumerable<EntityHeader> Resources { get; set; }
+        public List<MediaResourceSummary> Resources { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_AssociatedEquipment, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
-        public IEnumerable<EntityHeader<Equipment>> AssociatedEquipment { get; set; }
+        public SectionGrouping<EntityHeader<Equipment>> AssociatedEquipment { get; set; }
 
         public ServiceTicketTemplateSummary CreateSummary()
         {

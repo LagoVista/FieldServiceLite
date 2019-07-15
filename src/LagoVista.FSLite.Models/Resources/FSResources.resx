@@ -306,8 +306,8 @@
   <data name="ServiceTicketTemplate_Instructions" xml:space="preserve">
     <value>Instructions</value>
   </data>
-  <data name="ServiceTicketTemplate_RequiredParts" xml:space="preserve">
-    <value>Required Parts</value>
+  <data name="ServiceTicketTemplate_ServiceParts" xml:space="preserve">
+    <value>Service Parts</value>
   </data>
   <data name="ServiceTicketTemplate_AssociatedEquipment" xml:space="preserve">
     <value>Associated Equipment</value>
