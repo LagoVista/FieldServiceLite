@@ -426,4 +426,13 @@
   <data name="ServiceTicketTemplate_DeviceType_Select" xml:space="preserve">
     <value>-select device type-</value>
   </data>
+  <data name="ServiceTicketTemplate_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="ServiceTicketTemplate_Category_Help" xml:space="preserve">
+    <value>Categories are used to oragnize your service templates.</value>
+  </data>
+  <data name="ServiceTicketTemplate_Categroy_WaterMark" xml:space="preserve">
+    <value>-select a template category-</value>
+  </data>
 </root>

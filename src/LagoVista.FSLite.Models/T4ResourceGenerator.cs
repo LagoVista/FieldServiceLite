@@ -1,4 +1,4 @@
-﻿/*7/8/2019 06:59:37*/
+﻿/*7/16/2019 10:33:54*/
 using System.Globalization;
 using System.Reflection;
 
@@ -237,6 +237,15 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_AssociatedEquipment
 
 		public static string ServiceTicketTemplate_AssociatedEquipment { get { return GetResourceString("ServiceTicketTemplate_AssociatedEquipment"); } }
+//Resources:FSResources:ServiceTicketTemplate_Category
+
+		public static string ServiceTicketTemplate_Category { get { return GetResourceString("ServiceTicketTemplate_Category"); } }
+//Resources:FSResources:ServiceTicketTemplate_Category_Help
+
+		public static string ServiceTicketTemplate_Category_Help { get { return GetResourceString("ServiceTicketTemplate_Category_Help"); } }
+//Resources:FSResources:ServiceTicketTemplate_Categroy_WaterMark
+
+		public static string ServiceTicketTemplate_Categroy_WaterMark { get { return GetResourceString("ServiceTicketTemplate_Categroy_WaterMark"); } }
 //Resources:FSResources:ServiceTicketTemplate_CostEstimate
 
 		public static string ServiceTicketTemplate_CostEstimate { get { return GetResourceString("ServiceTicketTemplate_CostEstimate"); } }
@@ -427,6 +436,9 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketStatusHistory_Status = "ServiceTicketStatusHistory_Status";
 			public const string ServiceTicketStatusHistory_Title = "ServiceTicketStatusHistory_Title";
 			public const string ServiceTicketTemplate_AssociatedEquipment = "ServiceTicketTemplate_AssociatedEquipment";
+			public const string ServiceTicketTemplate_Category = "ServiceTicketTemplate_Category";
+			public const string ServiceTicketTemplate_Category_Help = "ServiceTicketTemplate_Category_Help";
+			public const string ServiceTicketTemplate_Categroy_WaterMark = "ServiceTicketTemplate_Categroy_WaterMark";
 			public const string ServiceTicketTemplate_CostEstimate = "ServiceTicketTemplate_CostEstimate";
 			public const string ServiceTicketTemplate_DefaultAssigned = "ServiceTicketTemplate_DefaultAssigned";
 			public const string ServiceTicketTemplate_DefaultContact = "ServiceTicketTemplate_DefaultContact";
