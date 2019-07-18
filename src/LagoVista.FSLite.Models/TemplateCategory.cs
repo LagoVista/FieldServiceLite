@@ -195,7 +195,7 @@ namespace LagoVista.FSLite.Models
 
         [FormField(LabelResource: FSResources.Names.TS_Name_Show, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
         public bool ShowName { get; set; }
-        [FormField(LabelResource: FSResources.Names.TS_Name_Label, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.TS_Name_Label, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
         public string NameLabel { get; set; }
 
         [FormField(LabelResource: FSResources.Names.TS_Resources_Show, HelpResource: FSResources.Names.TS_Resources_Help, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
