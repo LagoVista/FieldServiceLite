@@ -309,8 +309,8 @@
   <data name="ServiceTicketTemplate_ServiceParts" xml:space="preserve">
     <value>Service Parts</value>
   </data>
-  <data name="ServiceTicketTemplate_AssociatedEquipment" xml:space="preserve">
-    <value>Associated Equipment</value>
+  <data name="ServiceTicketTemplate_Tools" xml:space="preserve">
+    <value>Tools</value>
   </data>
   <data name="ServiceTicketTemplate_TroubleshootingSteps" xml:space="preserve">
     <value>Troubleshooting Steps</value>
@@ -434,5 +434,296 @@
   </data>
   <data name="ServiceTicketTemplate_Categroy_WaterMark" xml:space="preserve">
     <value>-select a template category-</value>
+  </data>
+  <data name="Instructions_Hints_Default" xml:space="preserve">
+    <value>Hints</value>
+  </data>
+  <data name="Instructions_Hints_Help" xml:space="preserve">
+    <value>Hints are a sentance or two that can be added to an instruction to provide clarification or other help to complete the task.</value>
+  </data>
+  <data name="Instructions_Hints_Label" xml:space="preserve">
+    <value>Hints Label</value>
+  </data>
+  <data name="Instructions_Hints_Show" xml:space="preserve">
+    <value>Show Hints</value>
+  </data>
+  <data name="Instructions_Instructions_Default" xml:space="preserve">
+    <value>Instructions</value>
+  </data>
+  <data name="Instructions_Instructions_Help" xml:space="preserve">
+    <value>Instructions are the tasks that need to be completed by this step.</value>
+  </data>
+  <data name="Instructions_Instructions_Label" xml:space="preserve">
+    <value>Instructions Label</value>
+  </data>
+  <data name="Instructions_Instructions_Show" xml:space="preserve">
+    <value>Show Instructions</value>
+  </data>
+  <data name="Instructions_Name_Default" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Instructions_Name_Label" xml:space="preserve">
+    <value>Name Label</value>
+  </data>
+  <data name="Instructions_Name_Show" xml:space="preserve">
+    <value>Show Name</value>
+  </data>
+  <data name="Instructions_Resources_Default" xml:space="preserve">
+    <value>Resources</value>
+  </data>
+  <data name="Instructions_Resources_Label" xml:space="preserve">
+    <value>Resources Label</value>
+  </data>
+  <data name="Instructions_Resources_Show" xml:space="preserve">
+    <value>Show Resources</value>
+  </data>
+  <data name="Instructions_Resource_Help" xml:space="preserve">
+    <value>Resources are online media items that can be associated with an instruction for reference.</value>
+  </data>
+  <data name="Instructions_StepId_Default" xml:space="preserve">
+    <value>Step Id</value>
+  </data>
+  <data name="Instructions_StepId_Label" xml:space="preserve">
+    <value>Step Id Label</value>
+  </data>
+  <data name="Instructions_StepId_Show" xml:space="preserve">
+    <value>Show Step Id</value>
+  </data>
+  <data name="Instructions_Tools_Default" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="Instructions_Tools_Help" xml:space="preserve">
+    <value>Tools are tools that are necessarily to complete this instruction.</value>
+  </data>
+  <data name="Instructions_Tools_Label" xml:space="preserve">
+    <value>Tools Label</value>
+  </data>
+  <data name="Instructions_Tools_Show" xml:space="preserve">
+    <value>Show Tools</value>
+  </data>
+  <data name="TemplateCategory_Instructions_Label" xml:space="preserve">
+    <value>Instructions label</value>
+  </data>
+  <data name="TemplateCategory_Instructions_label_Help" xml:space="preserve">
+    <value>Enter a label that will be used on the ticket template for this category for creating instructions</value>
+  </data>
+  <data name="TemplateCategory_PrimaryContactLabel" xml:space="preserve">
+    <value>Primary Contact Label</value>
+  </data>
+  <data name="TemplateCategory_PrimaryContactLabel_Help" xml:space="preserve">
+    <value>This will be the label that will be used on the service ticket template to identify who the person is that will be assigned to tickets when they are created using the template.</value>
+  </data>
+  <data name="TemplateCategory_ShowInstructions" xml:space="preserve">
+    <value>Show Instructions</value>
+  </data>
+  <data name="TemplateCategory_ShowInstructions_Help" xml:space="preserve">
+    <value>Show an option to create a list of instructions that should be executed when a ticket has been created.</value>
+  </data>
+  <data name="TS_Resources_Help" xml:space="preserve">
+    <value>Resources are online media items that can be associated with this troubleshooting step for reference.</value>
+  </data>
+  <data name="TS_Tools_Default" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="TS_Tools_Help" xml:space="preserve">
+    <value>Tools that are required to complete this troubleshooting step.</value>
+  </data>
+  <data name="TS_Tools_Label" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="TS_Tools_Show" xml:space="preserve">
+    <value>Show Tools</value>
+  </data>
+  <data name="TS_Name_Default" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TS_ExpectedOutcome_Label" xml:space="preserve">
+    <value>Expected Outcome Label</value>
+  </data>
+  <data name="TS_Instructions_Help" xml:space="preserve">
+    <value>Instructions would be the steps that are entered into the template to perform a test or troubleshoot some equipment.</value>
+  </data>
+  <data name="TS_Instructions_Label" xml:space="preserve">
+    <value>Instructions Label</value>
+  </data>
+  <data name="TS_Instructions_Show" xml:space="preserve">
+    <value>Show Instructions</value>
+  </data>
+  <data name="TS_Name_Label" xml:space="preserve">
+    <value>Name Label</value>
+  </data>
+  <data name="TS_Notes_Default" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="TS_Notes_Label" xml:space="preserve">
+    <value>Notes Label</value>
+  </data>
+  <data name="TS_Resourcess_Label" xml:space="preserve">
+    <value>Resources Label</value>
+  </data>
+  <data name="TS_Resources_Show" xml:space="preserve">
+    <value>Show Resources</value>
+  </data>
+  <data name="TS_Notes_Show" xml:space="preserve">
+    <value>Show Notes</value>
+  </data>
+  <data name="TS_Problem_Default" xml:space="preserve">
+    <value>Problem</value>
+  </data>
+  <data name="TS_Problem_Help" xml:space="preserve">
+    <value>The problem if the troubleshooting step fails.</value>
+  </data>
+  <data name="TS_Problem_Label" xml:space="preserve">
+    <value>Problem Label</value>
+  </data>
+  <data name="TS_Problem_Show" xml:space="preserve">
+    <value>Show Problem</value>
+  </data>
+  <data name="TS_Name_Show" xml:space="preserve">
+    <value>Show Name</value>
+  </data>
+  <data name="TS_Resources_Default" xml:space="preserve">
+    <value>Resources</value>
+  </data>
+  <data name="TS_StepId_Default" xml:space="preserve">
+    <value>Step Id</value>
+  </data>
+  <data name="TS_StepId_Label" xml:space="preserve">
+    <value>Step Id Label</value>
+  </data>
+  <data name="TS_StepId_Show" xml:space="preserve">
+    <value>Show Step Id</value>
+  </data>
+  <data name="SP_Name_Show" xml:space="preserve">
+    <value>Show Name</value>
+  </data>
+  <data name="Common_PartNumber" xml:space="preserve">
+    <value>Part Number</value>
+  </data>
+  <data name="PartKit_Description" xml:space="preserve">
+    <value>A part kit is a collection of parts.</value>
+  </data>
+  <data name="PartKit_Help" xml:space="preserve">
+    <value>A part kit is a collection of parts.</value>
+  </data>
+  <data name="PartKit_KitNumber" xml:space="preserve">
+    <value>Kit Number</value>
+  </data>
+  <data name="PartKit_Name" xml:space="preserve">
+    <value>Part Kit</value>
+  </data>
+  <data name="PartsKit" xml:space="preserve">
+    <value>Parts Kit</value>
+  </data>
+  <data name="PartsKit_Parts" xml:space="preserve">
+    <value>Parts</value>
+  </data>
+  <data name="TemplateCategory_CostEstimate_Help" xml:space="preserve">
+    <value>You can require templates created in this category to have a cost estimate.</value>
+  </data>
+  <data name="TemplateCategory_CostEstimate_Label" xml:space="preserve">
+    <value>Cost Estimate Label</value>
+  </data>
+  <data name="TemplateCategory_CostEstimate_Show" xml:space="preserve">
+    <value>Show Cost Estimate</value>
+  </data>
+  <data name="TemplateCategory_HoursEstimate_Help" xml:space="preserve">
+    <value>You can require templates created in this category to have an hours estimate.</value>
+  </data>
+  <data name="TemplateCategory_HoursEstimate_Label" xml:space="preserve">
+    <value>Hours Estimate Label</value>
+  </data>
+  <data name="TemplateCategory_HoursEstimate_Show" xml:space="preserve">
+    <value>Show Hours Estimate</value>
+  </data>
+  <data name="TemplateCategory_PartsKit_Show" xml:space="preserve">
+    <value>Show Parts Kits</value>
+  </data>
+  <data name="TemplateCategory_PartsKit_Help" xml:space="preserve">
+    <value>Parts kits are a collection of parts that need to be installed to complete service tickets created with this template.</value>
+  </data>
+  <data name="TemplateCategory_PartsKit_Label" xml:space="preserve">
+    <value>Show Parts Kit</value>
+  </data>
+  <data name="TemplateCategory_Resources_Label" xml:space="preserve">
+    <value>Resources Label</value>
+  </data>
+  <data name="TemplateCategory_ServiceParts_Help" xml:space="preserve">
+    <value>Parts are individual parts that are necessary to complete service tickets created with templates.</value>
+  </data>
+  <data name="TemplateCategory_ServiceParts_Label" xml:space="preserve">
+    <value>Service Parts</value>
+  </data>
+  <data name="TemplateCategory_ServiceParts_Show" xml:space="preserve">
+    <value>Show Service Parts</value>
+  </data>
+  <data name="TemplateCategory_ShowTools_Label" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="TemplateCategory_Show_Resource" xml:space="preserve">
+    <value>Show Resources</value>
+  </data>
+  <data name="TemplateCategory_Show_Resource_Help" xml:space="preserve">
+    <value>Resources are online media items that can be associated with a set of troubleshooting steps to be used as a reference.</value>
+  </data>
+  <data name="TemplateCategory_Show_Tools" xml:space="preserve">
+    <value>Show Tools</value>
+  </data>
+  <data name="TemplateCategory_Show_Tools_Help" xml:space="preserve">
+    <value>Equipment and tools can be added to the template.</value>
+  </data>
+  <data name="TemplateCategory_Show_TS" xml:space="preserve">
+    <value>Show Troubleshooting Steps</value>
+  </data>
+  <data name="TemplateCategory_Show_TS_Help" xml:space="preserve">
+    <value>Troubleshooting steps can be added to your template category to help identify the actual problem.</value>
+  </data>
+  <data name="TemplateCategory_TS_Label" xml:space="preserve">
+    <value>Troubleshooting Label</value>
+  </data>
+  <data name="TemplateCategory_CostEstimate_Default" xml:space="preserve">
+    <value>Cost Estimate</value>
+  </data>
+  <data name="TemplateCategory_HoursEstimate_Default" xml:space="preserve">
+    <value>Hours Estimate</value>
+  </data>
+  <data name="TemplateCategory_Instructions_Default" xml:space="preserve">
+    <value>Instructions</value>
+  </data>
+  <data name="TemplateCategory_PrimaryContact_Default" xml:space="preserve">
+    <value>Primary Contact</value>
+  </data>
+  <data name="TemplateCategory_Resources_Default" xml:space="preserve">
+    <value>Resources</value>
+  </data>
+  <data name="TemplateCategory_ServiceParts_Default" xml:space="preserve">
+    <value>Service Parts</value>
+  </data>
+  <data name="TemplateCategory_Tools_Default" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="TemplateCategory_TroubleshootingSteps_Default" xml:space="preserve">
+    <value>Troubleshooting Steps</value>
+  </data>
+  <data name="TS_ExpectedOutcome_Default" xml:space="preserve">
+    <value>Expected Outcome</value>
+  </data>
+  <data name="TS_ExpectedOutcome_Help" xml:space="preserve">
+    <value>The expected outcome is the expected result of performing this troubleshooting step.</value>
+  </data>
+  <data name="TS_ExpectedOutcome_Show" xml:space="preserve">
+    <value>Show Expected Outcome</value>
+  </data>
+  <data name="TS_Instructions_Default" xml:space="preserve">
+    <value>Instructions</value>
+  </data>
+  <data name="TemplateCategory_PartsKit_Default" xml:space="preserve">
+    <value>Parts Kit</value>
+  </data>
+  <data name="TemplateCategory_Instructions_Configuration" xml:space="preserve">
+    <value>Instructions Configuration</value>
+  </data>
+  <data name="TemplateCategory_TroubleshootingSteps_Configuration" xml:space="preserve">
+    <value>Troubleshooting Steps Configuration</value>
   </data>
 </root>

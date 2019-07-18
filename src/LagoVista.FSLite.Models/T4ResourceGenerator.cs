@@ -1,4 +1,4 @@
-﻿/*7/16/2019 10:33:54*/
+﻿/*7/17/2019 17:19:02*/
 using System.Globalization;
 using System.Reflection;
 
@@ -99,6 +99,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:Common_PageNumberOne
 
 		public static string Common_PageNumberOne { get { return GetResourceString("Common_PageNumberOne"); } }
+//Resources:FSResources:Common_PartNumber
+
+		public static string Common_PartNumber { get { return GetResourceString("Common_PartNumber"); } }
 //Resources:FSResources:Common_Resources
 
 		public static string Common_Resources { get { return GetResourceString("Common_Resources"); } }
@@ -108,6 +111,90 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:Common_ValidationErrors
 
 		public static string Common_ValidationErrors { get { return GetResourceString("Common_ValidationErrors"); } }
+//Resources:FSResources:Instructions_Hints_Default
+
+		public static string Instructions_Hints_Default { get { return GetResourceString("Instructions_Hints_Default"); } }
+//Resources:FSResources:Instructions_Hints_Help
+
+		public static string Instructions_Hints_Help { get { return GetResourceString("Instructions_Hints_Help"); } }
+//Resources:FSResources:Instructions_Hints_Label
+
+		public static string Instructions_Hints_Label { get { return GetResourceString("Instructions_Hints_Label"); } }
+//Resources:FSResources:Instructions_Hints_Show
+
+		public static string Instructions_Hints_Show { get { return GetResourceString("Instructions_Hints_Show"); } }
+//Resources:FSResources:Instructions_Instructions_Default
+
+		public static string Instructions_Instructions_Default { get { return GetResourceString("Instructions_Instructions_Default"); } }
+//Resources:FSResources:Instructions_Instructions_Help
+
+		public static string Instructions_Instructions_Help { get { return GetResourceString("Instructions_Instructions_Help"); } }
+//Resources:FSResources:Instructions_Instructions_Label
+
+		public static string Instructions_Instructions_Label { get { return GetResourceString("Instructions_Instructions_Label"); } }
+//Resources:FSResources:Instructions_Instructions_Show
+
+		public static string Instructions_Instructions_Show { get { return GetResourceString("Instructions_Instructions_Show"); } }
+//Resources:FSResources:Instructions_Name_Default
+
+		public static string Instructions_Name_Default { get { return GetResourceString("Instructions_Name_Default"); } }
+//Resources:FSResources:Instructions_Name_Label
+
+		public static string Instructions_Name_Label { get { return GetResourceString("Instructions_Name_Label"); } }
+//Resources:FSResources:Instructions_Name_Show
+
+		public static string Instructions_Name_Show { get { return GetResourceString("Instructions_Name_Show"); } }
+//Resources:FSResources:Instructions_Resource_Help
+
+		public static string Instructions_Resource_Help { get { return GetResourceString("Instructions_Resource_Help"); } }
+//Resources:FSResources:Instructions_Resources_Default
+
+		public static string Instructions_Resources_Default { get { return GetResourceString("Instructions_Resources_Default"); } }
+//Resources:FSResources:Instructions_Resources_Label
+
+		public static string Instructions_Resources_Label { get { return GetResourceString("Instructions_Resources_Label"); } }
+//Resources:FSResources:Instructions_Resources_Show
+
+		public static string Instructions_Resources_Show { get { return GetResourceString("Instructions_Resources_Show"); } }
+//Resources:FSResources:Instructions_StepId_Default
+
+		public static string Instructions_StepId_Default { get { return GetResourceString("Instructions_StepId_Default"); } }
+//Resources:FSResources:Instructions_StepId_Label
+
+		public static string Instructions_StepId_Label { get { return GetResourceString("Instructions_StepId_Label"); } }
+//Resources:FSResources:Instructions_StepId_Show
+
+		public static string Instructions_StepId_Show { get { return GetResourceString("Instructions_StepId_Show"); } }
+//Resources:FSResources:Instructions_Tools_Default
+
+		public static string Instructions_Tools_Default { get { return GetResourceString("Instructions_Tools_Default"); } }
+//Resources:FSResources:Instructions_Tools_Help
+
+		public static string Instructions_Tools_Help { get { return GetResourceString("Instructions_Tools_Help"); } }
+//Resources:FSResources:Instructions_Tools_Label
+
+		public static string Instructions_Tools_Label { get { return GetResourceString("Instructions_Tools_Label"); } }
+//Resources:FSResources:Instructions_Tools_Show
+
+		public static string Instructions_Tools_Show { get { return GetResourceString("Instructions_Tools_Show"); } }
+//Resources:FSResources:PartKit_Description
+
+		public static string PartKit_Description { get { return GetResourceString("PartKit_Description"); } }
+//Resources:FSResources:PartKit_Help
+
+		public static string PartKit_Help { get { return GetResourceString("PartKit_Help"); } }
+//Resources:FSResources:PartKit_KitNumber
+
+		public static string PartKit_KitNumber { get { return GetResourceString("PartKit_KitNumber"); } }
+//Resources:FSResources:PartKit_Name
+
+		public static string PartKit_Name { get { return GetResourceString("PartKit_Name"); } }
+//Resources:FSResources:PartsKit
+
+		public static string PartsKit { get { return GetResourceString("PartsKit"); } }
+//Resources:FSResources:PartsKit_Parts
+
+		public static string PartsKit_Parts { get { return GetResourceString("PartsKit_Parts"); } }
 //Resources:FSResources:ServiceBoard_Abbreviation
 
 		public static string ServiceBoard_Abbreviation { get { return GetResourceString("ServiceBoard_Abbreviation"); } }
@@ -234,9 +321,6 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketStatusHistory_Title
 
 		public static string ServiceTicketStatusHistory_Title { get { return GetResourceString("ServiceTicketStatusHistory_Title"); } }
-//Resources:FSResources:ServiceTicketTemplate_AssociatedEquipment
-
-		public static string ServiceTicketTemplate_AssociatedEquipment { get { return GetResourceString("ServiceTicketTemplate_AssociatedEquipment"); } }
 //Resources:FSResources:ServiceTicketTemplate_Category
 
 		public static string ServiceTicketTemplate_Category { get { return GetResourceString("ServiceTicketTemplate_Category"); } }
@@ -321,6 +405,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_Title
 
 		public static string ServiceTicketTemplate_Title { get { return GetResourceString("ServiceTicketTemplate_Title"); } }
+//Resources:FSResources:ServiceTicketTemplate_Tools
+
+		public static string ServiceTicketTemplate_Tools { get { return GetResourceString("ServiceTicketTemplate_Tools"); } }
 //Resources:FSResources:ServiceTicketTemplate_TroubleshootingSteps
 
 		public static string ServiceTicketTemplate_TroubleshootingSteps { get { return GetResourceString("ServiceTicketTemplate_TroubleshootingSteps"); } }
@@ -345,6 +432,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplateDefault_Assigned_Help
 
 		public static string ServiceTicketTemplateDefault_Assigned_Help { get { return GetResourceString("ServiceTicketTemplateDefault_Assigned_Help"); } }
+//Resources:FSResources:SP_Name_Show
+
+		public static string SP_Name_Show { get { return GetResourceString("SP_Name_Show"); } }
 //Resources:FSResources:Template_Category
 
 		public static string Template_Category { get { return GetResourceString("Template_Category"); } }
@@ -354,6 +444,120 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:Template_Cateogry_Description
 
 		public static string Template_Cateogry_Description { get { return GetResourceString("Template_Cateogry_Description"); } }
+//Resources:FSResources:TemplateCategory_CostEstimate_Default
+
+		public static string TemplateCategory_CostEstimate_Default { get { return GetResourceString("TemplateCategory_CostEstimate_Default"); } }
+//Resources:FSResources:TemplateCategory_CostEstimate_Help
+
+		public static string TemplateCategory_CostEstimate_Help { get { return GetResourceString("TemplateCategory_CostEstimate_Help"); } }
+//Resources:FSResources:TemplateCategory_CostEstimate_Label
+
+		public static string TemplateCategory_CostEstimate_Label { get { return GetResourceString("TemplateCategory_CostEstimate_Label"); } }
+//Resources:FSResources:TemplateCategory_CostEstimate_Show
+
+		public static string TemplateCategory_CostEstimate_Show { get { return GetResourceString("TemplateCategory_CostEstimate_Show"); } }
+//Resources:FSResources:TemplateCategory_HoursEstimate_Default
+
+		public static string TemplateCategory_HoursEstimate_Default { get { return GetResourceString("TemplateCategory_HoursEstimate_Default"); } }
+//Resources:FSResources:TemplateCategory_HoursEstimate_Help
+
+		public static string TemplateCategory_HoursEstimate_Help { get { return GetResourceString("TemplateCategory_HoursEstimate_Help"); } }
+//Resources:FSResources:TemplateCategory_HoursEstimate_Label
+
+		public static string TemplateCategory_HoursEstimate_Label { get { return GetResourceString("TemplateCategory_HoursEstimate_Label"); } }
+//Resources:FSResources:TemplateCategory_HoursEstimate_Show
+
+		public static string TemplateCategory_HoursEstimate_Show { get { return GetResourceString("TemplateCategory_HoursEstimate_Show"); } }
+//Resources:FSResources:TemplateCategory_Instructions_Configuration
+
+		public static string TemplateCategory_Instructions_Configuration { get { return GetResourceString("TemplateCategory_Instructions_Configuration"); } }
+//Resources:FSResources:TemplateCategory_Instructions_Default
+
+		public static string TemplateCategory_Instructions_Default { get { return GetResourceString("TemplateCategory_Instructions_Default"); } }
+//Resources:FSResources:TemplateCategory_Instructions_Label
+
+		public static string TemplateCategory_Instructions_Label { get { return GetResourceString("TemplateCategory_Instructions_Label"); } }
+//Resources:FSResources:TemplateCategory_Instructions_label_Help
+
+		public static string TemplateCategory_Instructions_label_Help { get { return GetResourceString("TemplateCategory_Instructions_label_Help"); } }
+//Resources:FSResources:TemplateCategory_PartsKit_Default
+
+		public static string TemplateCategory_PartsKit_Default { get { return GetResourceString("TemplateCategory_PartsKit_Default"); } }
+//Resources:FSResources:TemplateCategory_PartsKit_Help
+
+		public static string TemplateCategory_PartsKit_Help { get { return GetResourceString("TemplateCategory_PartsKit_Help"); } }
+//Resources:FSResources:TemplateCategory_PartsKit_Label
+
+		public static string TemplateCategory_PartsKit_Label { get { return GetResourceString("TemplateCategory_PartsKit_Label"); } }
+//Resources:FSResources:TemplateCategory_PartsKit_Show
+
+		public static string TemplateCategory_PartsKit_Show { get { return GetResourceString("TemplateCategory_PartsKit_Show"); } }
+//Resources:FSResources:TemplateCategory_PrimaryContact_Default
+
+		public static string TemplateCategory_PrimaryContact_Default { get { return GetResourceString("TemplateCategory_PrimaryContact_Default"); } }
+//Resources:FSResources:TemplateCategory_PrimaryContactLabel
+
+		public static string TemplateCategory_PrimaryContactLabel { get { return GetResourceString("TemplateCategory_PrimaryContactLabel"); } }
+//Resources:FSResources:TemplateCategory_PrimaryContactLabel_Help
+
+		public static string TemplateCategory_PrimaryContactLabel_Help { get { return GetResourceString("TemplateCategory_PrimaryContactLabel_Help"); } }
+//Resources:FSResources:TemplateCategory_Resources_Default
+
+		public static string TemplateCategory_Resources_Default { get { return GetResourceString("TemplateCategory_Resources_Default"); } }
+//Resources:FSResources:TemplateCategory_Resources_Label
+
+		public static string TemplateCategory_Resources_Label { get { return GetResourceString("TemplateCategory_Resources_Label"); } }
+//Resources:FSResources:TemplateCategory_ServiceParts_Default
+
+		public static string TemplateCategory_ServiceParts_Default { get { return GetResourceString("TemplateCategory_ServiceParts_Default"); } }
+//Resources:FSResources:TemplateCategory_ServiceParts_Help
+
+		public static string TemplateCategory_ServiceParts_Help { get { return GetResourceString("TemplateCategory_ServiceParts_Help"); } }
+//Resources:FSResources:TemplateCategory_ServiceParts_Label
+
+		public static string TemplateCategory_ServiceParts_Label { get { return GetResourceString("TemplateCategory_ServiceParts_Label"); } }
+//Resources:FSResources:TemplateCategory_ServiceParts_Show
+
+		public static string TemplateCategory_ServiceParts_Show { get { return GetResourceString("TemplateCategory_ServiceParts_Show"); } }
+//Resources:FSResources:TemplateCategory_Show_Resource
+
+		public static string TemplateCategory_Show_Resource { get { return GetResourceString("TemplateCategory_Show_Resource"); } }
+//Resources:FSResources:TemplateCategory_Show_Resource_Help
+
+		public static string TemplateCategory_Show_Resource_Help { get { return GetResourceString("TemplateCategory_Show_Resource_Help"); } }
+//Resources:FSResources:TemplateCategory_Show_Tools
+
+		public static string TemplateCategory_Show_Tools { get { return GetResourceString("TemplateCategory_Show_Tools"); } }
+//Resources:FSResources:TemplateCategory_Show_Tools_Help
+
+		public static string TemplateCategory_Show_Tools_Help { get { return GetResourceString("TemplateCategory_Show_Tools_Help"); } }
+//Resources:FSResources:TemplateCategory_Show_TS
+
+		public static string TemplateCategory_Show_TS { get { return GetResourceString("TemplateCategory_Show_TS"); } }
+//Resources:FSResources:TemplateCategory_Show_TS_Help
+
+		public static string TemplateCategory_Show_TS_Help { get { return GetResourceString("TemplateCategory_Show_TS_Help"); } }
+//Resources:FSResources:TemplateCategory_ShowInstructions
+
+		public static string TemplateCategory_ShowInstructions { get { return GetResourceString("TemplateCategory_ShowInstructions"); } }
+//Resources:FSResources:TemplateCategory_ShowInstructions_Help
+
+		public static string TemplateCategory_ShowInstructions_Help { get { return GetResourceString("TemplateCategory_ShowInstructions_Help"); } }
+//Resources:FSResources:TemplateCategory_ShowTools_Label
+
+		public static string TemplateCategory_ShowTools_Label { get { return GetResourceString("TemplateCategory_ShowTools_Label"); } }
+//Resources:FSResources:TemplateCategory_Tools_Default
+
+		public static string TemplateCategory_Tools_Default { get { return GetResourceString("TemplateCategory_Tools_Default"); } }
+//Resources:FSResources:TemplateCategory_TroubleshootingSteps_Configuration
+
+		public static string TemplateCategory_TroubleshootingSteps_Configuration { get { return GetResourceString("TemplateCategory_TroubleshootingSteps_Configuration"); } }
+//Resources:FSResources:TemplateCategory_TroubleshootingSteps_Default
+
+		public static string TemplateCategory_TroubleshootingSteps_Default { get { return GetResourceString("TemplateCategory_TroubleshootingSteps_Default"); } }
+//Resources:FSResources:TemplateCategory_TS_Label
+
+		public static string TemplateCategory_TS_Label { get { return GetResourceString("TemplateCategory_TS_Label"); } }
 //Resources:FSResources:TemplateInstruction_Description
 
 		public static string TemplateInstruction_Description { get { return GetResourceString("TemplateInstruction_Description"); } }
@@ -372,6 +576,93 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:TemplateInstruction_Title
 
 		public static string TemplateInstruction_Title { get { return GetResourceString("TemplateInstruction_Title"); } }
+//Resources:FSResources:TS_ExpectedOutcome_Default
+
+		public static string TS_ExpectedOutcome_Default { get { return GetResourceString("TS_ExpectedOutcome_Default"); } }
+//Resources:FSResources:TS_ExpectedOutcome_Help
+
+		public static string TS_ExpectedOutcome_Help { get { return GetResourceString("TS_ExpectedOutcome_Help"); } }
+//Resources:FSResources:TS_ExpectedOutcome_Label
+
+		public static string TS_ExpectedOutcome_Label { get { return GetResourceString("TS_ExpectedOutcome_Label"); } }
+//Resources:FSResources:TS_ExpectedOutcome_Show
+
+		public static string TS_ExpectedOutcome_Show { get { return GetResourceString("TS_ExpectedOutcome_Show"); } }
+//Resources:FSResources:TS_Instructions_Default
+
+		public static string TS_Instructions_Default { get { return GetResourceString("TS_Instructions_Default"); } }
+//Resources:FSResources:TS_Instructions_Help
+
+		public static string TS_Instructions_Help { get { return GetResourceString("TS_Instructions_Help"); } }
+//Resources:FSResources:TS_Instructions_Label
+
+		public static string TS_Instructions_Label { get { return GetResourceString("TS_Instructions_Label"); } }
+//Resources:FSResources:TS_Instructions_Show
+
+		public static string TS_Instructions_Show { get { return GetResourceString("TS_Instructions_Show"); } }
+//Resources:FSResources:TS_Name_Default
+
+		public static string TS_Name_Default { get { return GetResourceString("TS_Name_Default"); } }
+//Resources:FSResources:TS_Name_Label
+
+		public static string TS_Name_Label { get { return GetResourceString("TS_Name_Label"); } }
+//Resources:FSResources:TS_Name_Show
+
+		public static string TS_Name_Show { get { return GetResourceString("TS_Name_Show"); } }
+//Resources:FSResources:TS_Notes_Default
+
+		public static string TS_Notes_Default { get { return GetResourceString("TS_Notes_Default"); } }
+//Resources:FSResources:TS_Notes_Label
+
+		public static string TS_Notes_Label { get { return GetResourceString("TS_Notes_Label"); } }
+//Resources:FSResources:TS_Notes_Show
+
+		public static string TS_Notes_Show { get { return GetResourceString("TS_Notes_Show"); } }
+//Resources:FSResources:TS_Problem_Default
+
+		public static string TS_Problem_Default { get { return GetResourceString("TS_Problem_Default"); } }
+//Resources:FSResources:TS_Problem_Help
+
+		public static string TS_Problem_Help { get { return GetResourceString("TS_Problem_Help"); } }
+//Resources:FSResources:TS_Problem_Label
+
+		public static string TS_Problem_Label { get { return GetResourceString("TS_Problem_Label"); } }
+//Resources:FSResources:TS_Problem_Show
+
+		public static string TS_Problem_Show { get { return GetResourceString("TS_Problem_Show"); } }
+//Resources:FSResources:TS_Resources_Default
+
+		public static string TS_Resources_Default { get { return GetResourceString("TS_Resources_Default"); } }
+//Resources:FSResources:TS_Resources_Help
+
+		public static string TS_Resources_Help { get { return GetResourceString("TS_Resources_Help"); } }
+//Resources:FSResources:TS_Resources_Show
+
+		public static string TS_Resources_Show { get { return GetResourceString("TS_Resources_Show"); } }
+//Resources:FSResources:TS_Resourcess_Label
+
+		public static string TS_Resourcess_Label { get { return GetResourceString("TS_Resourcess_Label"); } }
+//Resources:FSResources:TS_StepId_Default
+
+		public static string TS_StepId_Default { get { return GetResourceString("TS_StepId_Default"); } }
+//Resources:FSResources:TS_StepId_Label
+
+		public static string TS_StepId_Label { get { return GetResourceString("TS_StepId_Label"); } }
+//Resources:FSResources:TS_StepId_Show
+
+		public static string TS_StepId_Show { get { return GetResourceString("TS_StepId_Show"); } }
+//Resources:FSResources:TS_Tools_Default
+
+		public static string TS_Tools_Default { get { return GetResourceString("TS_Tools_Default"); } }
+//Resources:FSResources:TS_Tools_Help
+
+		public static string TS_Tools_Help { get { return GetResourceString("TS_Tools_Help"); } }
+//Resources:FSResources:TS_Tools_Label
+
+		public static string TS_Tools_Label { get { return GetResourceString("TS_Tools_Label"); } }
+//Resources:FSResources:TS_Tools_Show
+
+		public static string TS_Tools_Show { get { return GetResourceString("TS_Tools_Show"); } }
 
 		public static class Names
 		{
@@ -390,9 +681,38 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string Common_Note = "Common_Note";
 			public const string Common_Notes = "Common_Notes";
 			public const string Common_PageNumberOne = "Common_PageNumberOne";
+			public const string Common_PartNumber = "Common_PartNumber";
 			public const string Common_Resources = "Common_Resources";
 			public const string Common_UniqueId = "Common_UniqueId";
 			public const string Common_ValidationErrors = "Common_ValidationErrors";
+			public const string Instructions_Hints_Default = "Instructions_Hints_Default";
+			public const string Instructions_Hints_Help = "Instructions_Hints_Help";
+			public const string Instructions_Hints_Label = "Instructions_Hints_Label";
+			public const string Instructions_Hints_Show = "Instructions_Hints_Show";
+			public const string Instructions_Instructions_Default = "Instructions_Instructions_Default";
+			public const string Instructions_Instructions_Help = "Instructions_Instructions_Help";
+			public const string Instructions_Instructions_Label = "Instructions_Instructions_Label";
+			public const string Instructions_Instructions_Show = "Instructions_Instructions_Show";
+			public const string Instructions_Name_Default = "Instructions_Name_Default";
+			public const string Instructions_Name_Label = "Instructions_Name_Label";
+			public const string Instructions_Name_Show = "Instructions_Name_Show";
+			public const string Instructions_Resource_Help = "Instructions_Resource_Help";
+			public const string Instructions_Resources_Default = "Instructions_Resources_Default";
+			public const string Instructions_Resources_Label = "Instructions_Resources_Label";
+			public const string Instructions_Resources_Show = "Instructions_Resources_Show";
+			public const string Instructions_StepId_Default = "Instructions_StepId_Default";
+			public const string Instructions_StepId_Label = "Instructions_StepId_Label";
+			public const string Instructions_StepId_Show = "Instructions_StepId_Show";
+			public const string Instructions_Tools_Default = "Instructions_Tools_Default";
+			public const string Instructions_Tools_Help = "Instructions_Tools_Help";
+			public const string Instructions_Tools_Label = "Instructions_Tools_Label";
+			public const string Instructions_Tools_Show = "Instructions_Tools_Show";
+			public const string PartKit_Description = "PartKit_Description";
+			public const string PartKit_Help = "PartKit_Help";
+			public const string PartKit_KitNumber = "PartKit_KitNumber";
+			public const string PartKit_Name = "PartKit_Name";
+			public const string PartsKit = "PartsKit";
+			public const string PartsKit_Parts = "PartsKit_Parts";
 			public const string ServiceBoard_Abbreviation = "ServiceBoard_Abbreviation";
 			public const string ServiceBoard_Abbreviation_Help = "ServiceBoard_Abbreviation_Help";
 			public const string ServiceBoard_BoardOwner = "ServiceBoard_BoardOwner";
@@ -435,7 +755,6 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketStatusHistory_Notes = "ServiceTicketStatusHistory_Notes";
 			public const string ServiceTicketStatusHistory_Status = "ServiceTicketStatusHistory_Status";
 			public const string ServiceTicketStatusHistory_Title = "ServiceTicketStatusHistory_Title";
-			public const string ServiceTicketTemplate_AssociatedEquipment = "ServiceTicketTemplate_AssociatedEquipment";
 			public const string ServiceTicketTemplate_Category = "ServiceTicketTemplate_Category";
 			public const string ServiceTicketTemplate_Category_Help = "ServiceTicketTemplate_Category_Help";
 			public const string ServiceTicketTemplate_Categroy_WaterMark = "ServiceTicketTemplate_Categroy_WaterMark";
@@ -464,6 +783,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_StatusType_Help = "ServiceTicketTemplate_StatusType_Help";
 			public const string ServiceTicketTemplate_StatusType_Select = "ServiceTicketTemplate_StatusType_Select";
 			public const string ServiceTicketTemplate_Title = "ServiceTicketTemplate_Title";
+			public const string ServiceTicketTemplate_Tools = "ServiceTicketTemplate_Tools";
 			public const string ServiceTicketTemplate_TroubleshootingSteps = "ServiceTicketTemplate_TroubleshootingSteps";
 			public const string ServiceTicketTemplate_Urgency = "ServiceTicketTemplate_Urgency";
 			public const string ServiceTicketTemplate_Urgency_CriticalSafety = "ServiceTicketTemplate_Urgency_CriticalSafety";
@@ -472,15 +792,83 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_Urgency_Normal = "ServiceTicketTemplate_Urgency_Normal";
 			public const string ServiceTicketTemplate_Urgency_Select = "ServiceTicketTemplate_Urgency_Select";
 			public const string ServiceTicketTemplateDefault_Assigned_Help = "ServiceTicketTemplateDefault_Assigned_Help";
+			public const string SP_Name_Show = "SP_Name_Show";
 			public const string Template_Category = "Template_Category";
 			public const string Template_Category_Help = "Template_Category_Help";
 			public const string Template_Cateogry_Description = "Template_Cateogry_Description";
+			public const string TemplateCategory_CostEstimate_Default = "TemplateCategory_CostEstimate_Default";
+			public const string TemplateCategory_CostEstimate_Help = "TemplateCategory_CostEstimate_Help";
+			public const string TemplateCategory_CostEstimate_Label = "TemplateCategory_CostEstimate_Label";
+			public const string TemplateCategory_CostEstimate_Show = "TemplateCategory_CostEstimate_Show";
+			public const string TemplateCategory_HoursEstimate_Default = "TemplateCategory_HoursEstimate_Default";
+			public const string TemplateCategory_HoursEstimate_Help = "TemplateCategory_HoursEstimate_Help";
+			public const string TemplateCategory_HoursEstimate_Label = "TemplateCategory_HoursEstimate_Label";
+			public const string TemplateCategory_HoursEstimate_Show = "TemplateCategory_HoursEstimate_Show";
+			public const string TemplateCategory_Instructions_Configuration = "TemplateCategory_Instructions_Configuration";
+			public const string TemplateCategory_Instructions_Default = "TemplateCategory_Instructions_Default";
+			public const string TemplateCategory_Instructions_Label = "TemplateCategory_Instructions_Label";
+			public const string TemplateCategory_Instructions_label_Help = "TemplateCategory_Instructions_label_Help";
+			public const string TemplateCategory_PartsKit_Default = "TemplateCategory_PartsKit_Default";
+			public const string TemplateCategory_PartsKit_Help = "TemplateCategory_PartsKit_Help";
+			public const string TemplateCategory_PartsKit_Label = "TemplateCategory_PartsKit_Label";
+			public const string TemplateCategory_PartsKit_Show = "TemplateCategory_PartsKit_Show";
+			public const string TemplateCategory_PrimaryContact_Default = "TemplateCategory_PrimaryContact_Default";
+			public const string TemplateCategory_PrimaryContactLabel = "TemplateCategory_PrimaryContactLabel";
+			public const string TemplateCategory_PrimaryContactLabel_Help = "TemplateCategory_PrimaryContactLabel_Help";
+			public const string TemplateCategory_Resources_Default = "TemplateCategory_Resources_Default";
+			public const string TemplateCategory_Resources_Label = "TemplateCategory_Resources_Label";
+			public const string TemplateCategory_ServiceParts_Default = "TemplateCategory_ServiceParts_Default";
+			public const string TemplateCategory_ServiceParts_Help = "TemplateCategory_ServiceParts_Help";
+			public const string TemplateCategory_ServiceParts_Label = "TemplateCategory_ServiceParts_Label";
+			public const string TemplateCategory_ServiceParts_Show = "TemplateCategory_ServiceParts_Show";
+			public const string TemplateCategory_Show_Resource = "TemplateCategory_Show_Resource";
+			public const string TemplateCategory_Show_Resource_Help = "TemplateCategory_Show_Resource_Help";
+			public const string TemplateCategory_Show_Tools = "TemplateCategory_Show_Tools";
+			public const string TemplateCategory_Show_Tools_Help = "TemplateCategory_Show_Tools_Help";
+			public const string TemplateCategory_Show_TS = "TemplateCategory_Show_TS";
+			public const string TemplateCategory_Show_TS_Help = "TemplateCategory_Show_TS_Help";
+			public const string TemplateCategory_ShowInstructions = "TemplateCategory_ShowInstructions";
+			public const string TemplateCategory_ShowInstructions_Help = "TemplateCategory_ShowInstructions_Help";
+			public const string TemplateCategory_ShowTools_Label = "TemplateCategory_ShowTools_Label";
+			public const string TemplateCategory_Tools_Default = "TemplateCategory_Tools_Default";
+			public const string TemplateCategory_TroubleshootingSteps_Configuration = "TemplateCategory_TroubleshootingSteps_Configuration";
+			public const string TemplateCategory_TroubleshootingSteps_Default = "TemplateCategory_TroubleshootingSteps_Default";
+			public const string TemplateCategory_TS_Label = "TemplateCategory_TS_Label";
 			public const string TemplateInstruction_Description = "TemplateInstruction_Description";
 			public const string TemplateInstruction_Help = "TemplateInstruction_Help";
 			public const string TemplateInstruction_Hints = "TemplateInstruction_Hints";
 			public const string TemplateInstruction_Instruction = "TemplateInstruction_Instruction";
 			public const string TemplateInstruction_StepId = "TemplateInstruction_StepId";
 			public const string TemplateInstruction_Title = "TemplateInstruction_Title";
+			public const string TS_ExpectedOutcome_Default = "TS_ExpectedOutcome_Default";
+			public const string TS_ExpectedOutcome_Help = "TS_ExpectedOutcome_Help";
+			public const string TS_ExpectedOutcome_Label = "TS_ExpectedOutcome_Label";
+			public const string TS_ExpectedOutcome_Show = "TS_ExpectedOutcome_Show";
+			public const string TS_Instructions_Default = "TS_Instructions_Default";
+			public const string TS_Instructions_Help = "TS_Instructions_Help";
+			public const string TS_Instructions_Label = "TS_Instructions_Label";
+			public const string TS_Instructions_Show = "TS_Instructions_Show";
+			public const string TS_Name_Default = "TS_Name_Default";
+			public const string TS_Name_Label = "TS_Name_Label";
+			public const string TS_Name_Show = "TS_Name_Show";
+			public const string TS_Notes_Default = "TS_Notes_Default";
+			public const string TS_Notes_Label = "TS_Notes_Label";
+			public const string TS_Notes_Show = "TS_Notes_Show";
+			public const string TS_Problem_Default = "TS_Problem_Default";
+			public const string TS_Problem_Help = "TS_Problem_Help";
+			public const string TS_Problem_Label = "TS_Problem_Label";
+			public const string TS_Problem_Show = "TS_Problem_Show";
+			public const string TS_Resources_Default = "TS_Resources_Default";
+			public const string TS_Resources_Help = "TS_Resources_Help";
+			public const string TS_Resources_Show = "TS_Resources_Show";
+			public const string TS_Resourcess_Label = "TS_Resourcess_Label";
+			public const string TS_StepId_Default = "TS_StepId_Default";
+			public const string TS_StepId_Label = "TS_StepId_Label";
+			public const string TS_StepId_Show = "TS_StepId_Show";
+			public const string TS_Tools_Default = "TS_Tools_Default";
+			public const string TS_Tools_Help = "TS_Tools_Help";
+			public const string TS_Tools_Label = "TS_Tools_Label";
+			public const string TS_Tools_Show = "TS_Tools_Show";
 		}
 	}
 }

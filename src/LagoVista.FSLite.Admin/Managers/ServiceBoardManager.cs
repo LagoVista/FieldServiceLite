@@ -71,8 +71,7 @@ namespace LagoVista.FSLite.Admin.Managers
         public async Task<InvokeResult> UpdateServiceBoardAsync(ServiceBoard serviceBoard, EntityHeader org, EntityHeader user)
         {
             await AuthorizeAsync(serviceBoard, AuthorizeResult.AuthorizeActions.Update, user, org);
-
-            var result = Validator.Validate(serviceBoard, Actions.Update);
+            Validator.Validate(serviceBoard, Actions.Update);
 
             await _repo.UpdateServiceBoardAsync(serviceBoard);
 

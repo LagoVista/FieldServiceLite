@@ -20,7 +20,7 @@ namespace LagoVista.FSLite.Models
 
             Instructions = new List<SectionGrouping<ServiceTicketTemplateInstruction>>();
             ServiceParts = new List<SectionGrouping<BOMItem>>();
-            AssociatedEquipment = new List<SectionGrouping<EntityHeader<Equipment>>>();
+            Tools = new List<SectionGrouping<EntityHeader<Equipment>>>();
             TroubleshootingSteps = new List<SectionGrouping<TroubleshootingStep>>();
         }
 
@@ -45,7 +45,7 @@ namespace LagoVista.FSLite.Models
         public Address Address { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Details, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
-        public EntityHeader Template { get; set; }
+        public EntityHeader<ServiceTicketTemplate> Template { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Subject, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public string Subject { get; set; }
@@ -95,8 +95,8 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_TroubleshootingSteps, FieldType: FieldTypes.ChildList, IsRequired: true, ResourceType: typeof(FSResources))]
         public List<SectionGrouping<TroubleshootingStep>> TroubleshootingSteps { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_AssociatedEquipment, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
-        public List<SectionGrouping<EntityHeader<Equipment>>> AssociatedEquipment { get; set; }
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Tools, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
+        public List<SectionGrouping<EntityHeader<Equipment>>> Tools { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_DeviceRepo, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
         public EntityHeader DeviceRepo { get; set; }

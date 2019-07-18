@@ -140,7 +140,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 Description = template.Description,
                 Subject = String.IsNullOrEmpty(request.Subject) ? $"{template.Name} ({device.DeviceId})" : request.Subject,
                 AssignedTo = assignedToUser,
-                Template = new EntityHeader() { Id = template.Id, Text = template.Name },
+                Template = new EntityHeader<ServiceTicketTemplate>() { Id = template.Id, Text = template.Name },
                 ServiceBoard = boardEH,
                 Device = new EntityHeader<IoT.DeviceManagement.Core.Models.Device>() { Id = device.Id, Text = device.Name },
                 Status = EntityHeader.Create(defaultState.Key, defaultState.Name),
@@ -150,7 +150,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 CostEstimate = template.CostEstimate,
                 SkillLevel = template.SkillLevel,
                 Urgency = template.Urgency,
-                AssociatedEquipment = template.AssociatedEquipment,
+                Tools = template.Tools,
                 ServiceParts = template.ServiceParts,
                 Instructions = template.Instructions,
                 StatusType = template.StatusType,
@@ -219,6 +219,11 @@ namespace LagoVista.FSLite.Admin.Managers
             if (!EntityHeader.IsNullOrEmpty(ticket.ServiceBoard))
             {
                 ticket.ServiceBoard.Value = await _serviceBoardRepo.GetServiceBoardAsync(ticket.ServiceBoard.Id);
+            }
+
+            if(!EntityHeader.IsNullOrEmpty(ticket.Template))
+            {
+                ticket.Template.Value = await _templateRepo.GetServiceTicketTemplateAsync(ticket.Template.Id);
             }
 
             return ticket;

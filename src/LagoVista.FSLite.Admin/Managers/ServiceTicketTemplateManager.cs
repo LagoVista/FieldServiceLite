@@ -6,10 +6,7 @@ using LagoVista.Core.Models.UIMetaData;
 using LagoVista.Core.Validation;
 using LagoVista.FSLite.Admin.Interfaces;
 using LagoVista.FSLite.Models;
-using LagoVista.IoT.DeviceAdmin.Interfaces.Managers;
-using LagoVista.IoT.DeviceAdmin.Models;
 using LagoVista.IoT.Logging.Loggers;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LagoVista.FSLite.Admin.Managers
@@ -18,12 +15,14 @@ namespace LagoVista.FSLite.Admin.Managers
     {
         IServiceTicketTemplateRepo _repo;
         ISecureStorage _secureStorage;
+        ITemplateCategoryRepo _templateCategoryRepo;
 
-        public ServiceTicketTemplateManager(IServiceTicketTemplateRepo repo, IAppConfig appConfig, IAdminLogger logger, ISecureStorage secureStorage,
+        public ServiceTicketTemplateManager(IServiceTicketTemplateRepo repo, ITemplateCategoryRepo templateCategoryRepo, IAppConfig appConfig, IAdminLogger logger, ISecureStorage secureStorage,
             IDependencyManager depmanager, ISecurity security) : base(logger, appConfig, depmanager, security)
         {
             _repo = repo;
             _secureStorage = secureStorage;
+            _templateCategoryRepo = templateCategoryRepo;
         }
 
         public async Task<InvokeResult> AddServiceTicketTemplateAsync(ServiceTicketTemplate serviceTicketTemplate, EntityHeader org, EntityHeader user)
@@ -50,6 +49,11 @@ namespace LagoVista.FSLite.Admin.Managers
         public async Task<ServiceTicketTemplate> GetServiceTicketTemplateAsync(string id, EntityHeader org, EntityHeader user)
         {
             var template = await _repo.GetServiceTicketTemplateAsync(id);
+            if(!EntityHeader.IsNullOrEmpty(template.TemplateCategory))
+            {
+                template.TemplateCategory.Value = await _templateCategoryRepo.GetTemplateCategoryAsync(template.TemplateCategory.Id);
+            }
+
             await AuthorizeAsync(template, AuthorizeResult.AuthorizeActions.Delete, user, org);
 
             return template;

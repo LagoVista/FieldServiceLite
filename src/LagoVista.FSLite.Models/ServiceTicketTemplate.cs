@@ -48,7 +48,7 @@ namespace LagoVista.FSLite.Models
         {
             TroubleshootingSteps = new List<SectionGrouping<TroubleshootingStep>>();
             ServiceParts = new List<SectionGrouping<BOMItem>>();
-            AssociatedEquipment = new List<SectionGrouping<EntityHeader<Equipment>>>();
+            Tools = new List<SectionGrouping<EntityHeader<Equipment>>>();
             Instructions = new List<SectionGrouping<ServiceTicketTemplateInstruction>>();
 
             Resources = new List<MediaResourceSummary>();
@@ -61,7 +61,7 @@ namespace LagoVista.FSLite.Models
         public EntityHeader DeviceConfiguration { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Category, WaterMark: FSResources.Names.ServiceTicketTemplate_Categroy_WaterMark, HelpResource: FSResources.Names.ServiceTicketTemplate_Category_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
-        public EntityHeader TemplateCategory { get; set; }
+        public EntityHeader<TemplateCategory> TemplateCategory { get; set; }
 
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Instructions, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
@@ -94,8 +94,11 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.Common_Resources, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<MediaResourceSummary> Resources { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_AssociatedEquipment, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
-        public List<SectionGrouping<EntityHeader<Equipment>>> AssociatedEquipment { get; set; }
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Tools, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
+        public List<SectionGrouping<EntityHeader<Equipment>>> Tools { get; set; }
+
+
+
 
         public ServiceTicketTemplateSummary CreateSummary()
         {
@@ -113,6 +116,5 @@ namespace LagoVista.FSLite.Models
     public class ServiceTicketTemplateSummary : SummaryData
     {
 
-    }
-
+    } 
 }

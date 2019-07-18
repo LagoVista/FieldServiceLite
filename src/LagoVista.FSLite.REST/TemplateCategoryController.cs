@@ -10,8 +10,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using LagoVista.Core;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LagoVista.FSLite.REST
@@ -28,23 +26,23 @@ namespace LagoVista.FSLite.REST
         }
 
         /// <summary>
-        /// FS Lite - Add a service board.
+        /// FS Lite - Add a template category.
         /// </summary>
         /// <param name="board"></param>
         /// <returns></returns>
         [HttpPost("/api/fslite/templatecategory")]
-        public Task<InvokeResult> AddServiceTicketTemplateAsync([FromBody] TemplateCategory category)
+        public Task<InvokeResult> AddTemplateCategoryAsync([FromBody] TemplateCategory category)
         {
             return _mgr.AddTemplateCategoryAsync(category, OrgEntityHeader, UserEntityHeader);
         }
 
         /// <summary>
-        /// FS Lite - Update the service board.
+        /// FS Lite - Update a template category.
         /// </summary>
         /// <param name="board"></param>
         /// <returns></returns>
         [HttpPut("/api/fslite/templatecategory")]
-        public Task<InvokeResult> UpdateServiceTicketTemplateAsync([FromBody] TemplateCategory category)
+        public Task<InvokeResult> UpdateTemplateCategoriesAsync([FromBody] TemplateCategory category)
         {
             return _mgr.UpdateTemplateCategoryAsync(category, OrgEntityHeader, UserEntityHeader);
         }
@@ -77,7 +75,7 @@ namespace LagoVista.FSLite.REST
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("/api/fslite/templatecategory/factory")]
-        public DetailResponse<TemplateCategory> CreateServiceBoard(string id)
+        public DetailResponse<TemplateCategory> CreateTemplateCategory(string id)
         {
             var board = DetailResponse<TemplateCategory>.Create();
             board.Model.Id = Guid.NewGuid().ToId();
@@ -87,7 +85,7 @@ namespace LagoVista.FSLite.REST
         }
 
         /// <summary>
-        /// FS Lite - Get the template category.
+        /// FS Lite - Get the template categories for an organization.
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/fslite/templatecategories")]
@@ -101,7 +99,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/fslite/templatecategory/{key}/keyinuse")]
-        public Task<bool> GetServiceBoardKeyInUseAsync(String key)
+        public Task<bool> GetTemplateCategoryKeyInUseAsync(String key)
         {
             return _mgr.QueryKeyInUseAsync(key, CurrentOrgId);
         }
