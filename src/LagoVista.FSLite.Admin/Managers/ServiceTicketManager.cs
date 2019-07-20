@@ -151,6 +151,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 SkillLevel = template.SkillLevel,
                 Urgency = template.Urgency,
                 Tools = template.Tools,
+                PartsKits = template.PartsKits,
                 ServiceParts = template.ServiceParts,
                 Instructions = template.Instructions,
                 StatusType = template.StatusType,

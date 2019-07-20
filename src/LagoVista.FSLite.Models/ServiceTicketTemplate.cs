@@ -50,7 +50,7 @@ namespace LagoVista.FSLite.Models
             ServiceParts = new List<SectionGrouping<BOMItem>>();
             Tools = new List<SectionGrouping<EntityHeader<Equipment>>>();
             Instructions = new List<SectionGrouping<ServiceTicketTemplateInstruction>>();
-
+            PartsKits = new List<EntityHeader<PartsKit>>();
             Resources = new List<MediaResourceSummary>();
         }
 
@@ -60,7 +60,7 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_DeviceConfig, WaterMark: FSResources.Names.ServiceTicketTemplate_DeviceConfig_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_DeviceConfig_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
         public EntityHeader DeviceConfiguration { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Category, WaterMark: FSResources.Names.ServiceTicketTemplate_Categroy_WaterMark, HelpResource: FSResources.Names.ServiceTicketTemplate_Category_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Category, WaterMark: FSResources.Names.ServiceTicketTemplate_Categroy_WaterMark, HelpResource: FSResources.Names.ServiceTicketTemplate_Category_Help, FieldType: FieldTypes.EntityHeaderPicker, IsRequired:true, ResourceType: typeof(FSResources))]
         public EntityHeader<TemplateCategory> TemplateCategory { get; set; }
 
 
@@ -90,6 +90,9 @@ namespace LagoVista.FSLite.Models
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_ServiceParts, FieldType: FieldTypes.ChildList,  ResourceType: typeof(FSResources))]
         public List<SectionGrouping<BOMItem>> ServiceParts { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_PartsKits, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
+        public List<EntityHeader<PartsKit>> PartsKits { get; set; }
 
         [FormField(LabelResource: FSResources.Names.Common_Resources, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<MediaResourceSummary> Resources { get; set; }

@@ -1,4 +1,4 @@
-﻿/*7/17/2019 17:19:02*/
+﻿/*7/20/2019 08:54:57*/
 using System.Globalization;
 using System.Reflection;
 
@@ -375,6 +375,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_Instructions
 
 		public static string ServiceTicketTemplate_Instructions { get { return GetResourceString("ServiceTicketTemplate_Instructions"); } }
+//Resources:FSResources:ServiceTicketTemplate_PartsKits
+
+		public static string ServiceTicketTemplate_PartsKits { get { return GetResourceString("ServiceTicketTemplate_PartsKits"); } }
 //Resources:FSResources:ServiceTicketTemplate_ServiceParts
 
 		public static string ServiceTicketTemplate_ServiceParts { get { return GetResourceString("ServiceTicketTemplate_ServiceParts"); } }
@@ -546,6 +549,15 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:TemplateCategory_ShowTools_Label
 
 		public static string TemplateCategory_ShowTools_Label { get { return GetResourceString("TemplateCategory_ShowTools_Label"); } }
+//Resources:FSResources:TemplateCategory_SkillLevel_Default
+
+		public static string TemplateCategory_SkillLevel_Default { get { return GetResourceString("TemplateCategory_SkillLevel_Default"); } }
+//Resources:FSResources:TemplateCategory_SkillLevel_Label
+
+		public static string TemplateCategory_SkillLevel_Label { get { return GetResourceString("TemplateCategory_SkillLevel_Label"); } }
+//Resources:FSResources:TemplateCategory_SkillLevel_Show
+
+		public static string TemplateCategory_SkillLevel_Show { get { return GetResourceString("TemplateCategory_SkillLevel_Show"); } }
 //Resources:FSResources:TemplateCategory_Tools_Default
 
 		public static string TemplateCategory_Tools_Default { get { return GetResourceString("TemplateCategory_Tools_Default"); } }
@@ -558,6 +570,15 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:TemplateCategory_TS_Label
 
 		public static string TemplateCategory_TS_Label { get { return GetResourceString("TemplateCategory_TS_Label"); } }
+//Resources:FSResources:TemplateCategory_Urgency_Default
+
+		public static string TemplateCategory_Urgency_Default { get { return GetResourceString("TemplateCategory_Urgency_Default"); } }
+//Resources:FSResources:TemplateCategory_Urgency_Label
+
+		public static string TemplateCategory_Urgency_Label { get { return GetResourceString("TemplateCategory_Urgency_Label"); } }
+//Resources:FSResources:TemplateCategory_Urgency_Show
+
+		public static string TemplateCategory_Urgency_Show { get { return GetResourceString("TemplateCategory_Urgency_Show"); } }
 //Resources:FSResources:TemplateInstruction_Description
 
 		public static string TemplateInstruction_Description { get { return GetResourceString("TemplateInstruction_Description"); } }
@@ -773,6 +794,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_Help = "ServiceTicketTemplate_Help";
 			public const string ServiceTicketTemplate_HoursEstimate = "ServiceTicketTemplate_HoursEstimate";
 			public const string ServiceTicketTemplate_Instructions = "ServiceTicketTemplate_Instructions";
+			public const string ServiceTicketTemplate_PartsKits = "ServiceTicketTemplate_PartsKits";
 			public const string ServiceTicketTemplate_ServiceParts = "ServiceTicketTemplate_ServiceParts";
 			public const string ServiceTicketTemplate_Skill = "ServiceTicketTemplate_Skill";
 			public const string ServiceTicketTemplate_Skill_High = "ServiceTicketTemplate_Skill_High";
@@ -830,10 +852,16 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string TemplateCategory_ShowInstructions = "TemplateCategory_ShowInstructions";
 			public const string TemplateCategory_ShowInstructions_Help = "TemplateCategory_ShowInstructions_Help";
 			public const string TemplateCategory_ShowTools_Label = "TemplateCategory_ShowTools_Label";
+			public const string TemplateCategory_SkillLevel_Default = "TemplateCategory_SkillLevel_Default";
+			public const string TemplateCategory_SkillLevel_Label = "TemplateCategory_SkillLevel_Label";
+			public const string TemplateCategory_SkillLevel_Show = "TemplateCategory_SkillLevel_Show";
 			public const string TemplateCategory_Tools_Default = "TemplateCategory_Tools_Default";
 			public const string TemplateCategory_TroubleshootingSteps_Configuration = "TemplateCategory_TroubleshootingSteps_Configuration";
 			public const string TemplateCategory_TroubleshootingSteps_Default = "TemplateCategory_TroubleshootingSteps_Default";
 			public const string TemplateCategory_TS_Label = "TemplateCategory_TS_Label";
+			public const string TemplateCategory_Urgency_Default = "TemplateCategory_Urgency_Default";
+			public const string TemplateCategory_Urgency_Label = "TemplateCategory_Urgency_Label";
+			public const string TemplateCategory_Urgency_Show = "TemplateCategory_Urgency_Show";
 			public const string TemplateInstruction_Description = "TemplateInstruction_Description";
 			public const string TemplateInstruction_Help = "TemplateInstruction_Help";
 			public const string TemplateInstruction_Hints = "TemplateInstruction_Hints";

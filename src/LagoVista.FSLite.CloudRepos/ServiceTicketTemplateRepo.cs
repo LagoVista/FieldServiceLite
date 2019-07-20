@@ -1,4 +1,5 @@
 ﻿using LagoVista.CloudStorage.DocumentDB;
+using LagoVista.Core.Models;
 using LagoVista.Core.Models.UIMetaData;
 using LagoVista.FSLite.Admin.Interfaces;
 using LagoVista.FSLite.Models;
@@ -19,9 +20,14 @@ namespace LagoVista.FSLite.CloudRepos
 
         protected override bool ShouldConsolidateCollections => _shouldConsolidateCollections;
 
-        public Task AddServiceTicketTemplateAsync(ServiceTicketTemplate serviceTicket)
+        public Task AddServiceTicketTemplateAsync(ServiceTicketTemplate template)
         {
-            return base.CreateDocumentAsync(serviceTicket);
+            if (!EntityHeader.IsNullOrEmpty(template.TemplateCategory))
+            {
+                template.TemplateCategory.Value = null;
+            }
+
+            return base.CreateDocumentAsync(template);
         }
 
         public Task DeleteServiceTicketTemplateAsync(string id)
@@ -54,9 +60,14 @@ namespace LagoVista.FSLite.CloudRepos
             return items.Any();
         }
 
-        public Task UpdateServiceTicketTemplateAsync(ServiceTicketTemplate serviceTicket)
+        public Task UpdateServiceTicketTemplateAsync(ServiceTicketTemplate template)
         {
-            return base.UpsertDocumentAsync(serviceTicket);
+            if (!EntityHeader.IsNullOrEmpty(template.TemplateCategory))
+            {
+                template.TemplateCategory.Value = null;
+            }
+
+            return base.UpsertDocumentAsync(template);
         }
     }
 }

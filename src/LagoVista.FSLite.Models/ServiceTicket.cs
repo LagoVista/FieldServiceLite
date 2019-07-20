@@ -98,6 +98,10 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Tools, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<SectionGrouping<EntityHeader<Equipment>>> Tools { get; set; }
 
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_PartsKits, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
+        public List<EntityHeader<PartsKit>> PartsKits { get; set; }
+
+
         [FormField(LabelResource: FSResources.Names.ServiceTicket_DeviceRepo, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
         public EntityHeader DeviceRepo { get; set; }
 

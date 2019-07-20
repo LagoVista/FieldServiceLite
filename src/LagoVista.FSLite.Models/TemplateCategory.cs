@@ -22,6 +22,8 @@ namespace LagoVista.FSLite.Models
             ServicePartsLabel = FSResources.TemplateCategory_ServiceParts_Default;
             ToolsLabel = FSResources.TemplateCategory_Tools_Default;
             PartsKitsLabel = FSResources.TemplateCategory_PartsKit_Default;
+            UrgencyLabel = FSResources.TemplateCategory_Urgency_Default;
+            SkillLevelLabel = FSResources.TemplateCategory_SkillLevel_Default;
 
             ShowCostEstimate = true;
             ShowHoursEstimate = true;
@@ -30,6 +32,8 @@ namespace LagoVista.FSLite.Models
             ShowServiceParts = true;
             ShowTools = true;
             ShowPartsKits = true;
+            ShowUrgency = true;
+            ShowSkillLevel = true;
             ShowTroubleshootingSteps = true;
         }
 
@@ -45,14 +49,25 @@ namespace LagoVista.FSLite.Models
             };
         }
 
-        [FormField(LabelResource: FSResources.Names.TemplateCategory_PrimaryContactLabel, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_PrimaryContactLabel_Help, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: false)]
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_PrimaryContactLabel, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_PrimaryContactLabel_Help, ResourceType: typeof(FSResources))]
         public string PrimaryContactLabel { get; set; }
 
 
         [FormField(LabelResource: FSResources.Names.TemplateCategory_ShowInstructions, HelpResource: FSResources.Names.TemplateCategory_Instructions_label_Help, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
         public bool ShowInstructions { get; set; }
-        [FormField(LabelResource: FSResources.Names.TemplateCategory_Instructions_Label, FieldType: FieldTypes.Text, HelpResource:FSResources.Names.TemplateCategory_Instructions_label_Help, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_Instructions_Label, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_Instructions_label_Help, ResourceType: typeof(FSResources))]
         public string InstructionsLabel { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_Urgency_Show, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
+        public bool ShowUrgency { get; set; }
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_Urgency_Label, FieldType: FieldTypes.Text,ResourceType: typeof(FSResources))]
+        public string UrgencyLabel { get; set; }
+
+
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_SkillLevel_Show, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
+        public bool ShowSkillLevel { get; set; }
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_SkillLevel_Label, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
+        public string SkillLevelLabel { get; set; }
 
 
         [FormField(LabelResource: FSResources.Names.TemplateCategory_Show_TS, HelpResource: FSResources.Names.TemplateCategory_Show_TS_Help, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]

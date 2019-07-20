@@ -726,4 +726,25 @@
   <data name="TemplateCategory_TroubleshootingSteps_Configuration" xml:space="preserve">
     <value>Troubleshooting Steps Configuration</value>
   </data>
+  <data name="ServiceTicketTemplate_PartsKits" xml:space="preserve">
+    <value>Parts Kits</value>
+  </data>
+  <data name="TemplateCategory_SkillLevel_Default" xml:space="preserve">
+    <value>Skill Level</value>
+  </data>
+  <data name="TemplateCategory_SkillLevel_Label" xml:space="preserve">
+    <value>Skill Lavel Label</value>
+  </data>
+  <data name="TemplateCategory_SkillLevel_Show" xml:space="preserve">
+    <value>Show Skill Level</value>
+  </data>
+  <data name="TemplateCategory_Urgency_Default" xml:space="preserve">
+    <value>Urgency</value>
+  </data>
+  <data name="TemplateCategory_Urgency_Label" xml:space="preserve">
+    <value>Urgency Label</value>
+  </data>
+  <data name="TemplateCategory_Urgency_Show" xml:space="preserve">
+    <value>Show Urgency</value>
+  </data>
 </root>
