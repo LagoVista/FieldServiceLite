@@ -777,4 +777,52 @@
   <data name="TroubleShootingStep_Title" xml:space="preserve">
     <value>Troubleshooting Step</value>
   </data>
+  <data name="TemplateCategory_TicketLabel" xml:space="preserve">
+    <value>Ticket Label</value>
+  </data>
+  <data name="TemplateCategory_TicketLabel_Default" xml:space="preserve">
+    <value>Field Service Ticket</value>
+  </data>
+  <data name="TemplateCategory_TicketLabel_Help" xml:space="preserve">
+    <value>This is the label that will be used to provide a cusomtizable label to describe the concept of a field service ticket in your implementation for this category</value>
+  </data>
+  <data name="TemplateCategory_IsClosed_Default" xml:space="preserve">
+    <value>Is Closed</value>
+  </data>
+  <data name="TemplateCategory_IsClosed_Label" xml:space="preserve">
+    <value>Is Closed Label</value>
+  </data>
+  <data name="TemplateCategory_IsViewed_Default" xml:space="preserve">
+    <value>Is Viewed</value>
+  </data>
+  <data name="TemplateCategory_IsViewed_Label" xml:space="preserve">
+    <value>Is Viewed Label</value>
+  </data>
+  <data name="TemplateCategory_IsViewed_Show" xml:space="preserve">
+    <value>Show Is Viewed</value>
+  </data>
+  <data name="TemplateCategory_ServiceBoard_Default" xml:space="preserve">
+    <value>Service Board</value>
+  </data>
+  <data name="TemplateCategory_ServiceBoard_Label" xml:space="preserve">
+    <value>Service Board Label</value>
+  </data>
+  <data name="TemplateCategory_Status_Default" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TemplateCategory_Status_Help" xml:space="preserve">
+    <value>The status is the field that defines the current state of the ticket that is created.</value>
+  </data>
+  <data name="TemplateCategory_Status_Label" xml:space="preserve">
+    <value>Status Label</value>
+  </data>
+  <data name="TemplateCategory_Subject_Default" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="TemplateCategory_Subject_Help" xml:space="preserve">
+    <value>The subject is a breif description of the work to be completed.</value>
+  </data>
+  <data name="TemplateCategory_Subject_Label" xml:space="preserve">
+    <value>Subject Label</value>
+  </data>
 </root>

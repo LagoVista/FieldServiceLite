@@ -1,4 +1,4 @@
-﻿/*7/23/2019 13:01:50*/
+﻿/*7/24/2019 18:28:46*/
 using System.Globalization;
 using System.Reflection;
 
@@ -483,6 +483,21 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:TemplateCategory_Instructions_label_Help
 
 		public static string TemplateCategory_Instructions_label_Help { get { return GetResourceString("TemplateCategory_Instructions_label_Help"); } }
+//Resources:FSResources:TemplateCategory_IsClosed_Default
+
+		public static string TemplateCategory_IsClosed_Default { get { return GetResourceString("TemplateCategory_IsClosed_Default"); } }
+//Resources:FSResources:TemplateCategory_IsClosed_Label
+
+		public static string TemplateCategory_IsClosed_Label { get { return GetResourceString("TemplateCategory_IsClosed_Label"); } }
+//Resources:FSResources:TemplateCategory_IsViewed_Default
+
+		public static string TemplateCategory_IsViewed_Default { get { return GetResourceString("TemplateCategory_IsViewed_Default"); } }
+//Resources:FSResources:TemplateCategory_IsViewed_Label
+
+		public static string TemplateCategory_IsViewed_Label { get { return GetResourceString("TemplateCategory_IsViewed_Label"); } }
+//Resources:FSResources:TemplateCategory_IsViewed_Show
+
+		public static string TemplateCategory_IsViewed_Show { get { return GetResourceString("TemplateCategory_IsViewed_Show"); } }
 //Resources:FSResources:TemplateCategory_PartsKit_Default
 
 		public static string TemplateCategory_PartsKit_Default { get { return GetResourceString("TemplateCategory_PartsKit_Default"); } }
@@ -510,6 +525,12 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:TemplateCategory_Resources_Label
 
 		public static string TemplateCategory_Resources_Label { get { return GetResourceString("TemplateCategory_Resources_Label"); } }
+//Resources:FSResources:TemplateCategory_ServiceBoard_Default
+
+		public static string TemplateCategory_ServiceBoard_Default { get { return GetResourceString("TemplateCategory_ServiceBoard_Default"); } }
+//Resources:FSResources:TemplateCategory_ServiceBoard_Label
+
+		public static string TemplateCategory_ServiceBoard_Label { get { return GetResourceString("TemplateCategory_ServiceBoard_Label"); } }
 //Resources:FSResources:TemplateCategory_ServiceParts_Default
 
 		public static string TemplateCategory_ServiceParts_Default { get { return GetResourceString("TemplateCategory_ServiceParts_Default"); } }
@@ -558,6 +579,33 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:TemplateCategory_SkillLevel_Show
 
 		public static string TemplateCategory_SkillLevel_Show { get { return GetResourceString("TemplateCategory_SkillLevel_Show"); } }
+//Resources:FSResources:TemplateCategory_Status_Default
+
+		public static string TemplateCategory_Status_Default { get { return GetResourceString("TemplateCategory_Status_Default"); } }
+//Resources:FSResources:TemplateCategory_Status_Help
+
+		public static string TemplateCategory_Status_Help { get { return GetResourceString("TemplateCategory_Status_Help"); } }
+//Resources:FSResources:TemplateCategory_Status_Label
+
+		public static string TemplateCategory_Status_Label { get { return GetResourceString("TemplateCategory_Status_Label"); } }
+//Resources:FSResources:TemplateCategory_Subject_Default
+
+		public static string TemplateCategory_Subject_Default { get { return GetResourceString("TemplateCategory_Subject_Default"); } }
+//Resources:FSResources:TemplateCategory_Subject_Help
+
+		public static string TemplateCategory_Subject_Help { get { return GetResourceString("TemplateCategory_Subject_Help"); } }
+//Resources:FSResources:TemplateCategory_Subject_Label
+
+		public static string TemplateCategory_Subject_Label { get { return GetResourceString("TemplateCategory_Subject_Label"); } }
+//Resources:FSResources:TemplateCategory_TicketLabel
+
+		public static string TemplateCategory_TicketLabel { get { return GetResourceString("TemplateCategory_TicketLabel"); } }
+//Resources:FSResources:TemplateCategory_TicketLabel_Default
+
+		public static string TemplateCategory_TicketLabel_Default { get { return GetResourceString("TemplateCategory_TicketLabel_Default"); } }
+//Resources:FSResources:TemplateCategory_TicketLabel_Help
+
+		public static string TemplateCategory_TicketLabel_Help { get { return GetResourceString("TemplateCategory_TicketLabel_Help"); } }
 //Resources:FSResources:TemplateCategory_Tools_Default
 
 		public static string TemplateCategory_Tools_Default { get { return GetResourceString("TemplateCategory_Tools_Default"); } }
@@ -860,6 +908,11 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string TemplateCategory_Instructions_Default = "TemplateCategory_Instructions_Default";
 			public const string TemplateCategory_Instructions_Label = "TemplateCategory_Instructions_Label";
 			public const string TemplateCategory_Instructions_label_Help = "TemplateCategory_Instructions_label_Help";
+			public const string TemplateCategory_IsClosed_Default = "TemplateCategory_IsClosed_Default";
+			public const string TemplateCategory_IsClosed_Label = "TemplateCategory_IsClosed_Label";
+			public const string TemplateCategory_IsViewed_Default = "TemplateCategory_IsViewed_Default";
+			public const string TemplateCategory_IsViewed_Label = "TemplateCategory_IsViewed_Label";
+			public const string TemplateCategory_IsViewed_Show = "TemplateCategory_IsViewed_Show";
 			public const string TemplateCategory_PartsKit_Default = "TemplateCategory_PartsKit_Default";
 			public const string TemplateCategory_PartsKit_Help = "TemplateCategory_PartsKit_Help";
 			public const string TemplateCategory_PartsKit_Label = "TemplateCategory_PartsKit_Label";
@@ -869,6 +922,8 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string TemplateCategory_PrimaryContactLabel_Help = "TemplateCategory_PrimaryContactLabel_Help";
 			public const string TemplateCategory_Resources_Default = "TemplateCategory_Resources_Default";
 			public const string TemplateCategory_Resources_Label = "TemplateCategory_Resources_Label";
+			public const string TemplateCategory_ServiceBoard_Default = "TemplateCategory_ServiceBoard_Default";
+			public const string TemplateCategory_ServiceBoard_Label = "TemplateCategory_ServiceBoard_Label";
 			public const string TemplateCategory_ServiceParts_Default = "TemplateCategory_ServiceParts_Default";
 			public const string TemplateCategory_ServiceParts_Help = "TemplateCategory_ServiceParts_Help";
 			public const string TemplateCategory_ServiceParts_Label = "TemplateCategory_ServiceParts_Label";
@@ -885,6 +940,15 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string TemplateCategory_SkillLevel_Default = "TemplateCategory_SkillLevel_Default";
 			public const string TemplateCategory_SkillLevel_Label = "TemplateCategory_SkillLevel_Label";
 			public const string TemplateCategory_SkillLevel_Show = "TemplateCategory_SkillLevel_Show";
+			public const string TemplateCategory_Status_Default = "TemplateCategory_Status_Default";
+			public const string TemplateCategory_Status_Help = "TemplateCategory_Status_Help";
+			public const string TemplateCategory_Status_Label = "TemplateCategory_Status_Label";
+			public const string TemplateCategory_Subject_Default = "TemplateCategory_Subject_Default";
+			public const string TemplateCategory_Subject_Help = "TemplateCategory_Subject_Help";
+			public const string TemplateCategory_Subject_Label = "TemplateCategory_Subject_Label";
+			public const string TemplateCategory_TicketLabel = "TemplateCategory_TicketLabel";
+			public const string TemplateCategory_TicketLabel_Default = "TemplateCategory_TicketLabel_Default";
+			public const string TemplateCategory_TicketLabel_Help = "TemplateCategory_TicketLabel_Help";
 			public const string TemplateCategory_Tools_Default = "TemplateCategory_Tools_Default";
 			public const string TemplateCategory_TroubleshootingSteps_Configuration = "TemplateCategory_TroubleshootingSteps_Configuration";
 			public const string TemplateCategory_TroubleshootingSteps_Default = "TemplateCategory_TroubleshootingSteps_Default";

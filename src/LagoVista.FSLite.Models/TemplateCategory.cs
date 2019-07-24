@@ -23,7 +23,14 @@ namespace LagoVista.FSLite.Models
             ToolsLabel = FSResources.TemplateCategory_Tools_Default;
             PartsKitsLabel = FSResources.TemplateCategory_PartsKit_Default;
             UrgencyLabel = FSResources.TemplateCategory_Urgency_Default;
-            SkillLevelLabel = FSResources.TemplateCategory_SkillLevel_Default;
+            SkillLevelLabel = FSResources.TemplateCategory_TicketLabel_Default;
+            TicketLabel = FSResources.TemplateCategory_TicketLabel_Default;
+            SubjectLabel = FSResources.TemplateCategory_Subject_Default;
+            IsViewedLabel = FSResources.TemplateCategory_IsViewed_Default;
+            IsClosedLabel = FSResources.TemplateCategory_IsClosed_Default;
+            StatusLabel = FSResources.TemplateCategory_Status_Default;
+            SubjectLabel = FSResources.TemplateCategory_Subject_Default;
+            ServiceBoardLabel = FSResources.TemplateCategory_ServiceBoard_Default;
 
             ShowCostEstimate = true;
             ShowHoursEstimate = true;
@@ -34,6 +41,7 @@ namespace LagoVista.FSLite.Models
             ShowPartsKits = true;
             ShowUrgency = true;
             ShowSkillLevel = true;
+            ShowIsViewed = true;
             ShowTroubleshootingSteps = true;
         }
 
@@ -49,8 +57,29 @@ namespace LagoVista.FSLite.Models
             };
         }
 
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_TicketLabel, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_TicketLabel_Help, ResourceType: typeof(FSResources))]
+        public string TicketLabel { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_Subject_Label, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_Subject_Help, ResourceType: typeof(FSResources))]
+        public string SubjectLabel { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_Status_Label, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_Status_Help, ResourceType: typeof(FSResources))]
+        public string StatusLabel { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_IsClosed_Label, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
+        public string IsClosedLabel { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_IsViewed_Show,  FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
+        public bool ShowIsViewed { get; set; }
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_IsViewed_Label, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
+        public string IsViewedLabel { get; set; }
+
+
         [FormField(LabelResource: FSResources.Names.TemplateCategory_PrimaryContactLabel, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_PrimaryContactLabel_Help, ResourceType: typeof(FSResources))]
         public string PrimaryContactLabel { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_ServiceBoard_Label, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
+        public string ServiceBoardLabel { get; set; }
 
 
         [FormField(LabelResource: FSResources.Names.TemplateCategory_ShowInstructions, HelpResource: FSResources.Names.TemplateCategory_Instructions_label_Help, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]

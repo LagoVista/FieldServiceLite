@@ -25,9 +25,10 @@ namespace LagoVista.FSLite.Admin.Managers
         IServiceBoardRepo _serviceBoardRepo;
         IDeviceRepositoryManager _repoManager;
         IStateSetRepo _stateSetRepo;
+        ITemplateCategoryRepo _templateCategoryRepo;
 
-        public ServiceTicketManager(IServiceTicketRepo repo, IServiceBoardRepo boardRepo, IDeviceRepositoryManager repoManager, IDeviceManager deviceManager, IAppConfig appConfig, IAdminLogger logger,
-                                    IStateSetRepo stateSetRepo, IServiceTicketTemplateRepo templateRepo, IDependencyManager depmanager, ISecurity security)
+        public ServiceTicketManager(IServiceTicketRepo repo, IServiceBoardRepo boardRepo, IDeviceRepositoryManager repoManager, IDeviceManager deviceManager, ITemplateCategoryRepo templateCategoryRepo,
+                                    IAppConfig appConfig, IAdminLogger logger, IStateSetRepo stateSetRepo, IServiceTicketTemplateRepo templateRepo, IDependencyManager depmanager, ISecurity security)
             : base(logger, appConfig, depmanager, security)
         {
             _repo = repo;
@@ -36,6 +37,7 @@ namespace LagoVista.FSLite.Admin.Managers
             _deviceManager = deviceManager;
             _templateRepo = templateRepo;
             _stateSetRepo = stateSetRepo;
+            _templateCategoryRepo = templateCategoryRepo;
         }
 
         public async Task<InvokeResult> AddServiceTicketAsync(ServiceTicket serviceTicket, EntityHeader org, EntityHeader user)
@@ -222,9 +224,14 @@ namespace LagoVista.FSLite.Admin.Managers
                 ticket.ServiceBoard.Value = await _serviceBoardRepo.GetServiceBoardAsync(ticket.ServiceBoard.Id);
             }
 
-            if(!EntityHeader.IsNullOrEmpty(ticket.Template))
+            if (!EntityHeader.IsNullOrEmpty(ticket.Template))
             {
                 ticket.Template.Value = await _templateRepo.GetServiceTicketTemplateAsync(ticket.Template.Id);
+
+                if (!EntityHeader.IsNullOrEmpty(ticket.Template.Value.TemplateCategory))
+                {
+                    ticket.Template.Value.TemplateCategory.Value = await _templateCategoryRepo.GetTemplateCategoryAsync(ticket.Template.Value.TemplateCategory.Id);
+                }
             }
 
             return ticket;
