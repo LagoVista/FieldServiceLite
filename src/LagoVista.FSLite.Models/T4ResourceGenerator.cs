@@ -1,4 +1,4 @@
-﻿/*7/20/2019 08:54:57*/
+﻿/*7/23/2019 13:01:50*/
 using System.Globalization;
 using System.Reflection;
 
@@ -597,6 +597,36 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:TemplateInstruction_Title
 
 		public static string TemplateInstruction_Title { get { return GetResourceString("TemplateInstruction_Title"); } }
+//Resources:FSResources:TroubleShootingStep_Description
+
+		public static string TroubleShootingStep_Description { get { return GetResourceString("TroubleShootingStep_Description"); } }
+//Resources:FSResources:TroubleshootingStep_Equipment
+
+		public static string TroubleshootingStep_Equipment { get { return GetResourceString("TroubleshootingStep_Equipment"); } }
+//Resources:FSResources:TroubleShootingStep_Help
+
+		public static string TroubleShootingStep_Help { get { return GetResourceString("TroubleShootingStep_Help"); } }
+//Resources:FSResources:TroubleshootingStep_Instructions
+
+		public static string TroubleshootingStep_Instructions { get { return GetResourceString("TroubleshootingStep_Instructions"); } }
+//Resources:FSResources:TroubleshootingStep_Notes
+
+		public static string TroubleshootingStep_Notes { get { return GetResourceString("TroubleshootingStep_Notes"); } }
+//Resources:FSResources:TroubleshootingStep_Problem
+
+		public static string TroubleshootingStep_Problem { get { return GetResourceString("TroubleshootingStep_Problem"); } }
+//Resources:FSResources:TroubleshootingStep_Resources
+
+		public static string TroubleshootingStep_Resources { get { return GetResourceString("TroubleshootingStep_Resources"); } }
+//Resources:FSResources:TroubleshootingStep_StepId
+
+		public static string TroubleshootingStep_StepId { get { return GetResourceString("TroubleshootingStep_StepId"); } }
+//Resources:FSResources:TroubleShootingStep_Title
+
+		public static string TroubleShootingStep_Title { get { return GetResourceString("TroubleShootingStep_Title"); } }
+//Resources:FSResources:TroubleshootingSteps_ExpectedOutcome
+
+		public static string TroubleshootingSteps_ExpectedOutcome { get { return GetResourceString("TroubleshootingSteps_ExpectedOutcome"); } }
 //Resources:FSResources:TS_ExpectedOutcome_Default
 
 		public static string TS_ExpectedOutcome_Default { get { return GetResourceString("TS_ExpectedOutcome_Default"); } }
@@ -868,6 +898,16 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string TemplateInstruction_Instruction = "TemplateInstruction_Instruction";
 			public const string TemplateInstruction_StepId = "TemplateInstruction_StepId";
 			public const string TemplateInstruction_Title = "TemplateInstruction_Title";
+			public const string TroubleShootingStep_Description = "TroubleShootingStep_Description";
+			public const string TroubleshootingStep_Equipment = "TroubleshootingStep_Equipment";
+			public const string TroubleShootingStep_Help = "TroubleShootingStep_Help";
+			public const string TroubleshootingStep_Instructions = "TroubleshootingStep_Instructions";
+			public const string TroubleshootingStep_Notes = "TroubleshootingStep_Notes";
+			public const string TroubleshootingStep_Problem = "TroubleshootingStep_Problem";
+			public const string TroubleshootingStep_Resources = "TroubleshootingStep_Resources";
+			public const string TroubleshootingStep_StepId = "TroubleshootingStep_StepId";
+			public const string TroubleShootingStep_Title = "TroubleShootingStep_Title";
+			public const string TroubleshootingSteps_ExpectedOutcome = "TroubleshootingSteps_ExpectedOutcome";
 			public const string TS_ExpectedOutcome_Default = "TS_ExpectedOutcome_Default";
 			public const string TS_ExpectedOutcome_Help = "TS_ExpectedOutcome_Help";
 			public const string TS_ExpectedOutcome_Label = "TS_ExpectedOutcome_Label";

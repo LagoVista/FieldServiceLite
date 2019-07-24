@@ -48,9 +48,9 @@ namespace LagoVista.FSLite.Models
         {
             TroubleshootingSteps = new List<SectionGrouping<TroubleshootingStep>>();
             ServiceParts = new List<SectionGrouping<BOMItem>>();
-            Tools = new List<SectionGrouping<EntityHeader<Equipment>>>();
+            Tools = new List<EquipmentSummary>();
             Instructions = new List<SectionGrouping<ServiceTicketTemplateInstruction>>();
-            PartsKits = new List<EntityHeader<PartsKit>>();
+            PartsKits = new List<PartsKitSummary>();
             Resources = new List<MediaResourceSummary>();
         }
 
@@ -92,16 +92,13 @@ namespace LagoVista.FSLite.Models
         public List<SectionGrouping<BOMItem>> ServiceParts { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_PartsKits, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
-        public List<EntityHeader<PartsKit>> PartsKits { get; set; }
+        public List<PartsKitSummary> PartsKits { get; set; }
 
         [FormField(LabelResource: FSResources.Names.Common_Resources, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<MediaResourceSummary> Resources { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Tools, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
-        public List<SectionGrouping<EntityHeader<Equipment>>> Tools { get; set; }
-
-
-
+        public List<EquipmentSummary> Tools { get; set; }
 
         public ServiceTicketTemplateSummary CreateSummary()
         {
