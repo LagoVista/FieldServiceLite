@@ -14,6 +14,9 @@ using System;
 using LagoVista.IoT.Deployment.Admin.Interfaces;
 using LagoVista.Core;
 using LagoVista.IoT.DeviceManagement.Core.Managers;
+using LagoVista.IoT.Deployment.Admin;
+using LagoVista.IoT.Deployment.Admin.Repos;
+using System.Diagnostics;
 
 namespace LagoVista.FSLite.Admin.Managers
 {
@@ -26,9 +29,10 @@ namespace LagoVista.FSLite.Admin.Managers
         IDeviceRepositoryManager _repoManager;
         IStateSetRepo _stateSetRepo;
         ITemplateCategoryRepo _templateCategoryRepo;
+        IDeviceConfigurationRepo _deviceConfigRepo;
 
         public ServiceTicketManager(IServiceTicketRepo repo, IServiceBoardRepo boardRepo, IDeviceRepositoryManager repoManager, IDeviceManager deviceManager, ITemplateCategoryRepo templateCategoryRepo,
-                                    IAppConfig appConfig, IAdminLogger logger, IStateSetRepo stateSetRepo, IServiceTicketTemplateRepo templateRepo, IDependencyManager depmanager, ISecurity security)
+                                    IDeviceConfigurationRepo deviceConfigRepo, IAppConfig appConfig, IAdminLogger logger, IStateSetRepo stateSetRepo, IServiceTicketTemplateRepo templateRepo, IDependencyManager depmanager, ISecurity security)
             : base(logger, appConfig, depmanager, security)
         {
             _repo = repo;
@@ -38,6 +42,7 @@ namespace LagoVista.FSLite.Admin.Managers
             _templateRepo = templateRepo;
             _stateSetRepo = stateSetRepo;
             _templateCategoryRepo = templateCategoryRepo;
+            _deviceConfigRepo = deviceConfigRepo;
         }
 
         public async Task<InvokeResult> AddServiceTicketAsync(ServiceTicket serviceTicket, EntityHeader org, EntityHeader user)
@@ -176,7 +181,7 @@ namespace LagoVista.FSLite.Admin.Managers
             {
                 AddedBy = user,
                 DateStamp = currentTimeStamp,
-                Note = assignedToUser != null ? $"Service ticket created and assigned to {assignedToUser.Text}." : "Service ticket creatd and not assigned to technician."
+                Note = assignedToUser != null ? $"Service ticket created and assigned to {assignedToUser.Text}." : "Service ticket created and not assigned to technician."
             });
 
             await _repo.AddServiceTicketAsync(ticket);
@@ -214,15 +219,34 @@ namespace LagoVista.FSLite.Admin.Managers
 
         public async Task<ServiceTicket> GetServiceTicketAsync(string id, EntityHeader org, EntityHeader user)
         {
+            var sw = Stopwatch.StartNew();
             var ticket = await _repo.GetServiceTicketAsync(id);
+
+            Console.WriteLine($"TRACK 0 => {sw.Elapsed.TotalMilliseconds} ");
+
             await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Read, user, org);
 
-            var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(ticket.DeviceRepo.Id, org, user);
-            ticket.Device.Value = await _deviceManager.GetDeviceByIdAsync(repo, ticket.Device.Id, org, user, true);
+            Console.WriteLine($"TRACK 1 => {sw.Elapsed.TotalMilliseconds} ");
+
+            if (!EntityHeader.IsNullOrEmpty(ticket.DeviceRepo))
+            {
+                var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(ticket.DeviceRepo.Id, org, user);
+                if (!EntityHeader.IsNullOrEmpty(ticket.Device))
+                {
+                    ticket.Device.Value = await _deviceManager.GetDeviceByIdAsync(repo, ticket.Device.Id, org, user, true);
+                    Console.WriteLine($"TRACK 1.5 => {sw.Elapsed.TotalMilliseconds} ");
+                }
+            }
+
+            Console.WriteLine($"TRACK 2 => {sw.Elapsed.TotalMilliseconds} ");
+
             if (!EntityHeader.IsNullOrEmpty(ticket.ServiceBoard))
             {
                 ticket.ServiceBoard.Value = await _serviceBoardRepo.GetServiceBoardAsync(ticket.ServiceBoard.Id);
+
             }
+
+            Console.WriteLine($"TRACK 3 => {sw.Elapsed.TotalMilliseconds} ");
 
             if (!EntityHeader.IsNullOrEmpty(ticket.Template))
             {
@@ -233,6 +257,8 @@ namespace LagoVista.FSLite.Admin.Managers
                     ticket.Template.Value.TemplateCategory.Value = await _templateCategoryRepo.GetTemplateCategoryAsync(ticket.Template.Value.TemplateCategory.Id);
                 }
             }
+
+            Console.WriteLine($"TRACK 4 => {sw.Elapsed.TotalMilliseconds} ");
 
             return ticket;
         }

@@ -1,4 +1,4 @@
-﻿/*7/24/2019 18:28:46*/
+﻿/*7/25/2019 12:46:01*/
 using System.Globalization;
 using System.Reflection;
 
@@ -144,6 +144,15 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:Instructions_Name_Show
 
 		public static string Instructions_Name_Show { get { return GetResourceString("Instructions_Name_Show"); } }
+//Resources:FSResources:Instructions_Notes_Default
+
+		public static string Instructions_Notes_Default { get { return GetResourceString("Instructions_Notes_Default"); } }
+//Resources:FSResources:Instructions_Notes_Label
+
+		public static string Instructions_Notes_Label { get { return GetResourceString("Instructions_Notes_Label"); } }
+//Resources:FSResources:Instructions_Notes_Show
+
+		public static string Instructions_Notes_Show { get { return GetResourceString("Instructions_Notes_Show"); } }
 //Resources:FSResources:Instructions_Resource_Help
 
 		public static string Instructions_Resource_Help { get { return GetResourceString("Instructions_Resource_Help"); } }
@@ -234,6 +243,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicket_ClosedBy
 
 		public static string ServiceTicket_ClosedBy { get { return GetResourceString("ServiceTicket_ClosedBy"); } }
+//Resources:FSResources:ServiceTicket_ClosedDate
+
+		public static string ServiceTicket_ClosedDate { get { return GetResourceString("ServiceTicket_ClosedDate"); } }
 //Resources:FSResources:ServiceTicket_Company
 
 		public static string ServiceTicket_Company { get { return GetResourceString("ServiceTicket_Company"); } }
@@ -261,6 +273,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicket_IsClosed
 
 		public static string ServiceTicket_IsClosed { get { return GetResourceString("ServiceTicket_IsClosed"); } }
+//Resources:FSResources:ServiceTicket_IsViewed
+
+		public static string ServiceTicket_IsViewed { get { return GetResourceString("ServiceTicket_IsViewed"); } }
 //Resources:FSResources:ServiceTicket_Notes
 
 		public static string ServiceTicket_Notes { get { return GetResourceString("ServiceTicket_Notes"); } }
@@ -282,6 +297,12 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicket_Title
 
 		public static string ServiceTicket_Title { get { return GetResourceString("ServiceTicket_Title"); } }
+//Resources:FSResources:ServiceTicket_ViewedBy
+
+		public static string ServiceTicket_ViewedBy { get { return GetResourceString("ServiceTicket_ViewedBy"); } }
+//Resources:FSResources:ServiceTicket_ViewedDate
+
+		public static string ServiceTicket_ViewedDate { get { return GetResourceString("ServiceTicket_ViewedDate"); } }
 //Resources:FSResources:ServiceTicketNote_AddedBy
 
 		public static string ServiceTicketNote_AddedBy { get { return GetResourceString("ServiceTicketNote_AddedBy"); } }
@@ -639,6 +660,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:TemplateInstruction_Instruction
 
 		public static string TemplateInstruction_Instruction { get { return GetResourceString("TemplateInstruction_Instruction"); } }
+//Resources:FSResources:TemplateInstruction_Notes
+
+		public static string TemplateInstruction_Notes { get { return GetResourceString("TemplateInstruction_Notes"); } }
 //Resources:FSResources:TemplateInstruction_StepId
 
 		public static string TemplateInstruction_StepId { get { return GetResourceString("TemplateInstruction_StepId"); } }
@@ -795,6 +819,9 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string Instructions_Name_Default = "Instructions_Name_Default";
 			public const string Instructions_Name_Label = "Instructions_Name_Label";
 			public const string Instructions_Name_Show = "Instructions_Name_Show";
+			public const string Instructions_Notes_Default = "Instructions_Notes_Default";
+			public const string Instructions_Notes_Label = "Instructions_Notes_Label";
+			public const string Instructions_Notes_Show = "Instructions_Notes_Show";
 			public const string Instructions_Resource_Help = "Instructions_Resource_Help";
 			public const string Instructions_Resources_Default = "Instructions_Resources_Default";
 			public const string Instructions_Resources_Label = "Instructions_Resources_Label";
@@ -825,6 +852,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicket_Address = "ServiceTicket_Address";
 			public const string ServiceTicket_AssignedTo = "ServiceTicket_AssignedTo";
 			public const string ServiceTicket_ClosedBy = "ServiceTicket_ClosedBy";
+			public const string ServiceTicket_ClosedDate = "ServiceTicket_ClosedDate";
 			public const string ServiceTicket_Company = "ServiceTicket_Company";
 			public const string ServiceTicket_Description = "ServiceTicket_Description";
 			public const string ServiceTicket_Details = "ServiceTicket_Details";
@@ -834,6 +862,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicket_Help = "ServiceTicket_Help";
 			public const string ServiceTicket_History = "ServiceTicket_History";
 			public const string ServiceTicket_IsClosed = "ServiceTicket_IsClosed";
+			public const string ServiceTicket_IsViewed = "ServiceTicket_IsViewed";
 			public const string ServiceTicket_Notes = "ServiceTicket_Notes";
 			public const string ServiceTicket_ServiceBoard = "ServiceTicket_ServiceBoard";
 			public const string ServiceTicket_Status = "ServiceTicket_Status";
@@ -841,6 +870,8 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicket_Subject = "ServiceTicket_Subject";
 			public const string ServiceTicket_TicketId = "ServiceTicket_TicketId";
 			public const string ServiceTicket_Title = "ServiceTicket_Title";
+			public const string ServiceTicket_ViewedBy = "ServiceTicket_ViewedBy";
+			public const string ServiceTicket_ViewedDate = "ServiceTicket_ViewedDate";
 			public const string ServiceTicketNote_AddedBy = "ServiceTicketNote_AddedBy";
 			public const string ServiceTicketNote_DateStamp = "ServiceTicketNote_DateStamp";
 			public const string ServiceTicketNote_Description = "ServiceTicketNote_Description";
@@ -960,6 +991,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string TemplateInstruction_Help = "TemplateInstruction_Help";
 			public const string TemplateInstruction_Hints = "TemplateInstruction_Hints";
 			public const string TemplateInstruction_Instruction = "TemplateInstruction_Instruction";
+			public const string TemplateInstruction_Notes = "TemplateInstruction_Notes";
 			public const string TemplateInstruction_StepId = "TemplateInstruction_StepId";
 			public const string TemplateInstruction_Title = "TemplateInstruction_Title";
 			public const string TroubleShootingStep_Description = "TroubleShootingStep_Description";

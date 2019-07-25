@@ -786,6 +786,18 @@
   <data name="TemplateCategory_TicketLabel_Help" xml:space="preserve">
     <value>This is the label that will be used to provide a cusomtizable label to describe the concept of a field service ticket in your implementation for this category</value>
   </data>
+  <data name="ServiceTicket_ClosedDate" xml:space="preserve">
+    <value>Closed Date</value>
+  </data>
+  <data name="ServiceTicket_IsViewed" xml:space="preserve">
+    <value>Is Viewed</value>
+  </data>
+  <data name="ServiceTicket_ViewedBy" xml:space="preserve">
+    <value>Viewed By</value>
+  </data>
+  <data name="ServiceTicket_ViewedDate" xml:space="preserve">
+    <value>Viewed Date</value>
+  </data>
   <data name="TemplateCategory_IsClosed_Default" xml:space="preserve">
     <value>Is Closed</value>
   </data>
@@ -824,5 +836,17 @@
   </data>
   <data name="TemplateCategory_Subject_Label" xml:space="preserve">
     <value>Subject Label</value>
+  </data>
+  <data name="Instructions_Notes_Default" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="Instructions_Notes_Label" xml:space="preserve">
+    <value>Notes Label</value>
+  </data>
+  <data name="Instructions_Notes_Show" xml:space="preserve">
+    <value>Show Notes</value>
+  </data>
+  <data name="TemplateInstruction_Notes" xml:space="preserve">
+    <value>Notes</value>
   </data>
 </root>

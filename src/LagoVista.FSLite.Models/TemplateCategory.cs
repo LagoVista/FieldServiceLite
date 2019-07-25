@@ -161,6 +161,7 @@ namespace LagoVista.FSLite.Models
             InstructionsLabel = FSResources.Instructions_Instructions_Default;
             HintsLabel = FSResources.Instructions_Hints_Default;
             ToolsLabel = FSResources.Instructions_Tools_Default;
+            NotesLabel = FSResources.Instructions_Notes_Default;
             ResourcesLabel = FSResources.Instructions_Resources_Default;
 
             ShowName = true;
@@ -168,6 +169,7 @@ namespace LagoVista.FSLite.Models
             ShowHints = true;
             ShowTools = true;
             ShowResources = true;
+            ShowNotes = true;
         }
 
         [FormField(LabelResource: FSResources.Names.Instructions_Name_Show, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
@@ -184,6 +186,12 @@ namespace LagoVista.FSLite.Models
         public bool ShowHints { get; set; }
         [FormField(LabelResource: FSResources.Names.Instructions_Hints_Label, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.Instructions_Hints_Help, ResourceType: typeof(FSResources))]
         public string HintsLabel { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.Instructions_Notes_Show, HelpResource: FSResources.Names.Instructions_Hints_Help, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
+        public bool ShowNotes { get; set; }
+        [FormField(LabelResource: FSResources.Names.Instructions_Notes_Label, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.Instructions_Hints_Help, ResourceType: typeof(FSResources))]
+        public string NotesLabel { get; set; }
+
 
         [FormField(LabelResource: FSResources.Names.Instructions_Tools_Show, HelpResource: FSResources.Names.Instructions_Tools_Help, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
         public bool ShowTools { get; set; }

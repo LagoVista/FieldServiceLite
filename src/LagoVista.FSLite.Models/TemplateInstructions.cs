@@ -28,10 +28,14 @@ namespace LagoVista.FSLite.Models
         public string Name { get; set; }
 
         [FormField(LabelResource: FSResources.Names.TemplateInstruction_Instruction, FieldType:FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
-        public string Instruction { get; set; }
+        public string Instructions { get; set; }
 
         [FormField(LabelResource: FSResources.Names.TemplateInstruction_Hints, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
         public string Hints { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.TemplateInstruction_Notes, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
+        public string Notes { get; set; }
+
 
         [FormField(LabelResource: FSResources.Names.Common_Resources, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
         public List<EquipmentSummary> Tools { get; set; }

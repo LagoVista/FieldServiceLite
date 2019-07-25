@@ -1,9 +1,11 @@
 ﻿using LagoVista.Core.Attributes;
 using LagoVista.Core.Models;
 using LagoVista.FSLite.Models.Resources;
+using LagoVista.IoT.Deployment.Admin.Models;
 using LagoVista.IoT.DeviceAdmin.Models;
 using LagoVista.IoT.DeviceManagement.Core.Models;
 using LagoVista.MediaServices.Models;
+using System;
 using System.Collections.Generic;
 
 namespace LagoVista.FSLite.Models
@@ -14,7 +16,7 @@ namespace LagoVista.FSLite.Models
     {
         public ServiceTicket()
         {
-            Notes = new List<ServiceTicketNote>();            
+            Notes = new List<ServiceTicketNote>();
             Resources = new List<MediaResourceSummary>();
             History = new List<ServiceTicketStatusHistory>();
 
@@ -38,6 +40,15 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Status, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public EntityHeader Status { get; set; }
 
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_IsViewed, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
+        public bool IsViewed { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_ViewedBy, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsUserEditable:false)]
+        public EntityHeader ViewedBy { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_ViewedDate, FieldType: FieldTypes.Text, IsUserEditable:false, ResourceType: typeof(FSResources))]
+        public DateTime? ViewedDate { get; set; }
+
         [FormField(LabelResource: FSResources.Names.ServiceTicket_StatusDate, FieldType: FieldTypes.DateTime, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: false)]
         public string StatusDate { get; set; }
 
@@ -56,8 +67,11 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicket_IsClosed, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public bool IsClosed { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_ClosedBy, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_ClosedBy, FieldType: FieldTypes.Text, IsUserEditable:false, ResourceType: typeof(FSResources))]
         public EntityHeader ClosedBy { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_ClosedDate, FieldType: FieldTypes.Text, IsUserEditable: false, ResourceType: typeof(FSResources))]
+        public DateTime? ClosedDate { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_DueDate, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsUserEditable: true)]
         public string DueDate { get; set; }
