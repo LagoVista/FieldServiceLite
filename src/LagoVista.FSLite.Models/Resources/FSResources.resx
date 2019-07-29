@@ -849,4 +849,49 @@
   <data name="TemplateInstruction_Notes" xml:space="preserve">
     <value>Notes</value>
   </data>
+  <data name="Template_Time_ToComplete_Days" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="Template_Time_ToComplete_Hours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="Template_Time_ToComplete_Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="Template_Time_ToComplete_NotApplicable" xml:space="preserve">
+    <value>Not Applicable</value>
+  </data>
+  <data name="Template_Time_ToComplete_Quantity" xml:space="preserve">
+    <value>Due  quantity</value>
+  </data>
+  <data name="Template_Time_ToComplete_Select" xml:space="preserve">
+    <value>-select-</value>
+  </data>
+  <data name="Template_Time_ToComplete_TimeSpan" xml:space="preserve">
+    <value>Time to complete </value>
+  </data>
+  <data name="Template_Time_ToComplete_Quantity_Help" xml:space="preserve">
+    <value>Specify the quanitity of minutes, hours or days that will be added to the current time and date when the ticket when it is created to establish a due date.</value>
+  </data>
+  <data name="Template_Time_ToComplete_TimeSpan_Help" xml:space="preserve">
+    <value>Specify a period of time such as minutes, hours or days that will be added to the current time and date when the ticket when it is created to establish a due date.</value>
+  </data>
+  <data name="Template_Exclusive" xml:space="preserve">
+    <value>Exclusive</value>
+  </data>
+  <data name="Template_Exclusive_Help" xml:space="preserve">
+    <value>If you select the exlusive option, only one ticket of this type can be opened at a time.  For example if there is already a ticket that has been created and is in an open status, if there is an attempt to create an additional ticket of that time, it will be rejected.</value>
+  </data>
+  <data name="StatusItems_Description" xml:space="preserve">
+    <value>Lists out the available ticket status </value>
+  </data>
+  <data name="StatusItems_Name" xml:space="preserve">
+    <value>Available Ticket Status</value>
+  </data>
+  <data name="Status_Code" xml:space="preserve">
+    <value>Status Code</value>
+  </data>
+  <data name="Status_IsClosed" xml:space="preserve">
+    <value>Is Closed Status</value>
+  </data>
 </root>

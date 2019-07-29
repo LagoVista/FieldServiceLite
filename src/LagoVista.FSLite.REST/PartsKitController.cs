@@ -71,6 +71,18 @@ namespace LagoVista.FSLite.REST
         }
 
         /// <summary>
+        /// FS Lite - Get a parts detail kit by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/api/fslite/partskit/{id}/detail")]
+        public Task<PartsKit> GetPartsKitDetailAsync(string id)
+        {
+            return _mgr.GetPartsKitAsync(id, OrgEntityHeader, UserEntityHeader);
+        }
+
+
+        /// <summary>
         /// FS Lite - Create the parts kit.
         /// </summary>
         /// <param name="id"></param>

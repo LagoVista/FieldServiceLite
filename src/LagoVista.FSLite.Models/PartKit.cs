@@ -12,14 +12,14 @@ namespace LagoVista.FSLite.Models
     {
         public PartsKit()
         {
-            Parts = new List<BOMItem>();
+            Parts = new List<SectionGrouping<BOMItem>>();
         }
 
         [FormField(LabelResource: FSResources.Names.PartKit_KitNumber, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true)]
         public string KitNumber { get; set; }
 
         [FormField(LabelResource: FSResources.Names.PartsKit_Parts, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
-        public List<BOMItem> Parts { get; set; }
+        public List<SectionGrouping<BOMItem>> Parts { get; set; }
 
         public PartsKitSummary CreateSummary()
         {

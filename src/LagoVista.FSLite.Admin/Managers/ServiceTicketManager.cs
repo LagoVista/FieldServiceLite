@@ -17,6 +17,7 @@ using LagoVista.IoT.DeviceManagement.Core.Managers;
 using LagoVista.IoT.Deployment.Admin;
 using LagoVista.IoT.Deployment.Admin.Repos;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace LagoVista.FSLite.Admin.Managers
 {
@@ -124,6 +125,11 @@ namespace LagoVista.FSLite.Admin.Managers
                 boardEH = new EntityHeader<ServiceBoard>() { Id = board.Id, Text = board.Name };
                 var ticketNumber = await _serviceBoardRepo.GetNextTicketNumber(request.BoardId);
                 ticketId = $"{board.BoardAbbreviation}-{ticketNumber}";
+
+                if (assignedToUser == null && !EntityHeader.IsNullOrEmpty(board.PrimaryContact))
+                {
+                    assignedToUser = board.PrimaryContact;
+                }
             }
             else if (!EntityHeader.IsNullOrEmpty(repo.ServiceBoard))
             {
@@ -134,6 +140,24 @@ namespace LagoVista.FSLite.Admin.Managers
                 ticketId = $"{board.BoardAbbreviation}-{ticketNumber}";
             }
 
+            string dueDate = null;
+
+            if (!EntityHeader.IsNullOrEmpty(template.TimeToCompleteTimeSpan) &&
+                template.TimeToCompleteTimeSpan.Value != TimeToCompleteTimeSpans.NotApplicable &&
+                template.TimeToCompleteTimeSpan.HasValue)
+            {
+
+                TimeSpan ts;
+                switch (template.TimeToCompleteTimeSpan.Value)
+                {
+                    case TimeToCompleteTimeSpans.Minutes: ts = TimeSpan.FromMinutes(template.TimeToCompleteQuantity.Value); break;
+                    case TimeToCompleteTimeSpans.Hours: ts = TimeSpan.FromHours(template.TimeToCompleteQuantity.Value); break;
+                    case TimeToCompleteTimeSpans.Days: ts = TimeSpan.FromDays(template.TimeToCompleteQuantity.Value); break;
+                }
+
+                dueDate = DateTime.UtcNow.Add(ts).ToJSONString();
+            }
+
             var ticket = new ServiceTicket()
             {
                 Key = template.Key,
@@ -141,6 +165,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 DeviceRepo = EntityHeader.Create(repo.Id, repo.Name),
                 CreationDate = currentTimeStamp,
                 LastUpdatedDate = currentTimeStamp,
+                DueDate = dueDate,
                 Name = $"{template.Name} ({device.DeviceId})",
                 Address = device.Address,
                 IsClosed = false,
@@ -162,6 +187,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 ServiceParts = template.ServiceParts,
                 Instructions = template.Instructions,
                 StatusType = template.StatusType,
+                Resources = template.Resources,
                 TroubleshootingSteps = template.TroubleshootingSteps,
                 CreatedBy = user,
                 LastUpdatedBy = user
@@ -217,16 +243,36 @@ namespace LagoVista.FSLite.Admin.Managers
             return InvokeResult.Success;
         }
 
+        public async Task<InvokeResult<ServiceTicketStatusHistory>> SetAssignedToAsync(string id, EntityHeader assignedTouser, EntityHeader org, EntityHeader user)
+        {
+            var ticket = await _repo.GetServiceTicketAsync(id);
+            await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org);
+
+            var existingAssigned = EntityHeader.IsNullOrEmpty(ticket.AssignedTo) ? "unassigned" : ticket.AssignedTo.Text;
+            var newAssigned = EntityHeader.IsNullOrEmpty(assignedTouser) ? "unassigned" : assignedTouser.Text;
+
+            var historyItem = new ServiceTicketStatusHistory()
+            {
+                AddedBy = user,
+                DateStamp = DateTime.UtcNow.ToJSONString(),
+                Status = ticket.Status.Text,
+                Note = $"Ticket assigned from [{existingAssigned}] to [{newAssigned}]"
+            };
+
+            ticket.History.Insert(0, historyItem);
+
+            ticket.AssignedTo = assignedTouser;
+            await _repo.UpdateServiceTicketAsync(ticket);
+
+            return InvokeResult<ServiceTicketStatusHistory>.Create(historyItem);
+        }
+
         public async Task<ServiceTicket> GetServiceTicketAsync(string id, EntityHeader org, EntityHeader user)
         {
             var sw = Stopwatch.StartNew();
             var ticket = await _repo.GetServiceTicketAsync(id);
 
-            Console.WriteLine($"TRACK 0 => {sw.Elapsed.TotalMilliseconds} ");
-
             await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Read, user, org);
-
-            Console.WriteLine($"TRACK 1 => {sw.Elapsed.TotalMilliseconds} ");
 
             if (!EntityHeader.IsNullOrEmpty(ticket.DeviceRepo))
             {
@@ -234,19 +280,13 @@ namespace LagoVista.FSLite.Admin.Managers
                 if (!EntityHeader.IsNullOrEmpty(ticket.Device))
                 {
                     ticket.Device.Value = await _deviceManager.GetDeviceByIdAsync(repo, ticket.Device.Id, org, user, true);
-                    Console.WriteLine($"TRACK 1.5 => {sw.Elapsed.TotalMilliseconds} ");
                 }
             }
-
-            Console.WriteLine($"TRACK 2 => {sw.Elapsed.TotalMilliseconds} ");
 
             if (!EntityHeader.IsNullOrEmpty(ticket.ServiceBoard))
             {
                 ticket.ServiceBoard.Value = await _serviceBoardRepo.GetServiceBoardAsync(ticket.ServiceBoard.Id);
-
             }
-
-            Console.WriteLine($"TRACK 3 => {sw.Elapsed.TotalMilliseconds} ");
 
             if (!EntityHeader.IsNullOrEmpty(ticket.Template))
             {
@@ -257,8 +297,6 @@ namespace LagoVista.FSLite.Admin.Managers
                     ticket.Template.Value.TemplateCategory.Value = await _templateCategoryRepo.GetTemplateCategoryAsync(ticket.Template.Value.TemplateCategory.Id);
                 }
             }
-
-            Console.WriteLine($"TRACK 4 => {sw.Elapsed.TotalMilliseconds} ");
 
             return ticket;
         }

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using LagoVista.Core;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace LagoVista.FSLite.REST
 {
@@ -166,6 +167,17 @@ namespace LagoVista.FSLite.REST
         public Task<InvokeResult> DeleteServiceTicketAsync(string id)
         {
             return _mgr.DeleteServiceTicketAsync(id, OrgEntityHeader, UserEntityHeader);
+        }
+
+        /// <summary>
+        /// FS Lite - Assign a new user to ticket.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("/api/fslite/ticket/{id}/assignedto")]
+        public Task<InvokeResult<ServiceTicketStatusHistory>> AssignToUserAsync(string id, [FromBody] EntityHeader assignedUser)
+        {
+            return _mgr.SetAssignedToAsync(id, assignedUser, OrgEntityHeader, UserEntityHeader);
         }
 
         /// <summary>

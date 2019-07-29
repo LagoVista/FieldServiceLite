@@ -1,4 +1,4 @@
-﻿/*7/25/2019 12:46:01*/
+﻿/*7/26/2019 08:51:49*/
 using System.Globalization;
 using System.Reflection;
 
@@ -468,6 +468,39 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:Template_Cateogry_Description
 
 		public static string Template_Cateogry_Description { get { return GetResourceString("Template_Cateogry_Description"); } }
+//Resources:FSResources:Template_Exclusive
+
+		public static string Template_Exclusive { get { return GetResourceString("Template_Exclusive"); } }
+//Resources:FSResources:Template_Exclusive_Help
+
+		public static string Template_Exclusive_Help { get { return GetResourceString("Template_Exclusive_Help"); } }
+//Resources:FSResources:Template_Time_ToComplete_Days
+
+		public static string Template_Time_ToComplete_Days { get { return GetResourceString("Template_Time_ToComplete_Days"); } }
+//Resources:FSResources:Template_Time_ToComplete_Hours
+
+		public static string Template_Time_ToComplete_Hours { get { return GetResourceString("Template_Time_ToComplete_Hours"); } }
+//Resources:FSResources:Template_Time_ToComplete_Minutes
+
+		public static string Template_Time_ToComplete_Minutes { get { return GetResourceString("Template_Time_ToComplete_Minutes"); } }
+//Resources:FSResources:Template_Time_ToComplete_NotApplicable
+
+		public static string Template_Time_ToComplete_NotApplicable { get { return GetResourceString("Template_Time_ToComplete_NotApplicable"); } }
+//Resources:FSResources:Template_Time_ToComplete_Quantity
+
+		public static string Template_Time_ToComplete_Quantity { get { return GetResourceString("Template_Time_ToComplete_Quantity"); } }
+//Resources:FSResources:Template_Time_ToComplete_Quantity_Help
+
+		public static string Template_Time_ToComplete_Quantity_Help { get { return GetResourceString("Template_Time_ToComplete_Quantity_Help"); } }
+//Resources:FSResources:Template_Time_ToComplete_Select
+
+		public static string Template_Time_ToComplete_Select { get { return GetResourceString("Template_Time_ToComplete_Select"); } }
+//Resources:FSResources:Template_Time_ToComplete_TimeSpan
+
+		public static string Template_Time_ToComplete_TimeSpan { get { return GetResourceString("Template_Time_ToComplete_TimeSpan"); } }
+//Resources:FSResources:Template_Time_ToComplete_TimeSpan_Help
+
+		public static string Template_Time_ToComplete_TimeSpan_Help { get { return GetResourceString("Template_Time_ToComplete_TimeSpan_Help"); } }
 //Resources:FSResources:TemplateCategory_CostEstimate_Default
 
 		public static string TemplateCategory_CostEstimate_Default { get { return GetResourceString("TemplateCategory_CostEstimate_Default"); } }
@@ -927,6 +960,17 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string Template_Category = "Template_Category";
 			public const string Template_Category_Help = "Template_Category_Help";
 			public const string Template_Cateogry_Description = "Template_Cateogry_Description";
+			public const string Template_Exclusive = "Template_Exclusive";
+			public const string Template_Exclusive_Help = "Template_Exclusive_Help";
+			public const string Template_Time_ToComplete_Days = "Template_Time_ToComplete_Days";
+			public const string Template_Time_ToComplete_Hours = "Template_Time_ToComplete_Hours";
+			public const string Template_Time_ToComplete_Minutes = "Template_Time_ToComplete_Minutes";
+			public const string Template_Time_ToComplete_NotApplicable = "Template_Time_ToComplete_NotApplicable";
+			public const string Template_Time_ToComplete_Quantity = "Template_Time_ToComplete_Quantity";
+			public const string Template_Time_ToComplete_Quantity_Help = "Template_Time_ToComplete_Quantity_Help";
+			public const string Template_Time_ToComplete_Select = "Template_Time_ToComplete_Select";
+			public const string Template_Time_ToComplete_TimeSpan = "Template_Time_ToComplete_TimeSpan";
+			public const string Template_Time_ToComplete_TimeSpan_Help = "Template_Time_ToComplete_TimeSpan_Help";
 			public const string TemplateCategory_CostEstimate_Default = "TemplateCategory_CostEstimate_Default";
 			public const string TemplateCategory_CostEstimate_Help = "TemplateCategory_CostEstimate_Help";
 			public const string TemplateCategory_CostEstimate_Label = "TemplateCategory_CostEstimate_Label";

@@ -18,7 +18,7 @@ namespace LagoVista.FSLite.Admin.Interfaces
         Task<InvokeResult<string>> CreateServiceTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId);
         Task<InvokeResult<ServiceTicket>> CreateServiceTicketAsync(CreateServiceTicketRequest request, EntityHeader org, EntityHeader user);
 
-
+        
         Task<ListResponse<ServiceTicketSummary>> GetTicketsForBoardAsync(string boardId, ListRequest listRequest, EntityHeader org, EntityHeader user);
         Task<ListResponse<ServiceTicketSummary>> GetOpenServiceTicketAsync(ListRequest listRequest, EntityHeader org, EntityHeader user);
         Task<ListResponse<ServiceTicketSummary>> GetClosedServiceTicketAsync(ListRequest listRequest, EntityHeader org, EntityHeader user);
@@ -33,6 +33,8 @@ namespace LagoVista.FSLite.Admin.Interfaces
         Task<InvokeResult> DeleteServiceTicketAsync(string id, EntityHeader org, EntityHeader user);
 
         Task<InvokeResult<ServiceTicketStatusHistory>> SetTicketStatusAsync(string id, EntityHeader newStatus, EntityHeader org, EntityHeader user);
+        Task<InvokeResult<ServiceTicketStatusHistory>> SetAssignedToAsync(string id, EntityHeader newAssignedTo, EntityHeader org, EntityHeader user);
+
         Task<InvokeResult<ServiceTicketNote>> AddTicketNoteAsync(string id, ServiceTicketNote note, EntityHeader org, EntityHeader user);
     }
 }
