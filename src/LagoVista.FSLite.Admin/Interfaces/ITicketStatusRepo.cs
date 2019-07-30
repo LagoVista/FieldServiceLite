@@ -6,11 +6,11 @@ namespace LagoVista.FSLite.Admin.Interfaces
 {
     public interface ITicketStatusRepo
     {
-        Task AddTicketStatusItemsAsync(TicketStatusItems ticketStatusItems);
-        Task UpdateTicketStatusItemsAsync(TicketStatusItems ticketStatusItems);
+        Task AddTicketStatusItemsAsync(TicketStatusDefinition ticketStatusItems);
+        Task UpdateTicketStatusItemsAsync(TicketStatusDefinition ticketStatusItems);
         Task DeleteTicketStatusItemsAsync(string id);
-        Task<TicketStatusItems> GetTicketStatusItemsAsync(string id);
-        Task<ListResponse<TicketStatusItemsSummary>> GetTicketStatusForOrgAsync(string orgId, ListRequest listRequest);
+        Task<TicketStatusDefinition> GetTicketStatusDefinitionAsync(string id);
+        Task<ListResponse<TicketStatusDefinitionSummary>> GetTicketStatusForOrgAsync(string orgId, ListRequest listRequest);
         Task<bool> QueryKeyInUseAsync(string key, string orgId);
     }
 }

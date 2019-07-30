@@ -28,12 +28,12 @@ namespace LagoVista.FSLite.Admin.Managers
         IServiceTicketTemplateRepo _templateRepo;
         IServiceBoardRepo _serviceBoardRepo;
         IDeviceRepositoryManager _repoManager;
-        IStateSetRepo _stateSetRepo;
+        ITicketStatusRepo _ticketStatusRepo;
         ITemplateCategoryRepo _templateCategoryRepo;
         IDeviceConfigurationRepo _deviceConfigRepo;
 
         public ServiceTicketManager(IServiceTicketRepo repo, IServiceBoardRepo boardRepo, IDeviceRepositoryManager repoManager, IDeviceManager deviceManager, ITemplateCategoryRepo templateCategoryRepo,
-                                    IDeviceConfigurationRepo deviceConfigRepo, IAppConfig appConfig, IAdminLogger logger, IStateSetRepo stateSetRepo, IServiceTicketTemplateRepo templateRepo, IDependencyManager depmanager, ISecurity security)
+                                    IDeviceConfigurationRepo deviceConfigRepo, IAppConfig appConfig, IAdminLogger logger, ITicketStatusRepo ticketStatusRepo, IServiceTicketTemplateRepo templateRepo, IDependencyManager depmanager, ISecurity security)
             : base(logger, appConfig, depmanager, security)
         {
             _repo = repo;
@@ -41,7 +41,7 @@ namespace LagoVista.FSLite.Admin.Managers
             _repoManager = repoManager;
             _deviceManager = deviceManager;
             _templateRepo = templateRepo;
-            _stateSetRepo = stateSetRepo;
+            _ticketStatusRepo = ticketStatusRepo;
             _templateCategoryRepo = templateCategoryRepo;
             _deviceConfigRepo = deviceConfigRepo;
         }
@@ -99,8 +99,8 @@ namespace LagoVista.FSLite.Admin.Managers
                 throw new InvalidOperationException("Device, org mismatch.");
             }
 
-            var stateSet = await _stateSetRepo.GetStateSetAsync(template.StatusType.Id);
-            var defaultState = stateSet.States.Where(st => st.IsInitialState).First();
+            var stateSet = await _ticketStatusRepo.GetTicketStatusDefinitionAsync(template.StatusType.Id);
+            var defaultState = stateSet.Items.Where(st => st.IsDefault).First();
 
             var assignedToUser = device.AssignedUser;
             if (assignedToUser == null)
@@ -144,7 +144,7 @@ namespace LagoVista.FSLite.Admin.Managers
 
             if (!EntityHeader.IsNullOrEmpty(template.TimeToCompleteTimeSpan) &&
                 template.TimeToCompleteTimeSpan.Value != TimeToCompleteTimeSpans.NotApplicable &&
-                template.TimeToCompleteTimeSpan.HasValue)
+                template.TimeToCompleteQuantity.HasValue)
             {
 
                 TimeSpan ts;
@@ -156,6 +156,22 @@ namespace LagoVista.FSLite.Admin.Managers
                 }
 
                 dueDate = DateTime.UtcNow.Add(ts).ToJSONString();
+            }
+
+            string statusDueDate = null;
+            if (EntityHeader.IsNullOrEmpty(defaultState.TimeAllowedInStatusTimeSpan) &&
+                defaultState.TimeAllowedInStatusTimeSpan.Value != TimeToCompleteTimeSpans.NotApplicable &&
+                defaultState.TimeAllowedInStatusQuantity.HasValue)
+            {
+                TimeSpan ts;
+                switch (defaultState.TimeAllowedInStatusTimeSpan.Value)
+                {
+                    case TimeToCompleteTimeSpans.Minutes: ts = TimeSpan.FromMinutes(defaultState.TimeAllowedInStatusQuantity.Value); break;
+                    case TimeToCompleteTimeSpans.Hours: ts = TimeSpan.FromHours(defaultState.TimeAllowedInStatusQuantity.Value); break;
+                    case TimeToCompleteTimeSpans.Days: ts = TimeSpan.FromDays(defaultState.TimeAllowedInStatusQuantity.Value); break;
+                }
+
+                statusDueDate = DateTime.UtcNow.Add(ts).ToJSONString();
             }
 
             var ticket = new ServiceTicket()
@@ -187,6 +203,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 ServiceParts = template.ServiceParts,
                 Instructions = template.Instructions,
                 StatusType = template.StatusType,
+                StatusDueDate = statusDueDate,
                 Resources = template.Resources,
                 TroubleshootingSteps = template.TroubleshootingSteps,
                 CreatedBy = user,
@@ -243,7 +260,7 @@ namespace LagoVista.FSLite.Admin.Managers
             return InvokeResult.Success;
         }
 
-        public async Task<InvokeResult<ServiceTicketStatusHistory>> SetAssignedToAsync(string id, EntityHeader assignedTouser, EntityHeader org, EntityHeader user)
+        public async Task<InvokeResult<ServiceTicket>> SetAssignedToAsync(string id, EntityHeader assignedTouser, EntityHeader org, EntityHeader user)
         {
             var ticket = await _repo.GetServiceTicketAsync(id);
             await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org);
@@ -264,7 +281,7 @@ namespace LagoVista.FSLite.Admin.Managers
             ticket.AssignedTo = assignedTouser;
             await _repo.UpdateServiceTicketAsync(ticket);
 
-            return InvokeResult<ServiceTicketStatusHistory>.Create(historyItem);
+            return InvokeResult<ServiceTicket>.Create(ticket);
         }
 
         public async Task<ServiceTicket> GetServiceTicketAsync(string id, EntityHeader org, EntityHeader user)
@@ -282,6 +299,10 @@ namespace LagoVista.FSLite.Admin.Managers
                     ticket.Device.Value = await _deviceManager.GetDeviceByIdAsync(repo, ticket.Device.Id, org, user, true);
                 }
             }
+
+            var statusType = await _ticketStatusRepo.GetTicketStatusDefinitionAsync(ticket.StatusType.Id);
+
+            ticket.StatusType = EntityHeader<TicketStatusDefinition>.Create(statusType);
 
             if (!EntityHeader.IsNullOrEmpty(ticket.ServiceBoard))
             {
@@ -372,11 +393,15 @@ namespace LagoVista.FSLite.Admin.Managers
             return await _repo.GetServiceTicketsAsync(filter, org.Id, listRequest);
         }
 
-        public async Task<InvokeResult<ServiceTicketStatusHistory>> SetTicketStatusAsync(string id, EntityHeader newStatus, EntityHeader org, EntityHeader user)
+        public async Task<InvokeResult<ServiceTicket>> SetTicketStatusAsync(string id, EntityHeader newStatus, EntityHeader org, EntityHeader user)
         {
             var date = DateTime.UtcNow.ToJSONString();
-
+           
             var ticket = await _repo.GetServiceTicketAsync(id);
+            if(newStatus.Id == ticket.Status.Id)
+            {
+                return InvokeResult<ServiceTicket>.FromError($"Already in {newStatus}");
+            }
 
             await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org, "SetStatus");
 
@@ -385,29 +410,179 @@ namespace LagoVista.FSLite.Admin.Managers
                 AddedBy = user,
                 DateStamp = date,
                 Status = newStatus.Text,
-                Note = $"Status changed to {newStatus.Text}"
+                Note = $"Status changed from [{ticket.Status.Text}] to [{newStatus.Text}]"
             };
+            ticket.History.Insert(0, history);
+
+            var statusDefinition = await _ticketStatusRepo.GetTicketStatusDefinitionAsync(ticket.StatusType.Id);
+            var status = statusDefinition.Items.First(stat => stat.Key == newStatus.Id);
+
+            if (!EntityHeader.IsNullOrEmpty(status.TimeAllowedInStatusTimeSpan) &&
+                status.TimeAllowedInStatusTimeSpan.Value != TimeToCompleteTimeSpans.NotApplicable &&
+                status.TimeAllowedInStatusQuantity.HasValue)
+            {
+                TimeSpan ts;
+                switch (status.TimeAllowedInStatusTimeSpan.Value)
+                {
+                    case TimeToCompleteTimeSpans.Minutes: ts = TimeSpan.FromMinutes(status.TimeAllowedInStatusQuantity.Value); break;
+                    case TimeToCompleteTimeSpans.Hours: ts = TimeSpan.FromHours(status.TimeAllowedInStatusQuantity.Value); break;
+                    case TimeToCompleteTimeSpans.Days: ts = TimeSpan.FromDays(status.TimeAllowedInStatusQuantity.Value); break;
+                }
+
+                ticket.StatusDueDate = DateTime.UtcNow.Add(ts).ToJSONString();
+
+                history = new ServiceTicketStatusHistory()
+                {
+                    AddedBy = user,
+                    DateStamp = date,
+                    Status = newStatus.Text,
+                    StatusDueDate = ticket.StatusDueDate,
+                    Note = $"New status due date set to [{ticket.StatusDueDate.ToDateTime().ToLocalTime()}]"
+                };
+                ticket.History.Insert(0, history);
+            }
+            else
+            {
+                ticket.StatusDueDate = null;
+            }
+
+            if(status.IsClosed != ticket.IsClosed)
+            {
+                ticket.IsClosed = status.IsClosed;
+                ticket.ClosedDate = ticket.IsClosed ? date : null;
+                ticket.ClosedBy = user;
+
+                history = new ServiceTicketStatusHistory()
+                {
+                    AddedBy = user,
+                    DateStamp = date,
+                    Status = newStatus.Text,
+                    Note = ticket.IsClosed ? $"Closed by [{user.Text}]" : $"Reopened by [{user.Text}]"
+                };
+
+                ticket.History.Insert(0, history);
+            }
 
             ticket.Status = newStatus;
             ticket.StatusDate = date;
-            ticket.History.Insert(0, history);
-
+            
             ticket.LastUpdatedBy = user;
             ticket.LastUpdatedDate = date;
 
             await _repo.UpdateServiceTicketAsync(ticket);
 
-            return InvokeResult<ServiceTicketStatusHistory>.Create(history);
+            return InvokeResult<ServiceTicket>.Create(ticket);
         }
 
-        public async Task<InvokeResult<ServiceTicketNote>> AddTicketNoteAsync(string id, ServiceTicketNote note, EntityHeader org, EntityHeader user)
+        public async Task<InvokeResult<ServiceTicket>> SetTicketViewedStatusAsync(string id, bool viewed, EntityHeader org, EntityHeader user)
         {
-            Console.WriteLine("A");
+            var ticket = await _repo.GetServiceTicketAsync(id);
+            var date = DateTime.UtcNow.ToJSONString();
+
+            await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org, "SetViewStatus");
+
+            if (viewed == ticket.IsViewed)
+            {
+                return InvokeResult<ServiceTicket>.FromError(viewed ? $"Aleady been marked as viewed." : "Already been marked as not viewed");
+            }
+
+            ticket.IsViewed = viewed;
+            if(viewed)
+            {
+                if(!EntityHeader.IsNullOrEmpty(ticket.AssignedTo) && user.Id != ticket.AssignedTo.Id)
+                {
+                    return InvokeResult<ServiceTicket>.FromError($"Assigned to {ticket.AssignedTo.Text} but attempted to be viewed by {user.Text}.  Only the assigned user can mark as viewed.");
+                }
+
+                ticket.ViewedDate = DateTime.UtcNow.ToJSONString();
+                ticket.ViewedBy = user;
+
+                var history = new ServiceTicketStatusHistory()
+                {
+                    AddedBy = user,
+                    DateStamp = date,
+                    Status = ticket.Status.Text,
+                    Note = $"Viewed by [{user.Text}]"
+                };
+                ticket.History.Insert(0, history);
+            }
+            else
+            {
+                ticket.ViewedDate = null;
+                ticket.ViewedBy = null;
+
+                var history = new ServiceTicketStatusHistory()
+                {
+                    AddedBy = user,
+                    DateStamp = date,
+                    Status = ticket.Status.Text,
+                    Note = $"Cleared viewed by [{user.Text}]"
+                };
+                ticket.History.Insert(0, history);
+            }
+
+            ticket.LastUpdatedBy = user;
+            ticket.LastUpdatedDate = date;
+            await _repo.UpdateServiceTicketAsync(ticket);
+
+            return InvokeResult<ServiceTicket>.Create(ticket);
+        }
+
+        public async Task<InvokeResult<ServiceTicket>> SetTicketClosedStatusAsync(string id, bool isClosed, EntityHeader org, EntityHeader user)
+        {
+            var ticket = await _repo.GetServiceTicketAsync(id);
+            var date = DateTime.UtcNow.ToJSONString();
+
+            await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org, "SetClosedStatus");
+
+            if (isClosed == ticket.IsClosed)
+            {
+                return InvokeResult<ServiceTicket>.FromError(isClosed ? $"Aleady been marked as closed." : "Already been marked as not closed");
+            }
+
+            ticket.IsClosed = isClosed;
+            if (isClosed)
+            {
+                ticket.ClosedDate = DateTime.UtcNow.ToJSONString();
+                ticket.ClosedBy = user;
+
+                var history = new ServiceTicketStatusHistory()
+                {
+                    AddedBy = user,
+                    DateStamp = date,
+                    Status = ticket.Status.Text,
+                    Note = $"Closed by [{user.Text}]"
+                };
+                ticket.History.Insert(0, history);
+            }
+            else
+            {
+                ticket.ClosedDate = null;
+                ticket.ClosedBy = null;
+
+                var history = new ServiceTicketStatusHistory()
+                {
+                    AddedBy = user,
+                    DateStamp = date,
+                    Status = ticket.Status.Text,
+                    Note = $"Re-opened by [{user.Text}]"
+                };
+                ticket.History.Insert(0, history);
+            }
+
+            ticket.LastUpdatedBy = user;
+            ticket.LastUpdatedDate = date;
+            await _repo.UpdateServiceTicketAsync(ticket);
+
+            return InvokeResult<ServiceTicket>.Create(ticket);
+        }
+
+        public async Task<InvokeResult<ServiceTicket>> AddTicketNoteAsync(string id, ServiceTicketNote note, EntityHeader org, EntityHeader user)
+        {
             var ticket = await _repo.GetServiceTicketAsync(id);
 
             await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org, "AddNote");
 
-            Console.WriteLine("B");
             ValidationCheck(note, Actions.Create);
 
             ticket.Notes.Add(note);
@@ -415,10 +590,7 @@ namespace LagoVista.FSLite.Admin.Managers
             ticket.LastUpdatedDate = note.DateStamp;
             await _repo.UpdateServiceTicketAsync(ticket);
 
-
-            Console.WriteLine("C");
-
-            return InvokeResult<ServiceTicketNote>.Create(note);
+            return InvokeResult<ServiceTicket>.Create(ticket);
         }
 
         public async Task<ListResponse<ServiceTicketSummary>> GetTicketsForBoardAsync(string boardId, ListRequest listRequest, EntityHeader org, EntityHeader user)

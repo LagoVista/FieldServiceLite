@@ -1,4 +1,4 @@
-﻿/*7/29/2019 20:13:55*/
+﻿/*7/30/2019 12:50:44*/
 using System.Globalization;
 using System.Reflection;
 
@@ -345,6 +345,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketStatusHistory_Status
 
 		public static string ServiceTicketStatusHistory_Status { get { return GetResourceString("ServiceTicketStatusHistory_Status"); } }
+//Resources:FSResources:ServiceTicketStatusHistory_StatusDueDate
+
+		public static string ServiceTicketStatusHistory_StatusDueDate { get { return GetResourceString("ServiceTicketStatusHistory_StatusDueDate"); } }
 //Resources:FSResources:ServiceTicketStatusHistory_Title
 
 		public static string ServiceTicketStatusHistory_Title { get { return GetResourceString("ServiceTicketStatusHistory_Title"); } }
@@ -967,6 +970,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketStatusHistory_Help = "ServiceTicketStatusHistory_Help";
 			public const string ServiceTicketStatusHistory_Notes = "ServiceTicketStatusHistory_Notes";
 			public const string ServiceTicketStatusHistory_Status = "ServiceTicketStatusHistory_Status";
+			public const string ServiceTicketStatusHistory_StatusDueDate = "ServiceTicketStatusHistory_StatusDueDate";
 			public const string ServiceTicketStatusHistory_Title = "ServiceTicketStatusHistory_Title";
 			public const string ServiceTicketTemplate_Category = "ServiceTicketTemplate_Category";
 			public const string ServiceTicketTemplate_Category_Help = "ServiceTicketTemplate_Category_Help";

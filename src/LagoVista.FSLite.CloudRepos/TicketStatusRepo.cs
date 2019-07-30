@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LagoVista.FSLite.CloudRepos
 {
-    public class TicketStatusRepo : DocumentDBRepoBase<TicketStatusItems>, ITicketStatusRepo
+    public class TicketStatusRepo : DocumentDBRepoBase<TicketStatusDefinition>, ITicketStatusRepo
     {
         private bool _shouldConsolidateCollections;
         public TicketStatusRepo(IFieldServiceLiteRepoSettings repoSettings, IAdminLogger logger)
@@ -22,7 +22,7 @@ namespace LagoVista.FSLite.CloudRepos
 
         protected override bool ShouldConsolidateCollections => _shouldConsolidateCollections;
 
-        public Task AddTicketStatusItemsAsync(TicketStatusItems ticketStatusItems)
+        public Task AddTicketStatusItemsAsync(TicketStatusDefinition ticketStatusItems)
         {
             return CreateDocumentAsync(ticketStatusItems);
         }
@@ -32,11 +32,11 @@ namespace LagoVista.FSLite.CloudRepos
             return DeleteDocumentAsync(id);
         }
 
-        public async Task<ListResponse<TicketStatusItemsSummary>> GetTicketStatusForOrgAsync(string orgId, ListRequest listRequest)
+        public async Task<ListResponse<TicketStatusDefinitionSummary>> GetTicketStatusForOrgAsync(string orgId, ListRequest listRequest)
         {
             var response = await base.QueryAsync(attr => (attr.OwnerOrganization.Id == orgId || attr.IsPublic == true), listRequest);
             //TODO: This is a broken pattern to be fixed another day...sorry.
-            var finalResponse = ListResponse<TicketStatusItemsSummary>.Create(response.Model.Select(mod => mod.CreateSummary()));
+            var finalResponse = ListResponse<TicketStatusDefinitionSummary>.Create(response.Model.Select(mod => mod.CreateSummary()));
             finalResponse.NextPartitionKey = response.NextPartitionKey;
             finalResponse.NextRowKey = response.NextRowKey;
             finalResponse.PageCount = response.PageCount;
@@ -46,19 +46,20 @@ namespace LagoVista.FSLite.CloudRepos
             return finalResponse;
         }
 
-        public Task<TicketStatusItems> GetTicketStatusItemsAsync(string id)
+        public Task<TicketStatusDefinition> GetTicketStatusDefinitionAsync(string id)
         {
-            throw new NotImplementedException();
+            return GetDocumentAsync(id);
         }
 
-        public Task<bool> QueryKeyInUseAsync(string key, string orgId)
+        public async Task<bool> QueryKeyInUseAsync(string key, string orgId)
         {
-            throw new NotImplementedException();
+            var items = await base.QueryAsync(attr => (attr.OwnerOrganization.Id == orgId || attr.IsPublic == true) && attr.Key == key);
+            return items.Any();
         }
 
-        public Task UpdateTicketStatusItemsAsync(TicketStatusItems ticketStatusItems)
+        public Task UpdateTicketStatusItemsAsync(TicketStatusDefinition ticketStatusItems)
         {
-            throw new NotImplementedException();
+            return UpsertDocumentAsync(ticketStatusItems);
         }
     }
 }

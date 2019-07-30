@@ -13,18 +13,18 @@ namespace LagoVista.FSLite.Models
 
     [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.Status_Name, FSResources.Names.Status_Help,
      FSResources.Names.Status_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources))]
-    public class TicketStatusItems : FSModelBase
+    public class TicketStatusDefinition : FSModelBase
     {
-        public TicketStatusItems()
+        public TicketStatusDefinition()
         {
             Items = new List<TicketStatus>();
         }
 
         public List<TicketStatus> Items { get; set; }
 
-        public TicketStatusItemsSummary CreateSummary()
+        public TicketStatusDefinitionSummary CreateSummary()
         {
-            return new TicketStatusItemsSummary()
+            return new TicketStatusDefinitionSummary()
             {
                 Description = Description,
                 Id = Id,
@@ -53,10 +53,13 @@ namespace LagoVista.FSLite.Models
         }
     }
 
-    public class TicketStatusItemsSummary : SummaryData
+    public class TicketStatusDefinitionSummary : SummaryData
     {
 
     }
+
+    [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.Status_Name, FSResources.Names.Status_Help,
+         FSResources.Names.Status_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources))]
 
     public class TicketStatus
     {
@@ -89,8 +92,23 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.Common_Description, IsRequired: false, FieldType: FieldTypes.MultiLineText, ResourceType: typeof(FSResources))]
         public string Description { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.Status_Code, HelpResource: FSResources.Names.Status_Code_Help, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
+        [FormField(LabelResource: FSResources.Names.Status_Code, HelpResource: FSResources.Names.Status_Code_Help, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: false, IsUserEditable: true)]
         public string Code { get; set; }
 
+        [CustomValidator]
+        public void Validate(ValidationResult result)
+        {
+            if (TimeAllowedInStatusTimeSpan.Value != TimeToCompleteTimeSpans.NotApplicable)
+            {
+                if(!TimeAllowedInStatusQuantity.HasValue)
+                {
+                    result.AddUserError($"{FSResources.Status_TimeAllowedInStatus_Quantity} is a required field.");
+                }
+            }
+            else
+            {
+                TimeAllowedInStatusQuantity = null;
+            }
+        }
     }
 }

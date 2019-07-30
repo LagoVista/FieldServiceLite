@@ -43,10 +43,10 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicket_IsViewed, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public bool IsViewed { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_ViewedBy, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsUserEditable:false)]
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_ViewedBy, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsUserEditable: false)]
         public EntityHeader ViewedBy { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_ViewedDate, FieldType: FieldTypes.Text, IsUserEditable:false, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_ViewedDate, FieldType: FieldTypes.Text, IsUserEditable: false, ResourceType: typeof(FSResources))]
         public string ViewedDate { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_StatusDate, FieldType: FieldTypes.DateTime, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: false)]
@@ -60,14 +60,14 @@ namespace LagoVista.FSLite.Models
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Subject, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public string Subject { get; set; }
-        
+
         [FormField(LabelResource: FSResources.Names.ServiceTicket_ServiceBoard, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
         public EntityHeader<ServiceBoard> ServiceBoard { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_IsClosed, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public bool IsClosed { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_ClosedBy, FieldType: FieldTypes.Text, IsUserEditable:false, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_ClosedBy, FieldType: FieldTypes.Text, IsUserEditable: false, ResourceType: typeof(FSResources))]
         public EntityHeader ClosedBy { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_ClosedDate, FieldType: FieldTypes.Text, IsUserEditable: false, ResourceType: typeof(FSResources))]
@@ -76,12 +76,12 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicket_DueDate, FieldType: FieldTypes.DateTime, ResourceType: typeof(FSResources), IsUserEditable: true)]
         public string DueDate { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_StatusDueDate, HelpResource:FSResources.Names.ServiceTicket_StatusDueDate_Help, FieldType: FieldTypes.DateTime, ResourceType: typeof(FSResources), IsUserEditable: true)]
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_StatusDueDate, HelpResource: FSResources.Names.ServiceTicket_StatusDueDate_Help, FieldType: FieldTypes.DateTime, ResourceType: typeof(FSResources), IsUserEditable: true)]
         public string StatusDueDate { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Notes, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<ServiceTicketNote> Notes { get; set; }
-       
+
         [FormField(LabelResource: FSResources.Names.ServiceTicket_History, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<ServiceTicketStatusHistory> History { get; set; }
 
@@ -92,7 +92,7 @@ namespace LagoVista.FSLite.Models
         public double CostEstimate { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_StatusType, WaterMark: FSResources.Names.ServiceTicketTemplate_StatusType_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_StatusType_Help, FieldType: FieldTypes.EntityHeaderPicker, IsRequired: true, ResourceType: typeof(FSResources))]
-        public EntityHeader<StateSet> StatusType { get; set; }
+        public EntityHeader<TicketStatusDefinition> StatusType { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Urgency, WaterMark: FSResources.Names.ServiceTicketTemplate_Urgency_Select, IsRequired: true, EnumType: typeof(Urgency), FieldType: FieldTypes.Picker, ResourceType: typeof(FSResources))]
         public EntityHeader<Urgency> Urgency { get; set; }
@@ -134,6 +134,11 @@ namespace LagoVista.FSLite.Models
                 Status = Status.Text,
                 Board = ServiceBoard != null ? ServiceBoard.Text : "-",
                 DueDate = string.IsNullOrEmpty(DueDate) ? "-" : DueDate,
+                StatusDueDate = string.IsNullOrEmpty(StatusDueDate) ? "-" : StatusDueDate,
+                ClosedBy = EntityHeader.IsNullOrEmpty(ClosedBy) ? "-" : ClosedBy.Text,
+                ViewedBy = EntityHeader.IsNullOrEmpty(ViewedBy) ? "-" : ViewedBy.Text,
+                ViewedDate = string.IsNullOrEmpty(ViewedDate) ? "-" : ViewedDate,
+                ClosedDate = string.IsNullOrEmpty(ClosedDate) ? "-" : ClosedDate,
                 AssignedTo = AssignedTo != null ? AssignedTo.Text : "-",
                 TicketId = TicketId,
             };
@@ -148,8 +153,14 @@ namespace LagoVista.FSLite.Models
         public string DeviceId { get; set; }
         public string Device { get; set; }
         public bool IsClosed { get; set; }
+        public string ClosedBy { get; set; }
+        public string ClosedDate { get; set; }
+        public bool IsViewed { get; set; }
+        public string ViewedBy { get; set; }
+        public string ViewedDate { get; set; }
         public string Status { get; set; }
         public string DueDate { get; set; }
+        public string StatusDueDate { get; set; }
         public string Board { get; set; }
         public string AssignedTo { get; set; }
         public string Company { get; set; }

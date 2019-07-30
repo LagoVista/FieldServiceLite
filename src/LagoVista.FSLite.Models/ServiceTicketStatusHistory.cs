@@ -17,6 +17,9 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicketStatusHistory_Status, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public string Status { get; set; }
 
+        [FormField(LabelResource: FSResources.Names.ServiceTicketStatusHistory_StatusDueDate, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: false)]
+        public string StatusDueDate { get; set; }
+
         [FormField(LabelResource: FSResources.Names.ServiceTicketStatusHistory_Notes, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public string Note { get; set; }
     }

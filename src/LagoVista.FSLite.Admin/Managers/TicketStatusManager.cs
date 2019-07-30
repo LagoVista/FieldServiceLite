@@ -20,7 +20,7 @@ namespace LagoVista.FSLite.Admin
             _repo = repo;
         }
 
-        public async Task<InvokeResult> AddTicketStatusItemsAsync(TicketStatusItems ticketStatusItems, EntityHeader org, EntityHeader user)
+        public async Task<InvokeResult> AddTicketStatusDefinitionAsync(TicketStatusDefinition ticketStatusItems, EntityHeader org, EntityHeader user)
         {
             ValidationCheck(ticketStatusItems, Actions.Create);
 
@@ -32,14 +32,14 @@ namespace LagoVista.FSLite.Admin
 
         public async Task<DependentObjectCheckResult> CheckInUseAsync(string id, EntityHeader org, EntityHeader user)
         {
-            var ticketStatusItems = await _repo.GetTicketStatusItemsAsync(id);
+            var ticketStatusItems = await _repo.GetTicketStatusDefinitionAsync(id);
             await AuthorizeAsync(ticketStatusItems, AuthorizeResult.AuthorizeActions.Read, user, org);
             return await CheckForDepenenciesAsync(ticketStatusItems);
         }
 
-        public async Task<InvokeResult> DeleteTicketStatusItemsAsync(string id, EntityHeader org, EntityHeader user)
+        public async Task<InvokeResult> DeleteTicketStatusDefinitionAsync(string id, EntityHeader org, EntityHeader user)
         {
-            var tickeStatusItems = await _repo.GetTicketStatusItemsAsync(id);
+            var tickeStatusItems = await _repo.GetTicketStatusDefinitionAsync(id);
             await ConfirmNoDepenenciesAsync(tickeStatusItems);
 
             await AuthorizeAsync(tickeStatusItems, AuthorizeResult.AuthorizeActions.Delete, user, org);
@@ -48,15 +48,15 @@ namespace LagoVista.FSLite.Admin
             return InvokeResult.Success;
         }
 
-        public async Task<TicketStatusItems> GetTicketStatusItemsAsync(string id, EntityHeader org, EntityHeader user)
+        public async Task<TicketStatusDefinition> GetTicketStatusDefinitionAsync(string id, EntityHeader org, EntityHeader user)
         {
-            var board = await _repo.GetTicketStatusItemsAsync(id);
+            var board = await _repo.GetTicketStatusDefinitionAsync(id);
             await AuthorizeAsync(board, AuthorizeResult.AuthorizeActions.GetForOrgs, user, org);
 
             return board;
         }
 
-        public async Task<ListResponse<TicketStatusItemsSummary>> GetTicketStatusItemsAsync(ListRequest listRequest, EntityHeader org, EntityHeader user)
+        public async Task<ListResponse<TicketStatusDefinitionSummary>> GetTicketStatusDefinitionForOrgsAsync(ListRequest listRequest, EntityHeader org, EntityHeader user)
         {
             await AuthorizeOrgAccessAsync(user, org, typeof(PartsKit));
             return await _repo.GetTicketStatusForOrgAsync(org.Id, listRequest);
@@ -67,7 +67,7 @@ namespace LagoVista.FSLite.Admin
             return _repo.QueryKeyInUseAsync(key, orgId);
         }
 
-        public async Task<InvokeResult> UpdateTicketStatusItemsAsync(TicketStatusItems ticketStatusItems, EntityHeader org, EntityHeader user)
+        public async Task<InvokeResult> UpdateTicketStatusDefinitionAsync(TicketStatusDefinition ticketStatusItems, EntityHeader org, EntityHeader user)
         {
             await AuthorizeAsync(ticketStatusItems, AuthorizeResult.AuthorizeActions.Update, user, org);
             Validator.Validate(ticketStatusItems, Actions.Update);

@@ -30,23 +30,23 @@ namespace LagoVista.FSLite.REST
         /// <summary>
         /// FS Lite - Add a ticket status item.
         /// </summary>
-        /// <param name="ticketStatusItems"></param>
+        /// <param name="ticketstatusdefinition"></param>
         /// <returns></returns>
-        [HttpPost("/api/fslite/ticketstatusitems")]
-        public Task<InvokeResult> AddticketstatusitemsAsync([FromBody] TicketStatusItems ticketStatusItems)
+        [HttpPost("/api/fslite/ticketstatusdefinition")]
+        public Task<InvokeResult> AddticketstatusdefinitionAsync([FromBody] TicketStatusDefinition ticketstatusdefinition)
         {
-            return _mgr.AddTicketStatusItemsAsync(ticketStatusItems, OrgEntityHeader, UserEntityHeader);
+            return _mgr.AddTicketStatusDefinitionAsync(ticketstatusdefinition, OrgEntityHeader, UserEntityHeader);
         }
 
         /// <summary>
         /// FS Lite - Update the ticket status items.
         /// </summary>
-        /// <param name="ticketStatusItems"></param>
+        /// <param name="ticketstatusdefinition"></param>
         /// <returns></returns>
-        [HttpPut("/api/fslite/ticketstatusitems")]
-        public Task<InvokeResult> UpdateticketstatusitemsAsync([FromBody] TicketStatusItems ticketStatusItems)
+        [HttpPut("/api/fslite/ticketstatusdefinition")]
+        public Task<InvokeResult> UpdateticketstatusdefinitionAsync([FromBody] TicketStatusDefinition ticketstatusdefinition)
         {
-            return _mgr.UpdateTicketStatusItemsAsync(ticketStatusItems, OrgEntityHeader, UserEntityHeader);
+            return _mgr.UpdateTicketStatusDefinitionAsync(ticketstatusdefinition, OrgEntityHeader, UserEntityHeader);
         }
 
         /// <summary>
@@ -54,10 +54,10 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("/api/fslite/ticketstatusitems/{id}")]
-        public Task<InvokeResult> DeleteticketstatusitemsAsync(string id)
+        [HttpDelete("/api/fslite/ticketstatusdefinition/{id}")]
+        public Task<InvokeResult> DeleteticketstatusdefinitionAsync(string id)
         {
-            return _mgr.DeleteTicketStatusItemsAsync(id, OrgEntityHeader, UserEntityHeader);
+            return _mgr.DeleteTicketStatusDefinitionAsync(id, OrgEntityHeader, UserEntityHeader);
         }
 
         /// <summary>
@@ -65,10 +65,10 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("/api/fslite/ticketstatusitems/{id}")]
-        public async Task<DetailResponse<TicketStatusItems>> GetticketstatusitemsAsync(string id)
+        [HttpGet("/api/fslite/ticketstatusdefinition/{id}")]
+        public async Task<DetailResponse<TicketStatusDefinition>> GetticketstatusdefinitionAsync(string id)
         {
-            return DetailResponse<TicketStatusItems>.Create(await _mgr.GetTicketStatusItemsAsync(id, OrgEntityHeader, UserEntityHeader));
+            return DetailResponse<TicketStatusDefinition>.Create(await _mgr.GetTicketStatusDefinitionAsync(id, OrgEntityHeader, UserEntityHeader));
         }
 
         /// <summary>
@@ -76,10 +76,10 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("/api/fslite/ticketstatusitems/{id}/detail")]
-        public Task<TicketStatusItems> GetticketstatusitemsDetailAsync(string id)
+        [HttpGet("/api/fslite/ticketstatusdefinition/{id}/detail")]
+        public Task<TicketStatusDefinition> GetticketstatusdefinitionDetailAsync(string id)
         {
-            return _mgr.GetTicketStatusItemsAsync(id, OrgEntityHeader, UserEntityHeader);
+            return _mgr.GetTicketStatusDefinitionAsync(id, OrgEntityHeader, UserEntityHeader);
         }
 
 
@@ -88,10 +88,10 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("/api/fslite/ticketstatusitems/factory")]
-        public DetailResponse<TicketStatusItems> CreateticketStatusItems(string id)
+        [HttpGet("/api/fslite/ticketstatusdefinition/factory")]
+        public DetailResponse<TicketStatusDefinition> Createticketstatusdefinition(string id)
         {
-            var status = DetailResponse<TicketStatusItems>.Create();
+            var status = DetailResponse<TicketStatusDefinition>.Create();
             status.Model.Id = Guid.NewGuid().ToId();
             SetAuditProperties(status.Model);
             SetOwnedProperties(status.Model);
@@ -103,7 +103,7 @@ namespace LagoVista.FSLite.REST
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("/api/fslite/ticketstatusitems/item/factory")]
+        [HttpGet("/api/fslite/ticketstatusdefinition/item/factory")]
         public DetailResponse<TicketStatus> Createticketstatusitem()
         {
             var status = DetailResponse<TicketStatus>.Create();
@@ -116,18 +116,18 @@ namespace LagoVista.FSLite.REST
         /// FS Lite - Get the ticket status items for an organization.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/fslite/ticketstatusitemss")]
-        public Task<ListResponse<TicketStatusItemsSummary>> GetticketstatusitemsAsync()
+        [HttpGet("/api/fslite/ticketstatusdefinition")]
+        public Task<ListResponse<TicketStatusDefinitionSummary>> GetticketstatusdefinitionAsync()
         {
-            return _mgr.GetTicketStatusItemsAsync(GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
+            return _mgr.GetTicketStatusDefinitionForOrgsAsync(GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
         }
 
         /// <summary>
         /// FS Lite - Are the ticket status items in use
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/fslite/ticketstatusitems/{key}/keyinuse")]
-        public Task<bool> GetticketstatusitemsKeyInUseAsync(String key)
+        [HttpGet("/api/fslite/ticketstatusdefinition/{key}/keyinuse")]
+        public Task<bool> GetticketstatusdefinitionKeyInUseAsync(String key)
         {
             return _mgr.QueryKeyInUseAsync(key, CurrentOrgId);
         }

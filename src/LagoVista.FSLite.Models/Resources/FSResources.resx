@@ -889,7 +889,7 @@
     <value>Available Ticket Status</value>
   </data>
   <data name="Status_Code" xml:space="preserve">
-    <value>Status Code</value>
+    <value>Mapping Status Code</value>
   </data>
   <data name="Status_IsClosed" xml:space="preserve">
     <value>Is Closed Status</value>
@@ -901,7 +901,7 @@
     <value>Date and time when a transition out of this status must be completed.</value>
   </data>
   <data name="Status_Code_Help" xml:space="preserve">
-    <value>When mapping a status from your external system, you can use the code to map IDs</value>
+    <value>You can optionally add an exteneral id or status code to map to an external field service  system.</value>
   </data>
   <data name="Status_Description" xml:space="preserve">
     <value>The Ticket Status Definition will let you create a custom set of status items that can be associated with a ticket.</value>
@@ -929,5 +929,8 @@
   </data>
   <data name="Status_TimeAllowedInStatus_Quantity" xml:space="preserve">
     <value>Time Allowed In Status (Quantity)</value>
+  </data>
+  <data name="ServiceTicketStatusHistory_StatusDueDate" xml:space="preserve">
+    <value>Status Due Date</value>
   </data>
 </root>

@@ -97,7 +97,7 @@ namespace LagoVista.FSLite.Models
         public double CostEstimate { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_StatusType, WaterMark: FSResources.Names.ServiceTicketTemplate_StatusType_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_StatusType_Help, FieldType: FieldTypes.EntityHeaderPicker, IsRequired: true, ResourceType: typeof(FSResources))]
-        public EntityHeader<StateSet> StatusType { get; set; }
+        public EntityHeader<TicketStatusDefinition> StatusType { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_DefaultContact, WaterMark: FSResources.Names.ServiceTicketTemplate_DefaultContact_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_DefaultContact_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
         public EntityHeader DefaultContact { get; set; }

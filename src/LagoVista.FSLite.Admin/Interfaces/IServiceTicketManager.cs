@@ -32,9 +32,10 @@ namespace LagoVista.FSLite.Admin.Interfaces
         Task<InvokeResult> CloseServiceTicketAsync(string id, EntityHeader org, EntityHeader user);
         Task<InvokeResult> DeleteServiceTicketAsync(string id, EntityHeader org, EntityHeader user);
 
-        Task<InvokeResult<ServiceTicketStatusHistory>> SetTicketStatusAsync(string id, EntityHeader newStatus, EntityHeader org, EntityHeader user);
-        Task<InvokeResult<ServiceTicketStatusHistory>> SetAssignedToAsync(string id, EntityHeader newAssignedTo, EntityHeader org, EntityHeader user);
-
-        Task<InvokeResult<ServiceTicketNote>> AddTicketNoteAsync(string id, ServiceTicketNote note, EntityHeader org, EntityHeader user);
+        Task<InvokeResult<ServiceTicket>> SetTicketClosedStatusAsync(string id, bool viewed, EntityHeader org, EntityHeader user);
+        Task<InvokeResult<ServiceTicket>> SetTicketViewedStatusAsync(string id, bool viewed, EntityHeader org, EntityHeader user);
+        Task<InvokeResult<ServiceTicket>> SetTicketStatusAsync(string id, EntityHeader newStatus, EntityHeader org, EntityHeader user);
+        Task<InvokeResult<ServiceTicket>> SetAssignedToAsync(string id, EntityHeader assignedTouser, EntityHeader org, EntityHeader user);
+        Task<InvokeResult<ServiceTicket>> AddTicketNoteAsync(string id, ServiceTicketNote note, EntityHeader org, EntityHeader user);
     }
 }

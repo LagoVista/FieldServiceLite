@@ -159,6 +159,28 @@ namespace LagoVista.FSLite.REST
         }
 
         /// <summary>
+        /// FS Lite - Set View Status on a Ticket
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/api/fslite/ticket/{id}/viewed/{viewed}")]
+        public Task<InvokeResult<ServiceTicket>> MarkAsViewedAsync(string id, bool viewed)
+        {
+            return _mgr.SetTicketViewedStatusAsync(id, viewed, OrgEntityHeader, UserEntityHeader);
+        }
+
+        /// <summary>
+        /// FS Lite - Set Closed Status on a Ticket
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/api/fslite/ticket/{id}/closed/{closed}")]
+        public Task<InvokeResult<ServiceTicket>> SetClosedStatusAsync(string id, bool closed)
+        {
+            return _mgr.SetTicketClosedStatusAsync(id, closed, OrgEntityHeader, UserEntityHeader);
+        }
+
+        /// <summary>
         /// FS Lite - Delete service ticket
         /// </summary>
         /// <param name="id"></param>
@@ -175,7 +197,7 @@ namespace LagoVista.FSLite.REST
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost("/api/fslite/ticket/{id}/assignedto")]
-        public Task<InvokeResult<ServiceTicketStatusHistory>> AssignToUserAsync(string id, [FromBody] EntityHeader assignedUser)
+        public Task<InvokeResult<ServiceTicket>> AssignToUserAsync(string id, [FromBody] EntityHeader assignedUser)
         {
             return _mgr.SetAssignedToAsync(id, assignedUser, OrgEntityHeader, UserEntityHeader);
         }
@@ -210,7 +232,7 @@ namespace LagoVista.FSLite.REST
         /// <param name="note"></param>
         /// <returns></returns>
         [HttpPost("/api/fslite/ticket/{id}/note")]
-        public Task<InvokeResult<ServiceTicketNote>> AddTicketNoteAsync(string id, [FromBody] ServiceTicketNote note)
+        public Task<InvokeResult<ServiceTicket>> AddTicketNoteAsync(string id, [FromBody] ServiceTicketNote note)
         {
             note.Id = Guid.NewGuid().ToId();
             note.AddedBy = UserEntityHeader;
@@ -226,7 +248,7 @@ namespace LagoVista.FSLite.REST
         /// <param name="status"></param>
         /// <returns></returns>
         [HttpPost("/api/fslite/ticket/{id}/status")]
-        public Task<InvokeResult<ServiceTicketStatusHistory>> SetTicketStatusAsync(string id, [FromBody] EntityHeader newStatus)
+        public Task<InvokeResult<ServiceTicket>> SetTicketStatusAsync(string id, [FromBody] EntityHeader newStatus)
         {
             return _mgr.SetTicketStatusAsync(id, newStatus, OrgEntityHeader, UserEntityHeader);
         }
