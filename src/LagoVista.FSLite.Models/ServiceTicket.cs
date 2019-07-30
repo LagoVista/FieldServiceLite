@@ -47,7 +47,7 @@ namespace LagoVista.FSLite.Models
         public EntityHeader ViewedBy { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_ViewedDate, FieldType: FieldTypes.Text, IsUserEditable:false, ResourceType: typeof(FSResources))]
-        public DateTime? ViewedDate { get; set; }
+        public string ViewedDate { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_StatusDate, FieldType: FieldTypes.DateTime, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: false)]
         public string StatusDate { get; set; }
@@ -71,10 +71,13 @@ namespace LagoVista.FSLite.Models
         public EntityHeader ClosedBy { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_ClosedDate, FieldType: FieldTypes.Text, IsUserEditable: false, ResourceType: typeof(FSResources))]
-        public DateTime? ClosedDate { get; set; }
+        public string ClosedDate { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_DueDate, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsUserEditable: true)]
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_DueDate, FieldType: FieldTypes.DateTime, ResourceType: typeof(FSResources), IsUserEditable: true)]
         public string DueDate { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_StatusDueDate, HelpResource:FSResources.Names.ServiceTicket_StatusDueDate_Help, FieldType: FieldTypes.DateTime, ResourceType: typeof(FSResources), IsUserEditable: true)]
+        public string StatusDueDate { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Notes, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<ServiceTicketNote> Notes { get; set; }

@@ -1,4 +1,4 @@
-﻿/*7/26/2019 08:51:49*/
+﻿/*7/29/2019 20:13:55*/
 using System.Globalization;
 using System.Reflection;
 
@@ -288,6 +288,12 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicket_StatusDate
 
 		public static string ServiceTicket_StatusDate { get { return GetResourceString("ServiceTicket_StatusDate"); } }
+//Resources:FSResources:ServiceTicket_StatusDueDate
+
+		public static string ServiceTicket_StatusDueDate { get { return GetResourceString("ServiceTicket_StatusDueDate"); } }
+//Resources:FSResources:ServiceTicket_StatusDueDate_Help
+
+		public static string ServiceTicket_StatusDueDate_Help { get { return GetResourceString("ServiceTicket_StatusDueDate_Help"); } }
 //Resources:FSResources:ServiceTicket_Subject
 
 		public static string ServiceTicket_Subject { get { return GetResourceString("ServiceTicket_Subject"); } }
@@ -459,6 +465,48 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:SP_Name_Show
 
 		public static string SP_Name_Show { get { return GetResourceString("SP_Name_Show"); } }
+//Resources:FSResources:Status_Code
+
+		public static string Status_Code { get { return GetResourceString("Status_Code"); } }
+//Resources:FSResources:Status_Code_Help
+
+		public static string Status_Code_Help { get { return GetResourceString("Status_Code_Help"); } }
+//Resources:FSResources:Status_Description
+
+		public static string Status_Description { get { return GetResourceString("Status_Description"); } }
+//Resources:FSResources:Status_Help
+
+		public static string Status_Help { get { return GetResourceString("Status_Help"); } }
+//Resources:FSResources:Status_IsClosed
+
+		public static string Status_IsClosed { get { return GetResourceString("Status_IsClosed"); } }
+//Resources:FSResources:Status_IsClosed_Help
+
+		public static string Status_IsClosed_Help { get { return GetResourceString("Status_IsClosed_Help"); } }
+//Resources:FSResources:Status_IsDefault
+
+		public static string Status_IsDefault { get { return GetResourceString("Status_IsDefault"); } }
+//Resources:FSResources:Status_IsDefault_Help
+
+		public static string Status_IsDefault_Help { get { return GetResourceString("Status_IsDefault_Help"); } }
+//Resources:FSResources:Status_Name
+
+		public static string Status_Name { get { return GetResourceString("Status_Name"); } }
+//Resources:FSResources:Status_TimeAllowedInStatus
+
+		public static string Status_TimeAllowedInStatus { get { return GetResourceString("Status_TimeAllowedInStatus"); } }
+//Resources:FSResources:Status_TimeAllowedInStatus_Help
+
+		public static string Status_TimeAllowedInStatus_Help { get { return GetResourceString("Status_TimeAllowedInStatus_Help"); } }
+//Resources:FSResources:Status_TimeAllowedInStatus_Quantity
+
+		public static string Status_TimeAllowedInStatus_Quantity { get { return GetResourceString("Status_TimeAllowedInStatus_Quantity"); } }
+//Resources:FSResources:StatusItems_Description
+
+		public static string StatusItems_Description { get { return GetResourceString("StatusItems_Description"); } }
+//Resources:FSResources:StatusItems_Name
+
+		public static string StatusItems_Name { get { return GetResourceString("StatusItems_Name"); } }
 //Resources:FSResources:Template_Category
 
 		public static string Template_Category { get { return GetResourceString("Template_Category"); } }
@@ -900,6 +948,8 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicket_ServiceBoard = "ServiceTicket_ServiceBoard";
 			public const string ServiceTicket_Status = "ServiceTicket_Status";
 			public const string ServiceTicket_StatusDate = "ServiceTicket_StatusDate";
+			public const string ServiceTicket_StatusDueDate = "ServiceTicket_StatusDueDate";
+			public const string ServiceTicket_StatusDueDate_Help = "ServiceTicket_StatusDueDate_Help";
 			public const string ServiceTicket_Subject = "ServiceTicket_Subject";
 			public const string ServiceTicket_TicketId = "ServiceTicket_TicketId";
 			public const string ServiceTicket_Title = "ServiceTicket_Title";
@@ -957,6 +1007,20 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_Urgency_Select = "ServiceTicketTemplate_Urgency_Select";
 			public const string ServiceTicketTemplateDefault_Assigned_Help = "ServiceTicketTemplateDefault_Assigned_Help";
 			public const string SP_Name_Show = "SP_Name_Show";
+			public const string Status_Code = "Status_Code";
+			public const string Status_Code_Help = "Status_Code_Help";
+			public const string Status_Description = "Status_Description";
+			public const string Status_Help = "Status_Help";
+			public const string Status_IsClosed = "Status_IsClosed";
+			public const string Status_IsClosed_Help = "Status_IsClosed_Help";
+			public const string Status_IsDefault = "Status_IsDefault";
+			public const string Status_IsDefault_Help = "Status_IsDefault_Help";
+			public const string Status_Name = "Status_Name";
+			public const string Status_TimeAllowedInStatus = "Status_TimeAllowedInStatus";
+			public const string Status_TimeAllowedInStatus_Help = "Status_TimeAllowedInStatus_Help";
+			public const string Status_TimeAllowedInStatus_Quantity = "Status_TimeAllowedInStatus_Quantity";
+			public const string StatusItems_Description = "StatusItems_Description";
+			public const string StatusItems_Name = "StatusItems_Name";
 			public const string Template_Category = "Template_Category";
 			public const string Template_Category_Help = "Template_Category_Help";
 			public const string Template_Cateogry_Description = "Template_Cateogry_Description";

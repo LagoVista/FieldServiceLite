@@ -14,8 +14,6 @@ using System.Threading.Tasks;
 
 namespace LagoVista.FSLite.REST
 {
-    
-
     [Authorize]
     public class PartsKitController : LagoVistaBaseController
     {
@@ -26,6 +24,7 @@ namespace LagoVista.FSLite.REST
         {
             _mgr = mgr;
         }
+
         /// <summary>
         /// FS Lite - Add a parts kit.
         /// </summary>

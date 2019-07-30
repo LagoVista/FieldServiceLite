@@ -862,13 +862,13 @@
     <value>Not Applicable</value>
   </data>
   <data name="Template_Time_ToComplete_Quantity" xml:space="preserve">
-    <value>Due  quantity</value>
+    <value>Time Allowed to Complete (quantity)</value>
   </data>
   <data name="Template_Time_ToComplete_Select" xml:space="preserve">
     <value>-select-</value>
   </data>
   <data name="Template_Time_ToComplete_TimeSpan" xml:space="preserve">
-    <value>Time to complete </value>
+    <value>Time Allowed to Complete</value>
   </data>
   <data name="Template_Time_ToComplete_Quantity_Help" xml:space="preserve">
     <value>Specify the quanitity of minutes, hours or days that will be added to the current time and date when the ticket when it is created to establish a due date.</value>
@@ -893,5 +893,41 @@
   </data>
   <data name="Status_IsClosed" xml:space="preserve">
     <value>Is Closed Status</value>
+  </data>
+  <data name="ServiceTicket_StatusDueDate" xml:space="preserve">
+    <value>Status Due Date</value>
+  </data>
+  <data name="ServiceTicket_StatusDueDate_Help" xml:space="preserve">
+    <value>Date and time when a transition out of this status must be completed.</value>
+  </data>
+  <data name="Status_Code_Help" xml:space="preserve">
+    <value>When mapping a status from your external system, you can use the code to map IDs</value>
+  </data>
+  <data name="Status_Description" xml:space="preserve">
+    <value>The Ticket Status Definition will let you create a custom set of status items that can be associated with a ticket.</value>
+  </data>
+  <data name="Status_Help" xml:space="preserve">
+    <value>The Ticket Status Definition will let you create a custom set of status items that can be associated with a ticket.</value>
+  </data>
+  <data name="Status_IsClosed_Help" xml:space="preserve">
+    <value>When this status has been selected the ticket will be closed if this is set and open if not.</value>
+  </data>
+  <data name="Status_IsDefault" xml:space="preserve">
+    <value>Is Default Status</value>
+  </data>
+  <data name="Status_IsDefault_Help" xml:space="preserve">
+    <value>When a new ticket is created with this status definition, this status will be the default value.</value>
+  </data>
+  <data name="Status_Name" xml:space="preserve">
+    <value>Ticket Status Definitions</value>
+  </data>
+  <data name="Status_TimeAllowedInStatus" xml:space="preserve">
+    <value>Time Allowed In Status</value>
+  </data>
+  <data name="Status_TimeAllowedInStatus_Help" xml:space="preserve">
+    <value>If you have an service level agreement on how long the ticket can be in this status, you can select the measure type here.</value>
+  </data>
+  <data name="Status_TimeAllowedInStatus_Quantity" xml:space="preserve">
+    <value>Time Allowed In Status (Quantity)</value>
   </data>
 </root>

@@ -18,6 +18,7 @@ namespace LagoVista.FSLite.Admin
             services.AddTransient<Interfaces.IServiceBoardManager, Managers.ServiceBoardManager>();
             services.AddTransient<Interfaces.ITemplateCategoryManager, Managers.TemplateCategoryManager>();
             services.AddTransient<Interfaces.IPartsKitManager, Managers.PartsKitManager>();
+            services.AddTransient<Admin.Interfaces.ITicketStatusManager, TicketStatusManager>();
         }
     }
 }
