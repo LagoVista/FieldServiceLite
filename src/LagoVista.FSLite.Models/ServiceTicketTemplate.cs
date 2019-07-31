@@ -77,6 +77,13 @@ namespace LagoVista.FSLite.Models
             Exclusive = true;
         }
 
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_DefaultSubject, HelpResource: FSResources.Names.ServiceTicketTemplate_DefaultSubject_Help, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
+        public string DefaultSubject { get; set; }
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_DefaultDescription, HelpResource: FSResources.Names.ServiceTicketTemplate_DefaultDescription_Help, FieldType: FieldTypes.MultiLineText, ResourceType: typeof(FSResources))]
+        public string DefaultDescription { get; set; }
+
+
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_DeviceType, WaterMark: FSResources.Names.ServiceTicketTemplate_DeviceType_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_DeviceType_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
         public EntityHeader DeviceType { get; set; }
 

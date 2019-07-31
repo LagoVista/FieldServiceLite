@@ -31,6 +31,9 @@ namespace LagoVista.FSLite.Models
             StatusLabel = FSResources.TemplateCategory_Status_Default;
             SubjectLabel = FSResources.TemplateCategory_Subject_Default;
             ServiceBoardLabel = FSResources.TemplateCategory_ServiceBoard_Default;
+            StatusDateLabel = FSResources.TemplateCategory_StatusDate_Default;
+            StatusDueDateLabel = FSResources.TemplateCategory_StatusDueDate_Default;
+            DueDateLabel = FSResources.TemplateCategory_DueDate_Default;
 
             ShowCostEstimate = true;
             ShowHoursEstimate = true;
@@ -43,6 +46,9 @@ namespace LagoVista.FSLite.Models
             ShowSkillLevel = true;
             ShowIsViewed = true;
             ShowTroubleshootingSteps = true;
+            ShowDueDate = true;
+            ShowStatusDate = true;
+            ShowStatusDueDate = true;
         }
 
         public TemplateCategorySummary CreateSummary()
@@ -74,7 +80,6 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.TemplateCategory_IsViewed_Label, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
         public string IsViewedLabel { get; set; }
 
-
         [FormField(LabelResource: FSResources.Names.TemplateCategory_PrimaryContactLabel, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_PrimaryContactLabel_Help, ResourceType: typeof(FSResources))]
         public string PrimaryContactLabel { get; set; }
 
@@ -86,6 +91,25 @@ namespace LagoVista.FSLite.Models
         public bool ShowInstructions { get; set; }
         [FormField(LabelResource: FSResources.Names.TemplateCategory_Instructions_Label, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_Instructions_label_Help, ResourceType: typeof(FSResources))]
         public string InstructionsLabel { get; set; }
+
+
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_ShowDueDate, HelpResource: FSResources.Names.TemplateCategory_DueDate_label_Help, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
+        public bool ShowDueDate { get; set; }
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_DueDate_Label, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_Instructions_label_Help, ResourceType: typeof(FSResources))]
+        public string DueDateLabel { get; set; }
+
+
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_ShowStatusDate, HelpResource: FSResources.Names.TemplateCategory_StatusDate_label_Help, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
+        public bool ShowStatusDate { get; set; }
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_StatusDate_Label, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_StatusDate_label_Help, ResourceType: typeof(FSResources))]
+        public string StatusDateLabel { get; set; }
+
+
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_ShowStatusDueDate, HelpResource: FSResources.Names.TemplateCategory_StatusDueDate_label_Help, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
+        public bool ShowStatusDueDate { get; set; }
+        [FormField(LabelResource: FSResources.Names.TemplateCategory_StatusDueDate_Label, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_StatusDueDate_label_Help, ResourceType: typeof(FSResources))]
+        public string StatusDueDateLabel { get; set; }
+
 
         [FormField(LabelResource: FSResources.Names.TemplateCategory_Urgency_Show, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
         public bool ShowUrgency { get; set; }

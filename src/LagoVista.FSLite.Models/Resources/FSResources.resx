@@ -933,4 +933,52 @@
   <data name="ServiceTicketStatusHistory_StatusDueDate" xml:space="preserve">
     <value>Status Due Date</value>
   </data>
+  <data name="ServiceTicketTemplate_DefaultDescription" xml:space="preserve">
+    <value>Default Description</value>
+  </data>
+  <data name="ServiceTicketTemplate_DefaultDescription_Help" xml:space="preserve">
+    <value>The Default Description will be the description that will be used when creating new tickets from this template.</value>
+  </data>
+  <data name="ServiceTicketTemplate_DefaultSubject" xml:space="preserve">
+    <value>Default Subject</value>
+  </data>
+  <data name="ServiceTicketTemplate_DefaultSubject_Help" xml:space="preserve">
+    <value>The Default Subject will be the subject that will be used when creating new tickets from this template.</value>
+  </data>
+  <data name="TemplateCategory_DueDate_Default" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="TemplateCategory_DueDate_Label" xml:space="preserve">
+    <value>Due Date Label</value>
+  </data>
+  <data name="TemplateCategory_DueDate_label_Help" xml:space="preserve">
+    <value>The Due Date is a date that can be set on the tickets created from this category that will be when the ticket needs to be completed.</value>
+  </data>
+  <data name="TemplateCategory_ShowDueDate" xml:space="preserve">
+    <value>Show Due Date</value>
+  </data>
+  <data name="TemplateCategory_ShowStatusDate" xml:space="preserve">
+    <value>Show Status Date</value>
+  </data>
+  <data name="TemplateCategory_ShowStatusDueDate" xml:space="preserve">
+    <value>Show Status Due Date</value>
+  </data>
+  <data name="TemplateCategory_StatusDate_Default" xml:space="preserve">
+    <value>Status Date</value>
+  </data>
+  <data name="TemplateCategory_StatusDate_Label" xml:space="preserve">
+    <value>Status Date Label</value>
+  </data>
+  <data name="TemplateCategory_StatusDate_label_Help" xml:space="preserve">
+    <value>The Status Date Label will be the date that the ticket transitioned into it's current status</value>
+  </data>
+  <data name="TemplateCategory_StatusDueDate_Default" xml:space="preserve">
+    <value>Status Due Date</value>
+  </data>
+  <data name="TemplateCategory_StatusDueDate_Label" xml:space="preserve">
+    <value>Status Due Date Label</value>
+  </data>
+  <data name="TemplateCategory_StatusDueDate_label_Help" xml:space="preserve">
+    <value>The Status Due Date is the date that can be configured and set when the ticket must be transitioned out of it's current status.</value>
+  </data>
 </root>

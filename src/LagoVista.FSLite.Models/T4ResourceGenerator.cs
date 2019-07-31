@@ -1,4 +1,4 @@
-﻿/*7/30/2019 12:50:44*/
+﻿/*7/31/2019 13:19:31*/
 using System.Globalization;
 using System.Reflection;
 
@@ -375,6 +375,18 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_DefaultContact_Select
 
 		public static string ServiceTicketTemplate_DefaultContact_Select { get { return GetResourceString("ServiceTicketTemplate_DefaultContact_Select"); } }
+//Resources:FSResources:ServiceTicketTemplate_DefaultDescription
+
+		public static string ServiceTicketTemplate_DefaultDescription { get { return GetResourceString("ServiceTicketTemplate_DefaultDescription"); } }
+//Resources:FSResources:ServiceTicketTemplate_DefaultDescription_Help
+
+		public static string ServiceTicketTemplate_DefaultDescription_Help { get { return GetResourceString("ServiceTicketTemplate_DefaultDescription_Help"); } }
+//Resources:FSResources:ServiceTicketTemplate_DefaultSubject
+
+		public static string ServiceTicketTemplate_DefaultSubject { get { return GetResourceString("ServiceTicketTemplate_DefaultSubject"); } }
+//Resources:FSResources:ServiceTicketTemplate_DefaultSubject_Help
+
+		public static string ServiceTicketTemplate_DefaultSubject_Help { get { return GetResourceString("ServiceTicketTemplate_DefaultSubject_Help"); } }
 //Resources:FSResources:ServiceTicketTemplate_Description
 
 		public static string ServiceTicketTemplate_Description { get { return GetResourceString("ServiceTicketTemplate_Description"); } }
@@ -564,6 +576,15 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:TemplateCategory_CostEstimate_Show
 
 		public static string TemplateCategory_CostEstimate_Show { get { return GetResourceString("TemplateCategory_CostEstimate_Show"); } }
+//Resources:FSResources:TemplateCategory_DueDate_Default
+
+		public static string TemplateCategory_DueDate_Default { get { return GetResourceString("TemplateCategory_DueDate_Default"); } }
+//Resources:FSResources:TemplateCategory_DueDate_Label
+
+		public static string TemplateCategory_DueDate_Label { get { return GetResourceString("TemplateCategory_DueDate_Label"); } }
+//Resources:FSResources:TemplateCategory_DueDate_label_Help
+
+		public static string TemplateCategory_DueDate_label_Help { get { return GetResourceString("TemplateCategory_DueDate_label_Help"); } }
 //Resources:FSResources:TemplateCategory_HoursEstimate_Default
 
 		public static string TemplateCategory_HoursEstimate_Default { get { return GetResourceString("TemplateCategory_HoursEstimate_Default"); } }
@@ -666,12 +687,21 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:TemplateCategory_Show_TS_Help
 
 		public static string TemplateCategory_Show_TS_Help { get { return GetResourceString("TemplateCategory_Show_TS_Help"); } }
+//Resources:FSResources:TemplateCategory_ShowDueDate
+
+		public static string TemplateCategory_ShowDueDate { get { return GetResourceString("TemplateCategory_ShowDueDate"); } }
 //Resources:FSResources:TemplateCategory_ShowInstructions
 
 		public static string TemplateCategory_ShowInstructions { get { return GetResourceString("TemplateCategory_ShowInstructions"); } }
 //Resources:FSResources:TemplateCategory_ShowInstructions_Help
 
 		public static string TemplateCategory_ShowInstructions_Help { get { return GetResourceString("TemplateCategory_ShowInstructions_Help"); } }
+//Resources:FSResources:TemplateCategory_ShowStatusDate
+
+		public static string TemplateCategory_ShowStatusDate { get { return GetResourceString("TemplateCategory_ShowStatusDate"); } }
+//Resources:FSResources:TemplateCategory_ShowStatusDueDate
+
+		public static string TemplateCategory_ShowStatusDueDate { get { return GetResourceString("TemplateCategory_ShowStatusDueDate"); } }
 //Resources:FSResources:TemplateCategory_ShowTools_Label
 
 		public static string TemplateCategory_ShowTools_Label { get { return GetResourceString("TemplateCategory_ShowTools_Label"); } }
@@ -693,6 +723,24 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:TemplateCategory_Status_Label
 
 		public static string TemplateCategory_Status_Label { get { return GetResourceString("TemplateCategory_Status_Label"); } }
+//Resources:FSResources:TemplateCategory_StatusDate_Default
+
+		public static string TemplateCategory_StatusDate_Default { get { return GetResourceString("TemplateCategory_StatusDate_Default"); } }
+//Resources:FSResources:TemplateCategory_StatusDate_Label
+
+		public static string TemplateCategory_StatusDate_Label { get { return GetResourceString("TemplateCategory_StatusDate_Label"); } }
+//Resources:FSResources:TemplateCategory_StatusDate_label_Help
+
+		public static string TemplateCategory_StatusDate_label_Help { get { return GetResourceString("TemplateCategory_StatusDate_label_Help"); } }
+//Resources:FSResources:TemplateCategory_StatusDueDate_Default
+
+		public static string TemplateCategory_StatusDueDate_Default { get { return GetResourceString("TemplateCategory_StatusDueDate_Default"); } }
+//Resources:FSResources:TemplateCategory_StatusDueDate_Label
+
+		public static string TemplateCategory_StatusDueDate_Label { get { return GetResourceString("TemplateCategory_StatusDueDate_Label"); } }
+//Resources:FSResources:TemplateCategory_StatusDueDate_label_Help
+
+		public static string TemplateCategory_StatusDueDate_label_Help { get { return GetResourceString("TemplateCategory_StatusDueDate_label_Help"); } }
 //Resources:FSResources:TemplateCategory_Subject_Default
 
 		public static string TemplateCategory_Subject_Default { get { return GetResourceString("TemplateCategory_Subject_Default"); } }
@@ -980,6 +1028,10 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_DefaultContact = "ServiceTicketTemplate_DefaultContact";
 			public const string ServiceTicketTemplate_DefaultContact_Help = "ServiceTicketTemplate_DefaultContact_Help";
 			public const string ServiceTicketTemplate_DefaultContact_Select = "ServiceTicketTemplate_DefaultContact_Select";
+			public const string ServiceTicketTemplate_DefaultDescription = "ServiceTicketTemplate_DefaultDescription";
+			public const string ServiceTicketTemplate_DefaultDescription_Help = "ServiceTicketTemplate_DefaultDescription_Help";
+			public const string ServiceTicketTemplate_DefaultSubject = "ServiceTicketTemplate_DefaultSubject";
+			public const string ServiceTicketTemplate_DefaultSubject_Help = "ServiceTicketTemplate_DefaultSubject_Help";
 			public const string ServiceTicketTemplate_Description = "ServiceTicketTemplate_Description";
 			public const string ServiceTicketTemplate_DeviceConfig = "ServiceTicketTemplate_DeviceConfig";
 			public const string ServiceTicketTemplate_DeviceConfig_Help = "ServiceTicketTemplate_DeviceConfig_Help";
@@ -1043,6 +1095,9 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string TemplateCategory_CostEstimate_Help = "TemplateCategory_CostEstimate_Help";
 			public const string TemplateCategory_CostEstimate_Label = "TemplateCategory_CostEstimate_Label";
 			public const string TemplateCategory_CostEstimate_Show = "TemplateCategory_CostEstimate_Show";
+			public const string TemplateCategory_DueDate_Default = "TemplateCategory_DueDate_Default";
+			public const string TemplateCategory_DueDate_Label = "TemplateCategory_DueDate_Label";
+			public const string TemplateCategory_DueDate_label_Help = "TemplateCategory_DueDate_label_Help";
 			public const string TemplateCategory_HoursEstimate_Default = "TemplateCategory_HoursEstimate_Default";
 			public const string TemplateCategory_HoursEstimate_Help = "TemplateCategory_HoursEstimate_Help";
 			public const string TemplateCategory_HoursEstimate_Label = "TemplateCategory_HoursEstimate_Label";
@@ -1077,8 +1132,11 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string TemplateCategory_Show_Tools_Help = "TemplateCategory_Show_Tools_Help";
 			public const string TemplateCategory_Show_TS = "TemplateCategory_Show_TS";
 			public const string TemplateCategory_Show_TS_Help = "TemplateCategory_Show_TS_Help";
+			public const string TemplateCategory_ShowDueDate = "TemplateCategory_ShowDueDate";
 			public const string TemplateCategory_ShowInstructions = "TemplateCategory_ShowInstructions";
 			public const string TemplateCategory_ShowInstructions_Help = "TemplateCategory_ShowInstructions_Help";
+			public const string TemplateCategory_ShowStatusDate = "TemplateCategory_ShowStatusDate";
+			public const string TemplateCategory_ShowStatusDueDate = "TemplateCategory_ShowStatusDueDate";
 			public const string TemplateCategory_ShowTools_Label = "TemplateCategory_ShowTools_Label";
 			public const string TemplateCategory_SkillLevel_Default = "TemplateCategory_SkillLevel_Default";
 			public const string TemplateCategory_SkillLevel_Label = "TemplateCategory_SkillLevel_Label";
@@ -1086,6 +1144,12 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string TemplateCategory_Status_Default = "TemplateCategory_Status_Default";
 			public const string TemplateCategory_Status_Help = "TemplateCategory_Status_Help";
 			public const string TemplateCategory_Status_Label = "TemplateCategory_Status_Label";
+			public const string TemplateCategory_StatusDate_Default = "TemplateCategory_StatusDate_Default";
+			public const string TemplateCategory_StatusDate_Label = "TemplateCategory_StatusDate_Label";
+			public const string TemplateCategory_StatusDate_label_Help = "TemplateCategory_StatusDate_label_Help";
+			public const string TemplateCategory_StatusDueDate_Default = "TemplateCategory_StatusDueDate_Default";
+			public const string TemplateCategory_StatusDueDate_Label = "TemplateCategory_StatusDueDate_Label";
+			public const string TemplateCategory_StatusDueDate_label_Help = "TemplateCategory_StatusDueDate_label_Help";
 			public const string TemplateCategory_Subject_Default = "TemplateCategory_Subject_Default";
 			public const string TemplateCategory_Subject_Help = "TemplateCategory_Subject_Help";
 			public const string TemplateCategory_Subject_Label = "TemplateCategory_Subject_Label";

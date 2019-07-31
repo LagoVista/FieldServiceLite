@@ -70,6 +70,17 @@ namespace LagoVista.FSLite.REST
         }
 
         /// <summary>
+        /// FS Lite - Get Ticket Template Detail
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/api/fslite/tickets/template/{id}/detail")]
+        public  Task<ServiceTicketTemplate> GetServiceTicketTemplateDetailAsync(string id)
+        {
+            return _mgr.GetServiceTicketTemplateAsync(id, OrgEntityHeader, UserEntityHeader);
+        }
+
+        /// <summary>
         /// FS Lite - Create ticket template
         /// </summary>
         /// <param name="id"></param>
