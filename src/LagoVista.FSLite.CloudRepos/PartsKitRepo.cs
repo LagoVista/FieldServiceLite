@@ -28,7 +28,7 @@ namespace LagoVista.FSLite.CloudRepos
 
         public Task DeletePartsKitAsync(string id)
         {
-            return this.DeletePartsKitAsync(id);
+            return DeleteDocumentAsync(id);
         }
 
         public Task<PartsKit> GetPartsKitAsync(string id)
