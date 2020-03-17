@@ -286,19 +286,33 @@ namespace LagoVista.FSLite.Admin.Managers
 
         public async Task<ServiceTicket> GetServiceTicketAsync(string id, EntityHeader org, EntityHeader user)
         {
+            Console.WriteLine("Starting getting ticket");
+            Console.WriteLine("=====================================");
+
             var sw = Stopwatch.StartNew();
             var ticket = await _repo.GetServiceTicketAsync(id);
 
+            Console.WriteLine("Loaded service ticket: " + sw.Elapsed.TotalMilliseconds);
+
             await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Read, user, org);
 
+            Console.WriteLine("Authorized: " + sw.Elapsed.TotalMilliseconds);
+            var sw2 = Stopwatch.StartNew();
             if (!EntityHeader.IsNullOrEmpty(ticket.DeviceRepo))
             {
                 var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(ticket.DeviceRepo.Id, org, user);
+
+                Console.WriteLine("Loaded device repo: " + sw2.Elapsed.TotalMilliseconds);
+                sw2 = Stopwatch.StartNew();
                 if (!EntityHeader.IsNullOrEmpty(ticket.Device))
                 {
                     ticket.Device.Value = await _deviceManager.GetDeviceByIdAsync(repo, ticket.Device.Id, org, user, true);
                 }
+
+                Console.WriteLine("Device load time: " + sw2.Elapsed.TotalMilliseconds);
             }
+            
+            Console.WriteLine("Total Loaded device repo: " + sw.Elapsed.TotalMilliseconds);
 
             var statusType = await _ticketStatusRepo.GetTicketStatusDefinitionAsync(ticket.StatusType.Id);
 
@@ -309,6 +323,9 @@ namespace LagoVista.FSLite.Admin.Managers
                 ticket.ServiceBoard.Value = await _serviceBoardRepo.GetServiceBoardAsync(ticket.ServiceBoard.Id);
             }
 
+
+            Console.WriteLine("Loaded board: " + sw.Elapsed.TotalMilliseconds);
+
             if (!EntityHeader.IsNullOrEmpty(ticket.Template))
             {
                 ticket.Template.Value = await _templateRepo.GetServiceTicketTemplateAsync(ticket.Template.Id);
@@ -318,6 +335,8 @@ namespace LagoVista.FSLite.Admin.Managers
                     ticket.Template.Value.TemplateCategory.Value = await _templateCategoryRepo.GetTemplateCategoryAsync(ticket.Template.Value.TemplateCategory.Id);
                 }
             }
+
+            Console.WriteLine("Total load time: " + sw.Elapsed.TotalMilliseconds);
 
             return ticket;
         }

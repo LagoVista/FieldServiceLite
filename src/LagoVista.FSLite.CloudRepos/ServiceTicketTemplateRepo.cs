@@ -1,4 +1,5 @@
-﻿using LagoVista.CloudStorage.DocumentDB;
+﻿using LagoVista.CloudStorage;
+using LagoVista.CloudStorage.DocumentDB;
 using LagoVista.Core.Models;
 using LagoVista.Core.Models.UIMetaData;
 using LagoVista.FSLite.Admin.Interfaces;
@@ -12,8 +13,8 @@ namespace LagoVista.FSLite.CloudRepos
     public class ServiceTicketTemplateRepo : DocumentDBRepoBase<ServiceTicketTemplate>, IServiceTicketTemplateRepo
     {
         private bool _shouldConsolidateCollections;
-        public ServiceTicketTemplateRepo(IFieldServiceLiteRepoSettings repoSettings, IAdminLogger logger)
-            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, logger)
+        public ServiceTicketTemplateRepo(IFieldServiceLiteRepoSettings repoSettings, IAdminLogger logger, ICacheProvider cacheProvider)
+            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, logger, cacheProvider)
         {
             _shouldConsolidateCollections = repoSettings.ShouldConsolidateCollections;
         }
