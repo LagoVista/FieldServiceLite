@@ -4,18 +4,18 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LagoVista.Core" Version="2.1.799-beta1125" />
-    <PackageReference Include="LagoVista.Core.Authentication" Version="2.1.799-beta1125" />
-    <PackageReference Include="LagoVista.IoT.Logging" Version="2.1.799-beta1125" />
-    <PackageReference Include="LagoVista.IoT.DeviceAdmin.Models" Version="2.1.799-beta1125" />
+    <PackageReference Include="LagoVista.Core" Version="2.1.1064-beta1512" />
+    <PackageReference Include="LagoVista.Core.Authentication" Version="2.1.1064-beta1512" />
+    <PackageReference Include="LagoVista.IoT.Logging" Version="2.1.1064-beta1512" />
+    <PackageReference Include="LagoVista.IoT.DeviceAdmin.Models" Version="2.1.1064-beta1512" />
     
-    <PackageReference Include="LagoVista.IoT.Deployment.Models" Version="2.1.799-beta1125" />
+    <PackageReference Include="LagoVista.IoT.Deployment.Models" Version="2.1.1064-beta1512" />
     
-    <PackageReference Include="LagoVista.PDFServices" Version="2.1.799-beta1125" />    
-    <PackageReference Include="LagoVista.IoT.DeviceManagement.Models" Version="2.1.799-beta1125" />
-    <PackageReference Include="LagoVista.MediaServices.Models" Version="2.1.799-beta1125" />
-    <PackageReference Include="LagoVista.UserAdmin" Version="2.1.799-beta1125" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="LagoVista.PDFServices" Version="2.1.1064-beta1512" />    
+    <PackageReference Include="LagoVista.IoT.DeviceManagement.Models" Version="2.1.1064-beta1512" />
+    <PackageReference Include="LagoVista.MediaServices.Models" Version="2.1.1064-beta1512" />
+    <PackageReference Include="LagoVista.UserAdmin" Version="2.1.1064-beta1512" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
     <None Update="T4ResourceGenerator.tt">
