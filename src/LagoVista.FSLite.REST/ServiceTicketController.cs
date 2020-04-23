@@ -112,7 +112,7 @@ namespace LagoVista.FSLite.REST
         [HttpGet("/api/fslite/ticket/device/{id}")]
         public Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsForDeviceAsync(string id)
         {
-            return _mgr.GetOpenServiceTicketAsync(GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
+            return _mgr.GetServiceTicketsForDeviceAsync(id, GetListRequestFromHeader(), OrgEntityHeader, UserEntityHeader);
         }
 
         /// <summary>

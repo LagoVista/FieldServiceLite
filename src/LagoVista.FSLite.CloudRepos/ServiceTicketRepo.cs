@@ -42,6 +42,7 @@ namespace LagoVista.FSLite.CloudRepos
             finalResponse.PageCount = response.PageIndex;
             finalResponse.PageSize = response.PageSize;
             finalResponse.ResultId = response.ResultId;
+            finalResponse.HasMoreRecords = response.HasMoreRecords;
             return finalResponse;
         }
 
