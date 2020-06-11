@@ -5,7 +5,6 @@ using LagoVista.Core.Models.UIMetaData;
 using LagoVista.Core.Validation;
 using LagoVista.FSLite.Admin.Interfaces;
 using LagoVista.FSLite.Models;
-using LagoVista.IoT.DeviceAdmin.Interfaces.Repos;
 using LagoVista.IoT.DeviceManagement.Core;
 using LagoVista.IoT.Logging.Loggers;
 using System.Threading.Tasks;
@@ -14,10 +13,10 @@ using System;
 using LagoVista.IoT.Deployment.Admin.Interfaces;
 using LagoVista.Core;
 using LagoVista.IoT.DeviceManagement.Core.Managers;
-using LagoVista.IoT.Deployment.Admin;
 using LagoVista.IoT.Deployment.Admin.Repos;
 using System.Diagnostics;
-using System.Collections.Generic;
+using LagoVista.IoT.DeviceManagement.Models;
+using LagoVista.IoT.Deployment.Admin;
 
 namespace LagoVista.FSLite.Admin.Managers
 {
@@ -30,10 +29,11 @@ namespace LagoVista.FSLite.Admin.Managers
         IDeviceRepositoryManager _repoManager;
         ITicketStatusRepo _ticketStatusRepo;
         ITemplateCategoryRepo _templateCategoryRepo;
-        IDeviceConfigurationRepo _deviceConfigRepo;
+        IDeviceConfigurationManager _deviceConfigManager;
 
         public ServiceTicketManager(IServiceTicketRepo repo, IServiceBoardRepo boardRepo, IDeviceRepositoryManager repoManager, IDeviceManager deviceManager, ITemplateCategoryRepo templateCategoryRepo,
-                                    IDeviceConfigurationRepo deviceConfigRepo, IAppConfig appConfig, IAdminLogger logger, ITicketStatusRepo ticketStatusRepo, IServiceTicketTemplateRepo templateRepo, IDependencyManager depmanager, ISecurity security)
+                                    IAppConfig appConfig, IAdminLogger logger, ITicketStatusRepo ticketStatusRepo, IServiceTicketTemplateRepo templateRepo,
+                                    IDeviceConfigurationManager deviceConfigManager, IDependencyManager depmanager, ISecurity security)
             : base(logger, appConfig, depmanager, security)
         {
             _repo = repo;
@@ -43,7 +43,7 @@ namespace LagoVista.FSLite.Admin.Managers
             _templateRepo = templateRepo;
             _ticketStatusRepo = ticketStatusRepo;
             _templateCategoryRepo = templateCategoryRepo;
-            _deviceConfigRepo = deviceConfigRepo;
+            _deviceConfigManager = deviceConfigManager;
         }
 
         public async Task<InvokeResult> AddServiceTicketAsync(ServiceTicket serviceTicket, EntityHeader org, EntityHeader user)
@@ -56,14 +56,25 @@ namespace LagoVista.FSLite.Admin.Managers
             return InvokeResult.Success;
         }
 
-        public async Task<InvokeResult<string>> CreateServiceTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId)
+        public async Task<InvokeResult<string>> CreateServiceTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId, string details = "")
         {
             var ticket = await CreateServiceTicketAsync(new CreateServiceTicketRequest()
             {
                 DeviceId = deviceId,
                 RepoId = deviceRepoId,
-                TemplateId = ticketTemplateId
+                TemplateId = ticketTemplateId,
             });
+
+            if (!String.IsNullOrEmpty(details))
+            {
+                ticket.Result.Notes.Add(new ServiceTicketNote()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Note = details,
+                    AddedBy = ticket.Result.CreatedBy,
+                    DateStamp = DateTime.UtcNow.ToJSONString()
+                });
+            }
 
             return InvokeResult<string>.Create(ticket.Result.TicketId);
         }
@@ -311,7 +322,7 @@ namespace LagoVista.FSLite.Admin.Managers
 
                 Console.WriteLine("Device load time: " + sw2.Elapsed.TotalMilliseconds);
             }
-            
+
             Console.WriteLine("Total Loaded device repo: " + sw.Elapsed.TotalMilliseconds);
 
             var statusType = await _ticketStatusRepo.GetTicketStatusDefinitionAsync(ticket.StatusType.Id);
@@ -415,9 +426,9 @@ namespace LagoVista.FSLite.Admin.Managers
         public async Task<InvokeResult<ServiceTicket>> SetTicketStatusAsync(string id, EntityHeader newStatus, EntityHeader org, EntityHeader user)
         {
             var date = DateTime.UtcNow.ToJSONString();
-           
+
             var ticket = await _repo.GetServiceTicketAsync(id);
-            if(newStatus.Id == ticket.Status.Id)
+            if (newStatus.Id == ticket.Status.Id)
             {
                 return InvokeResult<ServiceTicket>.FromError($"Already in {newStatus}");
             }
@@ -465,7 +476,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 ticket.StatusDueDate = null;
             }
 
-            if(status.IsClosed != ticket.IsClosed)
+            if (status.IsClosed != ticket.IsClosed)
             {
                 ticket.IsClosed = status.IsClosed;
                 ticket.ClosedDate = ticket.IsClosed ? date : null;
@@ -484,7 +495,7 @@ namespace LagoVista.FSLite.Admin.Managers
 
             ticket.Status = newStatus;
             ticket.StatusDate = date;
-            
+
             ticket.LastUpdatedBy = user;
             ticket.LastUpdatedDate = date;
 
@@ -506,9 +517,9 @@ namespace LagoVista.FSLite.Admin.Managers
             }
 
             ticket.IsViewed = viewed;
-            if(viewed)
+            if (viewed)
             {
-                if(!EntityHeader.IsNullOrEmpty(ticket.AssignedTo) && user.Id != ticket.AssignedTo.Id)
+                if (!EntityHeader.IsNullOrEmpty(ticket.AssignedTo) && user.Id != ticket.AssignedTo.Id)
                 {
                     return InvokeResult<ServiceTicket>.FromError($"Assigned to {ticket.AssignedTo.Text} but attempted to be viewed by {user.Text}.  Only the assigned user can mark as viewed.");
                 }
@@ -617,6 +628,35 @@ namespace LagoVista.FSLite.Admin.Managers
             await AuthorizeOrgAccessAsync(user, org, typeof(ServiceTicket));
 
             return await _repo.GetTicketsForBoardAsync(boardId, listRequest);
+        }
+
+        public async Task<InvokeResult> HandleDeviceExceptionAsync(DeviceException exception, EntityHeader org, EntityHeader user)
+        {
+            var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(exception.DeviceRepositoryId, org, user);
+            var device = await _deviceManager.GetDeviceByIdAsync(repo, exception.DeviceId, org, user);
+            var deviceConfig = await _deviceConfigManager.GetDeviceConfigurationAsync(device.DeviceConfiguration.Id, org, user);
+
+            var deviceErrorCode = deviceConfig.ErrorCodes.FirstOrDefault(err => err.Key == exception.ErrorCode);
+            if (deviceErrorCode == null)
+            {
+                return InvokeResult.FromError($"Could not find error code [{exception.ErrorCode}] on device configuration [{deviceConfig.Name}] for device [{device.Name}]");
+            }
+
+            if (deviceErrorCode.TriggerOnEachOccurrence)
+            {
+                var result = await CreateServiceTicketAsync(deviceErrorCode.ServiceTicketTemplate.Id, exception.DeviceRepositoryId, exception.DeviceId, exception.Details);
+                return result.ToInvokeResult();
+            }
+            else
+            { 
+                if (await this._repo.HasOpenTicketOnDeviceAsync(device.Id, deviceErrorCode.ServiceTicketTemplate.Id, org.Id))
+                {
+                    var result = await CreateServiceTicketAsync(deviceErrorCode.ServiceTicketTemplate.Id, exception.DeviceRepositoryId, exception.DeviceId, exception.Details);
+                    return result.ToInvokeResult();
+                }
+            }
+
+            return InvokeResult.Success;
         }
     }
 }
