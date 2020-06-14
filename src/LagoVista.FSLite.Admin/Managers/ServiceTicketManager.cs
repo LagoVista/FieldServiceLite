@@ -63,23 +63,13 @@ namespace LagoVista.FSLite.Admin.Managers
                 DeviceId = deviceId,
                 RepoId = deviceRepoId,
                 TemplateId = ticketTemplateId,
-            });
+            }, details : details);
 
-            if (!String.IsNullOrEmpty(details))
-            {
-                ticket.Result.Notes.Add(new ServiceTicketNote()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Note = details,
-                    AddedBy = ticket.Result.CreatedBy,
-                    DateStamp = DateTime.UtcNow.ToJSONString()
-                });
-            }
-
+  
             return InvokeResult<string>.Create(ticket.Result.TicketId);
         }
 
-        public async Task<InvokeResult<ServiceTicket>> CreateServiceTicketAsync(CreateServiceTicketRequest request, EntityHeader org = null, EntityHeader user = null)
+        public async Task<InvokeResult<ServiceTicket>> CreateServiceTicketAsync(CreateServiceTicketRequest request, EntityHeader org = null, EntityHeader user = null, string details = "")
         {
             if (String.IsNullOrEmpty(request.RepoId)) throw new NullReferenceException("RepoId");
             if (String.IsNullOrEmpty(request.DeviceId)) throw new NullReferenceException("DeviceId");
@@ -229,7 +219,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 DateStamp = DateTime.UtcNow.ToJSONString(),
                 Status = ticket.Status.Text,
                 Note = $"Created service ticket with {defaultState.Name} status."
-            }); ;
+            }); 
 
             ticket.Notes.Add(new ServiceTicketNote()
             {
@@ -237,6 +227,18 @@ namespace LagoVista.FSLite.Admin.Managers
                 DateStamp = currentTimeStamp,
                 Note = assignedToUser != null ? $"Service ticket created and assigned to {assignedToUser.Text}." : "Service ticket created and not assigned to technician."
             });
+
+            if (!String.IsNullOrEmpty(details))
+            {
+                ticket.Notes.Add(new ServiceTicketNote()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Note = details,
+                    AddedBy = ticket.CreatedBy,
+                    DateStamp = DateTime.UtcNow.ToJSONString()
+                });
+            }
+
 
             await _repo.AddServiceTicketAsync(ticket);
 
@@ -607,17 +609,22 @@ namespace LagoVista.FSLite.Admin.Managers
             return InvokeResult<ServiceTicket>.Create(ticket);
         }
 
-        public async Task<InvokeResult<ServiceTicket>> AddTicketNoteAsync(string id, ServiceTicketNote note, EntityHeader org, EntityHeader user)
+        public async Task<InvokeResult<ServiceTicket>> AddTicketNoteAsync(string ticketId, ServiceTicketNote ticketNote, EntityHeader org, EntityHeader user)
         {
-            var ticket = await _repo.GetServiceTicketAsync(id);
+            if (string.IsNullOrEmpty(ticketId)) throw new ArgumentNullException(nameof(ticketId));
+            if (org == null) throw new ArgumentNullException(nameof(org));
+            if (user == null) throw new ArgumentNullException(nameof(user));
+            if (ticketNote == null) throw new ArgumentNullException(nameof(ticketNote));
+
+            var ticket = await _repo.GetServiceTicketAsync(ticketId);
 
             await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org, "AddNote");
 
-            ValidationCheck(note, Actions.Create);
+            ValidationCheck(ticketNote, Actions.Create);
 
-            ticket.Notes.Add(note);
+            ticket.Notes.Add(ticketNote);
             ticket.LastUpdatedBy = user;
-            ticket.LastUpdatedDate = note.DateStamp;
+            ticket.LastUpdatedDate = ticketNote.DateStamp;
             await _repo.UpdateServiceTicketAsync(ticket);
 
             return InvokeResult<ServiceTicket>.Create(ticket);
@@ -625,6 +632,10 @@ namespace LagoVista.FSLite.Admin.Managers
 
         public async Task<ListResponse<ServiceTicketSummary>> GetTicketsForBoardAsync(string boardId, ListRequest listRequest, EntityHeader org, EntityHeader user)
         {
+            if (string.IsNullOrEmpty(boardId)) throw new ArgumentNullException(nameof(boardId));
+            if (org == null) throw new ArgumentNullException(nameof(org));
+            if (user == null) throw new ArgumentNullException(nameof(user));
+
             await AuthorizeOrgAccessAsync(user, org, typeof(ServiceTicket));
 
             return await _repo.GetTicketsForBoardAsync(boardId, listRequest);
@@ -632,6 +643,12 @@ namespace LagoVista.FSLite.Admin.Managers
 
         public async Task<InvokeResult> HandleDeviceExceptionAsync(DeviceException exception, EntityHeader org, EntityHeader user)
         {
+            if (exception == null) throw new ArgumentNullException(nameof(exception));
+            if (org == null) throw new ArgumentNullException(nameof(org));
+            if (user == null) throw new ArgumentNullException(nameof(user));
+
+            Console.WriteLine("Handling Device Exception.");
+            
             var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(exception.DeviceRepositoryId, org, user);
             var device = await _deviceManager.GetDeviceByIdAsync(repo, exception.DeviceId, org, user);
             var deviceConfig = await _deviceConfigManager.GetDeviceConfigurationAsync(device.DeviceConfiguration.Id, org, user);
@@ -644,6 +661,7 @@ namespace LagoVista.FSLite.Admin.Managers
 
             if (deviceErrorCode.TriggerOnEachOccurrence)
             {
+                Console.WriteLine("Generating service ticket (every occurence.");
                 var result = await CreateServiceTicketAsync(deviceErrorCode.ServiceTicketTemplate.Id, exception.DeviceRepositoryId, exception.DeviceId, exception.Details);
                 return result.ToInvokeResult();
             }
@@ -651,6 +669,11 @@ namespace LagoVista.FSLite.Admin.Managers
             { 
                 if (await this._repo.HasOpenTicketOnDeviceAsync(device.Id, deviceErrorCode.ServiceTicketTemplate.Id, org.Id))
                 {
+                    Console.WriteLine("Found ticket w,ill not create another.");
+                }
+                else
+                {
+                    Console.WriteLine("Does not have open ticket will create one..");
                     var result = await CreateServiceTicketAsync(deviceErrorCode.ServiceTicketTemplate.Id, exception.DeviceRepositoryId, exception.DeviceId, exception.Details);
                     return result.ToInvokeResult();
                 }
