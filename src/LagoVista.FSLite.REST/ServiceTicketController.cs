@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using LagoVista.Core;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using LagoVista.IoT.Deployment.Models;
 
 namespace LagoVista.FSLite.REST
 {
@@ -33,7 +33,7 @@ namespace LagoVista.FSLite.REST
         /// <param name="serviceTicket"></param>
         /// <returns></returns>
         [HttpPost("/api/fslite/ticket")]
-        public Task<InvokeResult> AddServiceTicketAsync([FromBody] ServiceTicket serviceTicket)
+        public Task<InvokeResult<string>> AddServiceTicketAsync([FromBody] ServiceTicket serviceTicket)
         {
             return _mgr.AddServiceTicketAsync(serviceTicket, OrgEntityHeader, UserEntityHeader);
         }
@@ -89,7 +89,7 @@ namespace LagoVista.FSLite.REST
         }
 
         [HttpPost("/api/fslite/ticket/create")]
-        public Task<InvokeResult<ServiceTicket>> CreateTicket([FromBody] CreateServiceTicketRequest request)
+        public Task<InvokeResult<string>> CreateTicket([FromBody] CreateServiceTicketRequest request)
         {
             return _mgr.CreateServiceTicketAsync(request, OrgEntityHeader, UserEntityHeader);
         }
@@ -251,6 +251,6 @@ namespace LagoVista.FSLite.REST
         public Task<InvokeResult<ServiceTicket>> SetTicketStatusAsync(string id, [FromBody] EntityHeader newStatus)
         {
             return _mgr.SetTicketStatusAsync(id, newStatus, OrgEntityHeader, UserEntityHeader);
-        }
+        }        
     }
 }

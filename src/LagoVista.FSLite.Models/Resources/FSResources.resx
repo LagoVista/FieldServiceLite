@@ -981,4 +981,25 @@
   <data name="TemplateCategory_StatusDueDate_label_Help" xml:space="preserve">
     <value>The Status Due Date is the date that can be configured and set when the ticket must be transitioned out of it's current status.</value>
   </data>
+  <data name="ServiceTicekt_SilenceNotifications" xml:space="preserve">
+    <value>Silence Notifications</value>
+  </data>
+  <data name="ServiceTicketTemplate_OpenReminderNotification_Quantity" xml:space="preserve">
+    <value>Open Reminder Quanity</value>
+  </data>
+  <data name="ServiceTicketTemplate_OpenReminderNotification_TimeSpan" xml:space="preserve">
+    <value>Open Reminder Type</value>
+  </data>
+  <data name="ServiceTicketTemplate_OpenReminderNotification_TimeSpan_Help" xml:space="preserve">
+    <value>Specify a time span of how often do you want to send a reminder as long as this ticket remains open.</value>
+  </data>
+  <data name="ServiceTicket_LastNotification" xml:space="preserve">
+    <value>Last Notification</value>
+  </data>
+  <data name="ServiceTicket_LastNotifiedUser" xml:space="preserve">
+    <value>Last Notified User</value>
+  </data>
+  <data name="ServiceTicket_NextNotification" xml:space="preserve">
+    <value>Next Scheduled Notification</value>
+  </data>
 </root>

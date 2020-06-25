@@ -1,5 +1,6 @@
 ﻿using LagoVista.Core.Models.UIMetaData;
 using LagoVista.FSLite.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LagoVista.FSLite.Admin.Interfaces
@@ -18,6 +19,7 @@ namespace LagoVista.FSLite.Admin.Interfaces
         Task<ListResponse<ServiceTicketSummary>> GetTicketForDeviceAsync(string deviceId, string orgId, ListRequest listRequest);
         Task<ListResponse<ServiceTicketSummary>> GetTicketsWithStatusAsync(string statusId, string orgId, ListRequest listRequest);
         Task<ListResponse<ServiceTicketSummary>> GetOpenTicketsAsyncAsync(string orgId, ListRequest listRequest);
+        Task<List<ServiceTicketSummary>> FindTicketsForNotificationRemindersAsync();
         Task<ListResponse<ServiceTicketSummary>> GetClosedTicketsAsyncAsync(string orgId, ListRequest listRequest);
         Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByUserAsync(string userId, string orgId, ListRequest listRequest);
         Task<ListResponse<ServiceTicketSummary>> GetServiceTicketsByTemplateAsync(string userId, string orgId, ListRequest listRequest);

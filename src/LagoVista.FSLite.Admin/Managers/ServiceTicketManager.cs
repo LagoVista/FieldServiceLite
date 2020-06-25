@@ -17,75 +17,89 @@ using LagoVista.IoT.Deployment.Admin.Repos;
 using System.Diagnostics;
 using LagoVista.IoT.DeviceManagement.Models;
 using LagoVista.IoT.Deployment.Admin;
+using LagoVista.UserAdmin.Interfaces.Managers;
+using System.Text;
+using LagoVista.IoT.Deployment.Models;
 
 namespace LagoVista.FSLite.Admin.Managers
 {
     public class ServiceTicketManager : ManagerBase, IServiceTicketManager, IServiceTicketCreator
     {
-        IServiceTicketRepo _repo;
-        IDeviceManager _deviceManager;
-        IServiceTicketTemplateRepo _templateRepo;
-        IServiceBoardRepo _serviceBoardRepo;
-        IDeviceRepositoryManager _repoManager;
-        ITicketStatusRepo _ticketStatusRepo;
-        ITemplateCategoryRepo _templateCategoryRepo;
-        IDeviceConfigurationManager _deviceConfigManager;
+        private readonly IServiceTicketRepo _repo;
+        private readonly IDeviceManager _deviceManager;
+        private readonly IServiceTicketTemplateRepo _templateRepo;
+        private readonly IServiceBoardRepo _serviceBoardRepo;
+        private readonly IDeviceRepositoryManager _repoManager;
+        private readonly ITicketStatusRepo _ticketStatusRepo;
+        private readonly ITemplateCategoryRepo _templateCategoryRepo;
+        private readonly IDeviceConfigurationManager _deviceConfigManager;
+        private readonly IEmailSender _emailSender;
+        private readonly ISmsSender _smsSender;
+        private readonly IUserManager _userManager;
+        private readonly IDistributionManager _distroManager;
 
         public ServiceTicketManager(IServiceTicketRepo repo, IServiceBoardRepo boardRepo, IDeviceRepositoryManager repoManager, IDeviceManager deviceManager, ITemplateCategoryRepo templateCategoryRepo,
-                                    IAppConfig appConfig, IAdminLogger logger, ITicketStatusRepo ticketStatusRepo, IServiceTicketTemplateRepo templateRepo,
-                                    IDeviceConfigurationManager deviceConfigManager, IDependencyManager depmanager, ISecurity security)
+                                    IEmailSender emailSender, ISmsSender smsSender, IAppConfig appConfig, IAdminLogger logger, ITicketStatusRepo ticketStatusRepo, IServiceTicketTemplateRepo templateRepo,
+                                    IDistributionManager distroManager, IUserManager userManager, IDeviceConfigurationManager deviceConfigManager, IDependencyManager depmanager, ISecurity security)
             : base(logger, appConfig, depmanager, security)
         {
-            _repo = repo;
-            _serviceBoardRepo = boardRepo;
-            _repoManager = repoManager;
-            _deviceManager = deviceManager;
-            _templateRepo = templateRepo;
-            _ticketStatusRepo = ticketStatusRepo;
-            _templateCategoryRepo = templateCategoryRepo;
-            _deviceConfigManager = deviceConfigManager;
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
+            _serviceBoardRepo = boardRepo ?? throw new ArgumentNullException(nameof(boardRepo));
+            _repoManager = repoManager ?? throw new ArgumentNullException(nameof(repoManager));
+            _deviceManager = deviceManager ?? throw new ArgumentNullException(nameof(deviceManager));
+            _templateRepo = templateRepo ?? throw new ArgumentNullException(nameof(templateRepo));
+            _ticketStatusRepo = ticketStatusRepo ?? throw new ArgumentNullException(nameof(ticketStatusRepo));
+            _templateCategoryRepo = templateCategoryRepo ?? throw new ArgumentNullException(nameof(templateCategoryRepo));
+            _deviceConfigManager = deviceConfigManager ?? throw new ArgumentNullException(nameof(deviceConfigManager));
+            _emailSender = emailSender ?? throw new ArgumentNullException(nameof(emailSender));
+            _smsSender = smsSender ?? throw new ArgumentNullException(nameof(smsSender));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            _distroManager = distroManager ?? throw new ArgumentNullException(nameof(distroManager));
         }
 
-        public async Task<InvokeResult> AddServiceTicketAsync(ServiceTicket serviceTicket, EntityHeader org, EntityHeader user)
+        public async Task<InvokeResult<string>> AddServiceTicketAsync(ServiceTicket serviceTicket, EntityHeader org, EntityHeader user)
         {
             ValidationCheck(serviceTicket, Actions.Create);
 
             await AuthorizeAsync(serviceTicket, AuthorizeResult.AuthorizeActions.Create, user, org);
             await _repo.AddServiceTicketAsync(serviceTicket);
 
-            return InvokeResult.Success;
+            return InvokeResult<string>.Create(serviceTicket.TicketId);
         }
 
-        public async Task<InvokeResult<string>> CreateServiceTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId, string details = "")
+        public async Task<InvokeResult<string>> CreateServiceTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId, EntityHeader org, EntityHeader user)
         {
-            var ticket = await CreateServiceTicketAsync(new CreateServiceTicketRequest()
+            if (await this._repo.HasOpenTicketOnDeviceAsync(deviceId, ticketTemplateId, org.Id))
+            {
+                return InvokeResult<string>.Create(String.Empty);
+            }
+
+            return await CreateServiceTicketAsync(new CreateServiceTicketRequest()
             {
                 DeviceId = deviceId,
                 RepoId = deviceRepoId,
                 TemplateId = ticketTemplateId,
-            }, details : details);
-
-  
-            return InvokeResult<string>.Create(ticket.Result.TicketId);
+            }, org, user);
         }
 
-        public async Task<InvokeResult<ServiceTicket>> CreateServiceTicketAsync(CreateServiceTicketRequest request, EntityHeader org = null, EntityHeader user = null, string details = "")
+        public async Task<InvokeResult<string>> CreateServiceTicketAsync(CreateServiceTicketRequest createServiceTicketRequest, EntityHeader org, EntityHeader user)
         {
-            if (String.IsNullOrEmpty(request.RepoId)) throw new NullReferenceException("RepoId");
-            if (String.IsNullOrEmpty(request.DeviceId)) throw new NullReferenceException("DeviceId");
-            if (String.IsNullOrEmpty(request.TemplateId)) throw new NullReferenceException("TemplateId");
+            if (createServiceTicketRequest == null) throw new ArgumentNullException(nameof(createServiceTicketRequest));
+            if (String.IsNullOrEmpty(createServiceTicketRequest.RepoId)) throw new ArgumentNullException(createServiceTicketRequest.RepoId);
+            if (String.IsNullOrEmpty(createServiceTicketRequest.DeviceId)) throw new ArgumentNullException(nameof(createServiceTicketRequest.DeviceId));
+            if (String.IsNullOrEmpty(createServiceTicketRequest.TemplateId)) throw new ArgumentNullException(nameof(createServiceTicketRequest.TemplateId));
 
-            var template = await _templateRepo.GetServiceTicketTemplateAsync(request.TemplateId);
+            var template = await _templateRepo.GetServiceTicketTemplateAsync(createServiceTicketRequest.TemplateId);
             org = org ?? template.OwnerOrganization;
             user = user ?? template.DefaultContact ?? template.CreatedBy;
 
             if (org == null) throw new NullReferenceException(nameof(org));
             if (user == null) throw new NullReferenceException(nameof(user));
 
-            var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(request.RepoId, org, user);
+            var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(createServiceTicketRequest.RepoId, org, user);
             if (repo == null)
             {
-                throw new InvalidOperationException($"Could not find repository for id {request.RepoId}");
+                throw new InvalidOperationException($"Could not find repository for id {createServiceTicketRequest.RepoId}");
             }
 
             if (org != null && template.OwnerOrganization != org)
@@ -93,7 +107,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 throw new InvalidOperationException("Template, org mismatch.");
             }
 
-            var device = await _deviceManager.GetDeviceByIdAsync(repo, request.DeviceId, template.OwnerOrganization, user ?? template.DefaultContact);
+            var device = await _deviceManager.GetDeviceByIdAsync(repo, createServiceTicketRequest.DeviceId, template.OwnerOrganization, user ?? template.DefaultContact);
 
             if (org != null && device.OwnerOrganization != org)
             {
@@ -120,11 +134,11 @@ namespace LagoVista.FSLite.Admin.Managers
 
             var ticketId = Guid.NewGuid().ToString();
 
-            if (!String.IsNullOrEmpty(request.BoardId))
+            if (!String.IsNullOrEmpty(createServiceTicketRequest.BoardId))
             {
-                var board = await _serviceBoardRepo.GetServiceBoardAsync(request.BoardId);
+                var board = await _serviceBoardRepo.GetServiceBoardAsync(createServiceTicketRequest.BoardId);
                 boardEH = new EntityHeader<ServiceBoard>() { Id = board.Id, Text = board.Name };
-                var ticketNumber = await _serviceBoardRepo.GetNextTicketNumber(request.BoardId);
+                var ticketNumber = await _serviceBoardRepo.GetNextTicketNumber(createServiceTicketRequest.BoardId);
                 ticketId = $"{board.BoardAbbreviation}-{ticketNumber}";
 
                 if (assignedToUser == null && !EntityHeader.IsNullOrEmpty(board.PrimaryContact))
@@ -144,16 +158,16 @@ namespace LagoVista.FSLite.Admin.Managers
             string dueDate = null;
 
             if (!EntityHeader.IsNullOrEmpty(template.TimeToCompleteTimeSpan) &&
-                template.TimeToCompleteTimeSpan.Value != TimeToCompleteTimeSpans.NotApplicable &&
+                template.TimeToCompleteTimeSpan.Value != TimeSpanIntervals.NotApplicable &&
                 template.TimeToCompleteQuantity.HasValue)
             {
 
                 TimeSpan ts;
                 switch (template.TimeToCompleteTimeSpan.Value)
                 {
-                    case TimeToCompleteTimeSpans.Minutes: ts = TimeSpan.FromMinutes(template.TimeToCompleteQuantity.Value); break;
-                    case TimeToCompleteTimeSpans.Hours: ts = TimeSpan.FromHours(template.TimeToCompleteQuantity.Value); break;
-                    case TimeToCompleteTimeSpans.Days: ts = TimeSpan.FromDays(template.TimeToCompleteQuantity.Value); break;
+                    case TimeSpanIntervals.Minutes: ts = TimeSpan.FromMinutes(template.TimeToCompleteQuantity.Value); break;
+                    case TimeSpanIntervals.Hours: ts = TimeSpan.FromHours(template.TimeToCompleteQuantity.Value); break;
+                    case TimeSpanIntervals.Days: ts = TimeSpan.FromDays(template.TimeToCompleteQuantity.Value); break;
                 }
 
                 dueDate = DateTime.UtcNow.Add(ts).ToJSONString();
@@ -161,15 +175,15 @@ namespace LagoVista.FSLite.Admin.Managers
 
             string statusDueDate = null;
             if (EntityHeader.IsNullOrEmpty(defaultState.TimeAllowedInStatusTimeSpan) &&
-                defaultState.TimeAllowedInStatusTimeSpan.Value != TimeToCompleteTimeSpans.NotApplicable &&
+                defaultState.TimeAllowedInStatusTimeSpan.Value != TimeSpanIntervals.NotApplicable &&
                 defaultState.TimeAllowedInStatusQuantity.HasValue)
             {
                 TimeSpan ts;
                 switch (defaultState.TimeAllowedInStatusTimeSpan.Value)
                 {
-                    case TimeToCompleteTimeSpans.Minutes: ts = TimeSpan.FromMinutes(defaultState.TimeAllowedInStatusQuantity.Value); break;
-                    case TimeToCompleteTimeSpans.Hours: ts = TimeSpan.FromHours(defaultState.TimeAllowedInStatusQuantity.Value); break;
-                    case TimeToCompleteTimeSpans.Days: ts = TimeSpan.FromDays(defaultState.TimeAllowedInStatusQuantity.Value); break;
+                    case TimeSpanIntervals.Minutes: ts = TimeSpan.FromMinutes(defaultState.TimeAllowedInStatusQuantity.Value); break;
+                    case TimeSpanIntervals.Hours: ts = TimeSpan.FromHours(defaultState.TimeAllowedInStatusQuantity.Value); break;
+                    case TimeSpanIntervals.Days: ts = TimeSpan.FromDays(defaultState.TimeAllowedInStatusQuantity.Value); break;
                 }
 
                 statusDueDate = DateTime.UtcNow.Add(ts).ToJSONString();
@@ -187,7 +201,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 Address = device.Address,
                 IsClosed = false,
                 Description = template.Description,
-                Subject = String.IsNullOrEmpty(request.Subject) ? $"{template.Name} ({device.DeviceId})" : request.Subject,
+                Subject = String.IsNullOrEmpty(createServiceTicketRequest.Subject) ? $"{template.Name} ({device.DeviceId})" : createServiceTicketRequest.Subject,
                 AssignedTo = assignedToUser,
                 Template = new EntityHeader<ServiceTicketTemplate>() { Id = template.Id, Text = template.Name },
                 ServiceBoard = boardEH,
@@ -219,7 +233,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 DateStamp = DateTime.UtcNow.ToJSONString(),
                 Status = ticket.Status.Text,
                 Note = $"Created service ticket with {defaultState.Name} status."
-            }); 
+            });
 
             ticket.Notes.Add(new ServiceTicketNote()
             {
@@ -228,12 +242,12 @@ namespace LagoVista.FSLite.Admin.Managers
                 Note = assignedToUser != null ? $"Service ticket created and assigned to {assignedToUser.Text}." : "Service ticket created and not assigned to technician."
             });
 
-            if (!String.IsNullOrEmpty(details))
+            if (!String.IsNullOrEmpty(createServiceTicketRequest.Details))
             {
                 ticket.Notes.Add(new ServiceTicketNote()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Note = details,
+                    Note = createServiceTicketRequest.Details,
                     AddedBy = ticket.CreatedBy,
                     DateStamp = DateTime.UtcNow.ToJSONString()
                 });
@@ -242,7 +256,9 @@ namespace LagoVista.FSLite.Admin.Managers
 
             await _repo.AddServiceTicketAsync(ticket);
 
-            return InvokeResult<ServiceTicket>.Create(ticket);
+            await SendTicketNotificationAsync(ticket);
+
+            return InvokeResult<string>.Create(ticket.TicketId);
         }
 
         public async Task<InvokeResult> CloseServiceTicketAsync(string id, EntityHeader org, EntityHeader user)
@@ -314,7 +330,6 @@ namespace LagoVista.FSLite.Admin.Managers
             if (!EntityHeader.IsNullOrEmpty(ticket.DeviceRepo))
             {
                 var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(ticket.DeviceRepo.Id, org, user);
-
                 Console.WriteLine("Loaded device repo: " + sw2.Elapsed.TotalMilliseconds);
                 sw2 = Stopwatch.StartNew();
                 if (!EntityHeader.IsNullOrEmpty(ticket.Device))
@@ -325,8 +340,6 @@ namespace LagoVista.FSLite.Admin.Managers
                 Console.WriteLine("Device load time: " + sw2.Elapsed.TotalMilliseconds);
             }
 
-            Console.WriteLine("Total Loaded device repo: " + sw.Elapsed.TotalMilliseconds);
-
             var statusType = await _ticketStatusRepo.GetTicketStatusDefinitionAsync(ticket.StatusType.Id);
 
             ticket.StatusType = EntityHeader<TicketStatusDefinition>.Create(statusType);
@@ -335,7 +348,6 @@ namespace LagoVista.FSLite.Admin.Managers
             {
                 ticket.ServiceBoard.Value = await _serviceBoardRepo.GetServiceBoardAsync(ticket.ServiceBoard.Id);
             }
-
 
             Console.WriteLine("Loaded board: " + sw.Elapsed.TotalMilliseconds);
 
@@ -350,6 +362,23 @@ namespace LagoVista.FSLite.Admin.Managers
             }
 
             Console.WriteLine("Total load time: " + sw.Elapsed.TotalMilliseconds);
+
+            if (!ticket.IsViewed && !EntityHeader.IsNullOrEmpty(ticket.AssignedTo) && ticket.AssignedTo.Id == user.Id)
+            {
+                ticket.IsViewed = true;
+                ticket.ViewedBy = user;
+                ticket.ViewedDate = DateTime.UtcNow.ToJSONString();
+                var history = new ServiceTicketStatusHistory()
+                {
+                    AddedBy = user,
+                    DateStamp = ticket.ViewedDate,
+                    Status = ticket.Status.Text,
+                    Note = $"Viewed by [{user.Text}]"
+                };
+
+                ticket.History.Insert(0, history);
+                await _repo.UpdateServiceTicketAsync(ticket);
+            }
 
             return ticket;
         }
@@ -450,15 +479,15 @@ namespace LagoVista.FSLite.Admin.Managers
             var status = statusDefinition.Items.First(stat => stat.Key == newStatus.Id);
 
             if (!EntityHeader.IsNullOrEmpty(status.TimeAllowedInStatusTimeSpan) &&
-                status.TimeAllowedInStatusTimeSpan.Value != TimeToCompleteTimeSpans.NotApplicable &&
+                status.TimeAllowedInStatusTimeSpan.Value != TimeSpanIntervals.NotApplicable &&
                 status.TimeAllowedInStatusQuantity.HasValue)
             {
                 TimeSpan ts;
                 switch (status.TimeAllowedInStatusTimeSpan.Value)
                 {
-                    case TimeToCompleteTimeSpans.Minutes: ts = TimeSpan.FromMinutes(status.TimeAllowedInStatusQuantity.Value); break;
-                    case TimeToCompleteTimeSpans.Hours: ts = TimeSpan.FromHours(status.TimeAllowedInStatusQuantity.Value); break;
-                    case TimeToCompleteTimeSpans.Days: ts = TimeSpan.FromDays(status.TimeAllowedInStatusQuantity.Value); break;
+                    case TimeSpanIntervals.Minutes: ts = TimeSpan.FromMinutes(status.TimeAllowedInStatusQuantity.Value); break;
+                    case TimeSpanIntervals.Hours: ts = TimeSpan.FromHours(status.TimeAllowedInStatusQuantity.Value); break;
+                    case TimeSpanIntervals.Days: ts = TimeSpan.FromDays(status.TimeAllowedInStatusQuantity.Value); break;
                 }
 
                 ticket.StatusDueDate = DateTime.UtcNow.Add(ts).ToJSONString();
@@ -647,8 +676,9 @@ namespace LagoVista.FSLite.Admin.Managers
             if (org == null) throw new ArgumentNullException(nameof(org));
             if (user == null) throw new ArgumentNullException(nameof(user));
 
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Handling Device Exception.");
-            
+
             var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(exception.DeviceRepositoryId, org, user);
             var device = await _deviceManager.GetDeviceByIdAsync(repo, exception.DeviceId, org, user);
             var deviceConfig = await _deviceConfigManager.GetDeviceConfigurationAsync(device.DeviceConfiguration.Id, org, user);
@@ -659,23 +689,183 @@ namespace LagoVista.FSLite.Admin.Managers
                 return InvokeResult.FromError($"Could not find error code [{exception.ErrorCode}] on device configuration [{deviceConfig.Name}] for device [{device.Name}]");
             }
 
-            if (deviceErrorCode.TriggerOnEachOccurrence)
+            if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.ServiceTicketTemplate))
             {
                 Console.WriteLine("Generating service ticket (every occurence.");
-                var result = await CreateServiceTicketAsync(deviceErrorCode.ServiceTicketTemplate.Id, exception.DeviceRepositoryId, exception.DeviceId, exception.Details);
-                return result.ToInvokeResult();
+                var request = new CreateServiceTicketRequest()
+                {
+                    TemplateId = deviceErrorCode.ServiceTicketTemplate.Id,
+                    DeviceId = device.DeviceId,
+                    Details = exception.Details,
+                    DontCreateIfOpenForDevice = !deviceErrorCode.TriggerOnEachOccurrence,
+                    RepoId = repo.Id
+                };
+
+                var result = await CreateServiceTicketAsync(request, org, user);
+                if (!result.Successful) return result.ToInvokeResult();
             }
             else
-            { 
-                if (await this._repo.HasOpenTicketOnDeviceAsync(device.Id, deviceErrorCode.ServiceTicketTemplate.Id, org.Id))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("No service ticket, skipping.");
+            }
+
+            if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.DistroList))
+            {
+                var deviceError = device.Errors.Where(err => err.DeviceErrorCode == exception.ErrorCode).FirstOrDefault();
+
+                Console.WriteLine("Time compares: " + deviceError.NextNotification.ToDateTime().ToUniversalTime() + "  " + DateTime.UtcNow);
+
+                if (String.IsNullOrEmpty(deviceError.NextNotification) || (deviceError.NextNotification.ToDateTime().ToUniversalTime() < DateTime.UtcNow))
                 {
-                    Console.WriteLine("Found ticket w,ill not create another.");
+                    var result = await _distroManager.GetListAsync(deviceErrorCode.DistroList.Id, org, user);
+                    var subject = String.IsNullOrEmpty(deviceErrorCode.EmailSubject) ? deviceErrorCode.Name : deviceErrorCode.EmailSubject.Replace("[DEVICEID]", device.DeviceId).Replace("[DEVICENAME]", device.Name);
+
+                    foreach (var notificationUser in result.AppUsers)
+                    {
+                        var appUser = await _userManager.FindByIdAsync(notificationUser.Id);
+                        if (deviceErrorCode.SendEmail)
+                        {
+                            var body = $"The error code [{deviceErrorCode.Key}] was detected on the device {device.Name}<br>{deviceErrorCode.Description}<br>{exception.Details}";
+                            await _emailSender.SendAsync(appUser.Email, subject, body);
+                        }
+
+                        if (deviceErrorCode.SendSMS)
+                        {
+                            var body = $"Device {device.Name} generated error code [${deviceErrorCode.Key}] {deviceErrorCode.Description} {exception.Details}";
+                            await _smsSender.SendAsync(appUser.PhoneNumber, body);
+                        }
+                    }
+
+                    if (EntityHeader.IsNullOrEmpty(deviceErrorCode.NotificationIntervalTimeSpan))
+                    {
+                        deviceError.NextNotification = null;
+                    }
+                    else if (deviceErrorCode.NotificationIntervalQuantity.HasValue && deviceErrorCode.NotificationIntervalTimeSpan.Value != TimeSpanIntervals.NotApplicable)
+                    {
+
+                        deviceError.NextNotification = deviceErrorCode.NotificationIntervalTimeSpan.Value.AddTimeSpan(deviceErrorCode.NotificationIntervalQuantity.Value);
+                    }
+                    else
+                    {
+                        deviceError.NextNotification = null;
+                        Logger.AddCustomEvent(Core.PlatformSupport.LogLevel.Error, "ServiceTicketManager__HandleDeviceExceptionAsync", "Invalid quantity on NotificationIntervalQuantity", device.DeviceId.ToKVP("deviceId"), exception.ErrorCode.ToKVP("errorCode"));
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Does not have open ticket will create one..");
-                    var result = await CreateServiceTicketAsync(deviceErrorCode.ServiceTicketTemplate.Id, exception.DeviceRepositoryId, exception.DeviceId, exception.Details);
-                    return result.ToInvokeResult();
+                    if (String.IsNullOrEmpty(deviceError.NextNotification))
+                    {
+                        Console.WriteLine("NExt Notification is null....");
+                    }
+                    else
+                    {
+                        Console.WriteLine("When to send next notification: " + deviceError.NextNotification);
+                    }
+                }
+            }
+            else
+            {
+
+                Console.WriteLine("No distro, skipping.");
+            }
+
+            Console.ResetColor();
+
+
+            await _deviceManager.UpdateDeviceAsync(repo, device, org, user);
+
+            return InvokeResult.Success;
+        }
+
+        private String GetWebURI()
+        {
+            var environment = AppConfig.WebAddress;
+            if (AppConfig.WebAddress.ToLower().Contains("api"))
+            {
+                switch (AppConfig.Environment)
+                {
+                    case Environments.Development: environment = "https://dev.nuviot.com"; break;
+                    case Environments.Testing: environment = "https://test.nuviot.com"; break;
+                    case Environments.Beta: environment = "https://qa.nuviot.com"; break;
+                    case Environments.Staging: environment = "https://stage.nuviot.com"; break;
+                    case Environments.Production: environment = "https://www.nuviot.com"; break;
+                    case Environments.Local:
+                    case Environments.LocalDevelopment: environment = "http://localhost:5000"; break;
+                }
+            }
+
+            return environment;
+        }
+
+        private string GetTicketNotificationContent(ServiceTicket ticket)
+        {
+            var redirectUri = $"{GetWebURI()}/home/links?viewtype=fsliteticket&viewid={ticket.Id}";
+
+            var bldr = new StringBuilder();
+            bldr.AppendLine("You have been assigned to a service ticket<br />");
+
+            bldr.AppendLine($"<h4>{ticket.Subject}<h4 />");
+            bldr.AppendLine($"<p>{ticket.Description}</p>");
+
+            bldr.AppendLine($"Click <a href='{redirectUri}'>here</a> for more information.");
+
+            return bldr.ToString();
+        }
+
+        public async Task<InvokeResult> SendTicketNotificationAsync(string ticketId, EntityHeader org, EntityHeader user)
+        {
+            var ticket = await _repo.GetServiceTicketAsync(ticketId);
+            await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org, "SendTicketNotification");
+            return await SendTicketNotificationAsync(ticket);
+        }
+
+        public async Task<InvokeResult> SendTicketRemindersAsync()
+        {
+            var ticketSummaries = await _repo.FindTicketsForNotificationRemindersAsync();
+            foreach (var ticketSummary in ticketSummaries)
+            {
+                var ticket = await _repo.GetServiceTicketAsync(ticketSummary.Id);
+                await SendTicketNotificationAsync(ticket);
+            }
+
+            return InvokeResult.Success;
+        }
+
+        public async Task<InvokeResult> SendTicketNotificationAsync(ServiceTicket ticket)
+        {
+            var template = await _templateRepo.GetServiceTicketTemplateAsync(ticket.Template.Id);
+
+            var contents = GetTicketNotificationContent(ticket);
+            if (!EntityHeader.IsNullOrEmpty(ticket.AssignedTo))
+            {
+                var user = await _userManager.FindByIdAsync(ticket.AssignedTo.Id);
+
+                await _emailSender.SendAsync(user.Email, $"Service Ticket #{ticket.TicketId}", contents);
+
+                ticket.NotificationHistory.Insert(0, new TicketNotification()
+                {
+                    NotifiedUser = ticket.AssignedTo,
+                    Timestamp = DateTime.UtcNow.ToJSONString()
+                });
+
+                ticket.LastNotification = DateTime.UtcNow.ToJSONString();
+                ticket.LastNotifiedUser = ticket.AssignedTo;
+
+                switch (template.OpenReminderNotificationTimeSpan.Value)
+                {
+                    case TimeSpanIntervals.Days:
+                        ticket.NextNotification = DateTime.UtcNow.AddDays(template.OpenReminderNotificationQuantity.Value).ToJSONString();
+                        break;
+                    case TimeSpanIntervals.Hours:
+                        ticket.NextNotification = DateTime.UtcNow.AddHours(template.OpenReminderNotificationQuantity.Value).ToJSONString();
+                        break;
+                    case TimeSpanIntervals.Minutes:
+                        ticket.NextNotification = DateTime.UtcNow.AddMinutes(template.OpenReminderNotificationQuantity.Value).ToJSONString();
+                        break;
+                    case TimeSpanIntervals.NotApplicable:
+                        ticket.NextNotification = null;
+                        break;
                 }
             }
 

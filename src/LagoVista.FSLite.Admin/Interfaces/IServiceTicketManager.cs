@@ -2,6 +2,7 @@
 using LagoVista.Core.Models.UIMetaData;
 using LagoVista.Core.Validation;
 using LagoVista.FSLite.Models;
+using LagoVista.IoT.Deployment.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,13 +11,15 @@ namespace LagoVista.FSLite.Admin.Interfaces
 {
     public interface IServiceTicketManager
     {
-        Task<InvokeResult> AddServiceTicketAsync(ServiceTicket serviceTicket, EntityHeader org, EntityHeader user);
+        
         Task<InvokeResult> UpdateServiceTicketAsync(ServiceTicket serviceTicket, EntityHeader org, EntityHeader user);
 
         Task<ServiceTicket> GetServiceTicketAsync(string id, EntityHeader org, EntityHeader user);
 
-        Task<InvokeResult<string>> CreateServiceTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId, string details = "");
-        Task<InvokeResult<ServiceTicket>> CreateServiceTicketAsync(CreateServiceTicketRequest request, EntityHeader org, EntityHeader user, string details = "");
+        Task<InvokeResult<string>> AddServiceTicketAsync(ServiceTicket serviceTicket, EntityHeader org, EntityHeader user);
+        Task<InvokeResult<string>> CreateServiceTicketAsync(string ticketTemplateId, string deviceRepoId, string deviceId, EntityHeader org, EntityHeader user);
+        Task<InvokeResult<string>> CreateServiceTicketAsync(CreateServiceTicketRequest request, EntityHeader org, EntityHeader user);
+
         Task<ListResponse<ServiceTicketSummary>> GetTicketsForBoardAsync(string boardId, ListRequest listRequest, EntityHeader org, EntityHeader user);
         Task<ListResponse<ServiceTicketSummary>> GetOpenServiceTicketAsync(ListRequest listRequest, EntityHeader org, EntityHeader user);
         Task<ListResponse<ServiceTicketSummary>> GetClosedServiceTicketAsync(ListRequest listRequest, EntityHeader org, EntityHeader user);
@@ -35,5 +38,8 @@ namespace LagoVista.FSLite.Admin.Interfaces
         Task<InvokeResult<ServiceTicket>> SetTicketStatusAsync(string id, EntityHeader newStatus, EntityHeader org, EntityHeader user);
         Task<InvokeResult<ServiceTicket>> SetAssignedToAsync(string id, EntityHeader assignedTouser, EntityHeader org, EntityHeader user);
         Task<InvokeResult<ServiceTicket>> AddTicketNoteAsync(string id, ServiceTicketNote note, EntityHeader org, EntityHeader user);
+        Task<InvokeResult> SendTicketNotificationAsync(ServiceTicket ticket);
+        Task<InvokeResult> SendTicketNotificationAsync(string ticketId, EntityHeader org, EntityHeader user);
+        Task<InvokeResult> SendTicketRemindersAsync();
     }
 }

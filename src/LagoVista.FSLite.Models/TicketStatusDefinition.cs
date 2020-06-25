@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using LagoVista.IoT.Deployment.Models;
 
 namespace LagoVista.FSLite.Models
 {
@@ -65,7 +66,7 @@ namespace LagoVista.FSLite.Models
     {
         public TicketStatus()
         {
-            TimeAllowedInStatusTimeSpan = EntityHeader<TimeToCompleteTimeSpans>.Create(TimeToCompleteTimeSpans.NotApplicable);
+            TimeAllowedInStatusTimeSpan = EntityHeader<TimeSpanIntervals>.Create(TimeSpanIntervals.NotApplicable);
         }
 
         [JsonProperty("id")]
@@ -74,8 +75,8 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.Status_IsClosed, HelpResource: FSResources.Names.Status_IsClosed_Help, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources))]
         public bool IsClosed { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.Status_TimeAllowedInStatus, HelpResource: FSResources.Names.Status_TimeAllowedInStatus, FieldType: FieldTypes.Picker, EnumType: typeof(TimeToCompleteTimeSpans), ResourceType: typeof(FSResources), IsRequired: true)]
-        public EntityHeader<TimeToCompleteTimeSpans> TimeAllowedInStatusTimeSpan { get; set; }
+        [FormField(LabelResource: FSResources.Names.Status_TimeAllowedInStatus, HelpResource: FSResources.Names.Status_TimeAllowedInStatus, FieldType: FieldTypes.Picker, EnumType: typeof(TimeSpanIntervals), ResourceType: typeof(FSResources), IsRequired: true)]
+        public EntityHeader<TimeSpanIntervals> TimeAllowedInStatusTimeSpan { get; set; }
 
         [FormField(LabelResource: FSResources.Names.Status_TimeAllowedInStatus, HelpResource: FSResources.Names.Status_TimeAllowedInStatus, FieldType: FieldTypes.Decimal, ResourceType: typeof(FSResources), IsRequired: false)]
         public double? TimeAllowedInStatusQuantity { get; set; }
@@ -98,7 +99,7 @@ namespace LagoVista.FSLite.Models
         [CustomValidator]
         public void Validate(ValidationResult result)
         {
-            if (TimeAllowedInStatusTimeSpan.Value != TimeToCompleteTimeSpans.NotApplicable)
+            if (TimeAllowedInStatusTimeSpan.Value != TimeSpanIntervals.NotApplicable)
             {
                 if(!TimeAllowedInStatusQuantity.HasValue)
                 {

@@ -2,9 +2,9 @@
 using LagoVista.Core.Models;
 using LagoVista.Core.Validation;
 using LagoVista.FSLite.Models.Resources;
+using LagoVista.IoT.Deployment.Models;
 using LagoVista.IoT.DeviceAdmin.Models;
 using LagoVista.MediaServices.Models;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace LagoVista.FSLite.Models
@@ -31,21 +31,6 @@ namespace LagoVista.FSLite.Models
         Low,
     }
 
-    public enum TimeToCompleteTimeSpans
-    {
-        [EnumLabel(ServiceTicketTemplate.Template_Time_ToComplete_NotApplicable, FSResources.Names.Template_Time_ToComplete_NotApplicable, typeof(FSResources))]
-        NotApplicable,
-
-        [EnumLabel(ServiceTicketTemplate.Template_Time_ToComplete_Minutes, FSResources.Names.Template_Time_ToComplete_Minutes, typeof(FSResources))]
-        Minutes,
-
-        [EnumLabel(ServiceTicketTemplate.Template_Time_ToComplete_Hours, FSResources.Names.Template_Time_ToComplete_Hours, typeof(FSResources))]
-        Hours,
-
-        [EnumLabel(ServiceTicketTemplate.Template_Time_ToComplete_Days, FSResources.Names.Template_Time_ToComplete_Days, typeof(FSResources))]
-        Days,
-    }
-
     [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.ServiceTicketTemplate_Title, FSResources.Names.ServiceTicketTemplate_Help,
         FSResources.Names.ServiceTicketTemplate_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources))]
     public class ServiceTicketTemplate : FSModelBase
@@ -60,11 +45,6 @@ namespace LagoVista.FSLite.Models
         public const string ServiceTicketTemplate_Skill_Medium = "medium";
         public const string ServiceTicketTemplate_Skill_Low = "low";
 
-        public const string Template_Time_ToComplete_NotApplicable = "na";
-        public const string Template_Time_ToComplete_Minutes = "high";
-        public const string Template_Time_ToComplete_Hours = "medium";
-        public const string Template_Time_ToComplete_Days = "low";
-
         public ServiceTicketTemplate()
         {
             TroubleshootingSteps = new List<SectionGrouping<TroubleshootingStep>>();
@@ -73,7 +53,9 @@ namespace LagoVista.FSLite.Models
             Instructions = new List<SectionGrouping<ServiceTicketTemplateInstruction>>();
             PartsKits = new List<PartsKitSummary>();
             Resources = new List<MediaResourceSummary>();
-            TimeToCompleteTimeSpan = EntityHeader<TimeToCompleteTimeSpans>.Create(TimeToCompleteTimeSpans.NotApplicable);
+            TimeToCompleteTimeSpan = EntityHeader<TimeSpanIntervals>.Create(TimeSpanIntervals.NotApplicable);
+            OpenReminderNotificationTimeSpan = EntityHeader<TimeSpanIntervals>.Create(TimeSpanIntervals.NotApplicable);
+
             Exclusive = true;
         }
 
@@ -133,16 +115,24 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Tools, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<EquipmentSummary> Tools { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.Template_Time_ToComplete_TimeSpan, HelpResource:FSResources.Names.Template_Time_ToComplete_TimeSpan_Help, FieldType: FieldTypes.Picker, EnumType: typeof(TimeToCompleteTimeSpans), ResourceType: typeof(FSResources), IsRequired:true)]
-        public EntityHeader<TimeToCompleteTimeSpans> TimeToCompleteTimeSpan {get; set;}
+        [FormField(LabelResource: FSResources.Names.Template_Time_ToComplete_TimeSpan, HelpResource:FSResources.Names.Template_Time_ToComplete_TimeSpan_Help, FieldType: FieldTypes.Picker, EnumType: typeof(TimeSpanIntervals), ResourceType: typeof(FSResources), IsRequired:true)]
+        public EntityHeader<TimeSpanIntervals> TimeToCompleteTimeSpan {get; set;}
+
 
         [FormField(LabelResource: FSResources.Names.Template_Time_ToComplete_Quantity, HelpResource: FSResources.Names.Template_Time_ToComplete_Quantity_Help, FieldType: FieldTypes.Decimal, ResourceType: typeof(FSResources), IsRequired:false)]
         public double? TimeToCompleteQuantity { get; set; }
 
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_OpenReminderNotification_TimeSpan, HelpResource: FSResources.Names.ServiceTicketTemplate_OpenReminderNotification_TimeSpan_Help, FieldType: FieldTypes.Picker, EnumType: typeof(TimeSpanIntervals), ResourceType: typeof(FSResources), IsRequired: true)]
+        public EntityHeader<TimeSpanIntervals> OpenReminderNotificationTimeSpan { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.Template_Time_ToComplete_Quantity, HelpResource: FSResources.Names.ServiceTicketTemplate_OpenReminderNotification_Quantity, FieldType: FieldTypes.Decimal, ResourceType: typeof(FSResources), IsRequired: false)]
+        public double? OpenReminderNotificationQuantity { get; set; }
+
         [CustomValidator]
         public void Validate(ValidationResult result)
         {
-            if(TimeToCompleteTimeSpan.Value != TimeToCompleteTimeSpans.NotApplicable && !TimeToCompleteQuantity.HasValue)
+            if(TimeToCompleteTimeSpan.Value != TimeSpanIntervals.NotApplicable && !TimeToCompleteQuantity.HasValue)
             {
                 result.AddUserError("Time to complete quantity is required.");
             }

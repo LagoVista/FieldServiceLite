@@ -1,4 +1,4 @@
-﻿/*7/31/2019 13:19:31*/
+﻿/*6/16/2020 10:27:37*/
 using System.Globalization;
 using System.Reflection;
 
@@ -234,6 +234,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceBoard_Title
 
 		public static string ServiceBoard_Title { get { return GetResourceString("ServiceBoard_Title"); } }
+//Resources:FSResources:ServiceTicekt_SilenceNotifications
+
+		public static string ServiceTicekt_SilenceNotifications { get { return GetResourceString("ServiceTicekt_SilenceNotifications"); } }
 //Resources:FSResources:ServiceTicket_Address
 
 		public static string ServiceTicket_Address { get { return GetResourceString("ServiceTicket_Address"); } }
@@ -276,6 +279,15 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicket_IsViewed
 
 		public static string ServiceTicket_IsViewed { get { return GetResourceString("ServiceTicket_IsViewed"); } }
+//Resources:FSResources:ServiceTicket_LastNotification
+
+		public static string ServiceTicket_LastNotification { get { return GetResourceString("ServiceTicket_LastNotification"); } }
+//Resources:FSResources:ServiceTicket_LastNotifiedUser
+
+		public static string ServiceTicket_LastNotifiedUser { get { return GetResourceString("ServiceTicket_LastNotifiedUser"); } }
+//Resources:FSResources:ServiceTicket_NextNotification
+
+		public static string ServiceTicket_NextNotification { get { return GetResourceString("ServiceTicket_NextNotification"); } }
 //Resources:FSResources:ServiceTicket_Notes
 
 		public static string ServiceTicket_Notes { get { return GetResourceString("ServiceTicket_Notes"); } }
@@ -417,6 +429,15 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplate_Instructions
 
 		public static string ServiceTicketTemplate_Instructions { get { return GetResourceString("ServiceTicketTemplate_Instructions"); } }
+//Resources:FSResources:ServiceTicketTemplate_OpenReminderNotification_Quantity
+
+		public static string ServiceTicketTemplate_OpenReminderNotification_Quantity { get { return GetResourceString("ServiceTicketTemplate_OpenReminderNotification_Quantity"); } }
+//Resources:FSResources:ServiceTicketTemplate_OpenReminderNotification_TimeSpan
+
+		public static string ServiceTicketTemplate_OpenReminderNotification_TimeSpan { get { return GetResourceString("ServiceTicketTemplate_OpenReminderNotification_TimeSpan"); } }
+//Resources:FSResources:ServiceTicketTemplate_OpenReminderNotification_TimeSpan_Help
+
+		public static string ServiceTicketTemplate_OpenReminderNotification_TimeSpan_Help { get { return GetResourceString("ServiceTicketTemplate_OpenReminderNotification_TimeSpan_Help"); } }
 //Resources:FSResources:ServiceTicketTemplate_PartsKits
 
 		public static string ServiceTicketTemplate_PartsKits { get { return GetResourceString("ServiceTicketTemplate_PartsKits"); } }
@@ -981,6 +1002,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceBoard_SequenceNumber = "ServiceBoard_SequenceNumber";
 			public const string ServiceBoard_SequenceNumber_Help = "ServiceBoard_SequenceNumber_Help";
 			public const string ServiceBoard_Title = "ServiceBoard_Title";
+			public const string ServiceTicekt_SilenceNotifications = "ServiceTicekt_SilenceNotifications";
 			public const string ServiceTicket_Address = "ServiceTicket_Address";
 			public const string ServiceTicket_AssignedTo = "ServiceTicket_AssignedTo";
 			public const string ServiceTicket_ClosedBy = "ServiceTicket_ClosedBy";
@@ -995,6 +1017,9 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicket_History = "ServiceTicket_History";
 			public const string ServiceTicket_IsClosed = "ServiceTicket_IsClosed";
 			public const string ServiceTicket_IsViewed = "ServiceTicket_IsViewed";
+			public const string ServiceTicket_LastNotification = "ServiceTicket_LastNotification";
+			public const string ServiceTicket_LastNotifiedUser = "ServiceTicket_LastNotifiedUser";
+			public const string ServiceTicket_NextNotification = "ServiceTicket_NextNotification";
 			public const string ServiceTicket_Notes = "ServiceTicket_Notes";
 			public const string ServiceTicket_ServiceBoard = "ServiceTicket_ServiceBoard";
 			public const string ServiceTicket_Status = "ServiceTicket_Status";
@@ -1042,6 +1067,9 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_Help = "ServiceTicketTemplate_Help";
 			public const string ServiceTicketTemplate_HoursEstimate = "ServiceTicketTemplate_HoursEstimate";
 			public const string ServiceTicketTemplate_Instructions = "ServiceTicketTemplate_Instructions";
+			public const string ServiceTicketTemplate_OpenReminderNotification_Quantity = "ServiceTicketTemplate_OpenReminderNotification_Quantity";
+			public const string ServiceTicketTemplate_OpenReminderNotification_TimeSpan = "ServiceTicketTemplate_OpenReminderNotification_TimeSpan";
+			public const string ServiceTicketTemplate_OpenReminderNotification_TimeSpan_Help = "ServiceTicketTemplate_OpenReminderNotification_TimeSpan_Help";
 			public const string ServiceTicketTemplate_PartsKits = "ServiceTicketTemplate_PartsKits";
 			public const string ServiceTicketTemplate_ServiceParts = "ServiceTicketTemplate_ServiceParts";
 			public const string ServiceTicketTemplate_Skill = "ServiceTicketTemplate_Skill";

@@ -19,7 +19,7 @@ namespace LagoVista.FSLite.Models
             Notes = new List<ServiceTicketNote>();
             Resources = new List<MediaResourceSummary>();
             History = new List<ServiceTicketStatusHistory>();
-
+            NotificationHistory = new List<TicketNotification>();
             Instructions = new List<SectionGrouping<ServiceTicketTemplateInstruction>>();
             ServiceParts = new List<SectionGrouping<BOMItem>>();
             Tools = new List<EquipmentSummary>();
@@ -51,6 +51,18 @@ namespace LagoVista.FSLite.Models
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_StatusDate, FieldType: FieldTypes.DateTime, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: false)]
         public string StatusDate { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_LastNotification, FieldType: FieldTypes.DateTime, ResourceType: typeof(FSResources), IsUserEditable: false)]
+        public string LastNotification { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_LastNotifiedUser, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources),  IsUserEditable: false)]
+        public EntityHeader LastNotifiedUser {get; set;}
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_NextNotification, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsUserEditable: false)]
+        public string NextNotification { get; set; }
+
+        [FormField(LabelResource: FSResources.Names.ServiceTicekt_SilenceNotifications, FieldType: FieldTypes.CheckBox, ResourceType: typeof(FSResources), IsUserEditable: true)]
+        public bool SilenceNotifications { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Address, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
         public Address Address { get; set; }
@@ -117,6 +129,8 @@ namespace LagoVista.FSLite.Models
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_PartsKits, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<PartsKitSummary> PartsKits { get; set; }
+
+        public List<TicketNotification> NotificationHistory { get; set; }
 
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_DeviceRepo, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]

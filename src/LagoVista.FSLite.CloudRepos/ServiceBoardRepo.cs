@@ -7,11 +7,14 @@ using System.Linq;
 using System;
 using LagoVista.Core;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace LagoVista.FSLite.CloudRepos
 {
     public class ServiceBoardRepo : DocumentDBRepoBase<ServiceBoard>, IServiceBoardRepo
     {
+        static SemaphoreSlim _ticketGenerationLocker = new SemaphoreSlim(1, 1);
+
         private bool _shouldConsolidateCollections;
         public ServiceBoardRepo(IFieldServiceLiteRepoSettings repoSettings, IAdminLogger logger)
             : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, logger)
@@ -38,11 +41,19 @@ namespace LagoVista.FSLite.CloudRepos
 
         public async Task<int> GetNextTicketNumber(string id)
         {
-            var board = await GetServiceBoardAsync(id);
-            board.TicketSequenceNumber++;
-            board.LastUpdatedDate = DateTime.UtcNow.ToJSONString();
-            await UpdateServiceBoardAsync(board);
-            return board.TicketSequenceNumber;
+            await _ticketGenerationLocker.WaitAsync();
+            try
+            {
+                var board = await GetServiceBoardAsync(id);
+                board.TicketSequenceNumber++;
+                board.LastUpdatedDate = DateTime.UtcNow.ToJSONString();
+                await UpdateServiceBoardAsync(board);
+                return board.TicketSequenceNumber;
+            }
+            finally
+            {
+                _ticketGenerationLocker.Release();
+            }            
         }
 
         public async Task<ListResponse<ServiceBoardSummary>> GetServiceBoardForOrgAsync(string orgId, ListRequest listRequest)

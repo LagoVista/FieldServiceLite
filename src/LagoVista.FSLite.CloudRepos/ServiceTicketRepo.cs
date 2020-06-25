@@ -1,9 +1,11 @@
 ﻿using LagoVista.CloudStorage.DocumentDB;
+using LagoVista.Core;
 using LagoVista.Core.Models.UIMetaData;
 using LagoVista.FSLite.Admin.Interfaces;
 using LagoVista.FSLite.Models;
 using LagoVista.IoT.Logging.Loggers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -150,6 +152,12 @@ namespace LagoVista.FSLite.CloudRepos
                     && tkt.Template != null && tkt.Template.Id == templateId 
                     && tkt.IsClosed == false
                     && tkt.Device.Id == deviceId)).Any();
+        }
+
+        public async Task<List<ServiceTicketSummary>> FindTicketsForNotificationRemindersAsync()
+        {
+            var tickets = await GetServiceTickets(tkt => !tkt.IsClosed && tkt.NextNotification.CompareTo(DateTime.UtcNow.ToJSONString()) < 1, new ListRequest() { PageSize = 999 });
+            return tickets.Model.ToList();
         }
     }
 }
