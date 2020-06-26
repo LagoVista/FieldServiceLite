@@ -328,3 +328,7 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/src/LagoVista.FSLite.REST/LagoVista.FSLite.REST.csproj.bak
+/src/LagoVista.FSLite.Models/LagoVista.FSLite.Models.csproj.bak
+/src/LagoVista.FSLite.CloudRepos/LagoVista.FSLite.CloudRepos.csproj.bak
+/src/LagoVista.FSLite.Admin/LagoVista.FSLite.Admin.csproj.bak
