@@ -116,7 +116,7 @@ namespace LagoVista.FSLite.Admin.Managers
             }
             else if (!String.IsNullOrEmpty(createServiceTicketRequest.DeviceUniqueId))
             {
-                device = await _deviceManager.GetDeviceByDeviceIdAsync(repo, createServiceTicketRequest.DeviceUniqueId, template.OwnerOrganization, user ?? template.DefaultContact);
+                device = await _deviceManager.GetDeviceByIdAsync(repo, createServiceTicketRequest.DeviceUniqueId, template.OwnerOrganization, user ?? template.DefaultContact);
             }
             else
             {
