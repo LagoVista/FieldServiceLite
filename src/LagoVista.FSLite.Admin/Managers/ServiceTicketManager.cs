@@ -20,6 +20,7 @@ using LagoVista.IoT.Deployment.Admin;
 using LagoVista.UserAdmin.Interfaces.Managers;
 using System.Text;
 using LagoVista.IoT.Deployment.Models;
+using LagoVista.IoT.DeviceManagement.Core.Models;
 
 namespace LagoVista.FSLite.Admin.Managers
 {
@@ -86,7 +87,8 @@ namespace LagoVista.FSLite.Admin.Managers
         {
             if (createServiceTicketRequest == null) throw new ArgumentNullException(nameof(createServiceTicketRequest));
             if (String.IsNullOrEmpty(createServiceTicketRequest.RepoId)) throw new ArgumentNullException(createServiceTicketRequest.RepoId);
-            if (String.IsNullOrEmpty(createServiceTicketRequest.DeviceId)) throw new ArgumentNullException(nameof(createServiceTicketRequest.DeviceId));
+            if (String.IsNullOrEmpty(createServiceTicketRequest.DeviceId) &&
+                String.IsNullOrEmpty(createServiceTicketRequest.DeviceUniqueId)) throw new ArgumentNullException(nameof(createServiceTicketRequest.DeviceId) + " and " + nameof(createServiceTicketRequest.DeviceUniqueId));
             if (String.IsNullOrEmpty(createServiceTicketRequest.TemplateId)) throw new ArgumentNullException(nameof(createServiceTicketRequest.TemplateId));
 
             var template = await _templateRepo.GetServiceTicketTemplateAsync(createServiceTicketRequest.TemplateId);
@@ -107,7 +109,19 @@ namespace LagoVista.FSLite.Admin.Managers
                 throw new InvalidOperationException("Template, org mismatch.");
             }
 
-            var device = await _deviceManager.GetDeviceByIdAsync(repo, createServiceTicketRequest.DeviceId, template.OwnerOrganization, user ?? template.DefaultContact);
+            Device device = null;
+            if (!String.IsNullOrEmpty(createServiceTicketRequest.DeviceId))
+            {
+                device = await _deviceManager.GetDeviceByDeviceIdAsync(repo, createServiceTicketRequest.DeviceId, template.OwnerOrganization, user ?? template.DefaultContact);
+            }
+            else if (!String.IsNullOrEmpty(createServiceTicketRequest.DeviceUniqueId))
+            {
+                device = await _deviceManager.GetDeviceByDeviceIdAsync(repo, createServiceTicketRequest.DeviceUniqueId, template.OwnerOrganization, user ?? template.DefaultContact);
+            }
+            else
+            {
+                throw new ArgumentNullException("Must supply either DeviceId or DeviceUniqueId to create a service ticket.");
+            }
 
             if (org != null && device.OwnerOrganization != org)
             {
