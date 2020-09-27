@@ -99,15 +99,8 @@ namespace LagoVista.FSLite.Admin.Managers
             if (user == null) throw new NullReferenceException(nameof(user));
 
             var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(createServiceTicketRequest.RepoId, org, user);
-            if (repo == null)
-            {
-                throw new InvalidOperationException($"Could not find repository for id {createServiceTicketRequest.RepoId}");
-            }
-
-            if (org != null && template.OwnerOrganization != org)
-            {
-                throw new InvalidOperationException("Template, org mismatch.");
-            }
+            if (repo == null) throw new InvalidOperationException($"Could not find repository for id {createServiceTicketRequest.RepoId}");
+            if (org != null && template.OwnerOrganization != org) throw new InvalidOperationException("Template, org mismatch.");
 
             Device device = null;
             if (!String.IsNullOrEmpty(createServiceTicketRequest.DeviceId))
