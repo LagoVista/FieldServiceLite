@@ -677,6 +677,74 @@ namespace LagoVista.FSLite.Admin.Managers
             return await _repo.GetTicketsForBoardAsync(boardId, listRequest);
         }
 
+        public async Task<InvokeResult> ClearDeviceExceptionAsync(DeviceException exception, EntityHeader org, EntityHeader user)
+        {
+            if (exception == null) throw new ArgumentNullException(nameof(exception));
+            if (org == null) throw new ArgumentNullException(nameof(org));
+            if (user == null) throw new ArgumentNullException(nameof(user));
+
+            var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(exception.DeviceRepositoryId, org, user);
+            var device = await _deviceManager.GetDeviceByIdAsync(repo, exception.DeviceId, org, user);
+            var deviceConfig = await _deviceConfigManager.GetDeviceConfigurationAsync(device.DeviceConfiguration.Id, org, user);
+
+            var deviceErrorCode = deviceConfig.ErrorCodes.FirstOrDefault(err => err.Key == exception.ErrorCode);
+            if (deviceErrorCode == null)
+            {
+                return InvokeResult.FromError($"Could not find error code [{exception.ErrorCode}] on device configuration [{deviceConfig.Name}] for device [{device.Name}]");
+            }
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("Clear Device Exception.");
+
+            if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.ServiceTicketTemplate))
+            {
+                var tickets = await _repo.GetOpenTicketOnDeviceAsync(device.Id, deviceErrorCode.ServiceTicketTemplate.Id, org.Id);
+                foreach (var ticket in tickets)
+                {
+                    ticket.IsClosed = true;
+                    ticket.ClosedBy = user;
+
+                    await _repo.UpdateServiceTicketAsync(ticket);
+                }
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("No service ticket, skipping.");
+            }
+
+            if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.DistroList))
+            {
+                var distroList = await _distroManager.GetListAsync(deviceErrorCode.DistroList.Id, org, user);
+                var subject = "[CLEARED] -" + (String.IsNullOrEmpty(deviceErrorCode.EmailSubject) ? deviceErrorCode.Name : deviceErrorCode.EmailSubject.Replace("[DEVICEID]", device.DeviceId).Replace("[DEVICENAME]", device.Name));
+
+                foreach (var notificationUser in distroList.AppUsers)
+                {
+                    var appUser = await _userManager.FindByIdAsync(notificationUser.Id);
+                    if (deviceErrorCode.SendEmail)
+                    {
+                        var body = $"The error code [{deviceErrorCode.Key}] was cleared on the device {device.Name}<br>{deviceErrorCode.Description}<br>{exception.Details}";
+                        await _emailSender.SendAsync(appUser.Email, subject, body);
+                    }
+
+                    if (deviceErrorCode.SendSMS)
+                    {
+                        var body = $"Device {device.Name} cleared error code [${deviceErrorCode.Key}] {deviceErrorCode.Description} {exception.Details}";
+                        await _smsSender.SendAsync(appUser.PhoneNumber, body);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("No distro, skipping.");
+            }
+
+            Console.ResetColor();
+
+
+            return InvokeResult.Success;
+        }
+
         public async Task<InvokeResult> HandleDeviceExceptionAsync(DeviceException exception, EntityHeader org, EntityHeader user)
         {
             if (exception == null) throw new ArgumentNullException(nameof(exception));
@@ -720,8 +788,6 @@ namespace LagoVista.FSLite.Admin.Managers
             if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.DistroList))
             {
                 var deviceError = device.Errors.Where(err => err.DeviceErrorCode == exception.ErrorCode).FirstOrDefault();
-
-                Console.WriteLine("Time compares: " + deviceError.NextNotification.ToDateTime().ToUniversalTime() + "  " + DateTime.UtcNow);
 
                 if (String.IsNullOrEmpty(deviceError.NextNotification) || (deviceError.NextNotification.ToDateTime().ToUniversalTime() < DateTime.UtcNow))
                 {
@@ -778,7 +844,6 @@ namespace LagoVista.FSLite.Admin.Managers
             }
 
             Console.ResetColor();
-
 
             await _deviceManager.UpdateDeviceAsync(repo, device, org, user);
 

@@ -13,6 +13,7 @@ namespace LagoVista.FSLite.Admin.Interfaces
         Task DeleteServiceTicketAsync(string id);
 
         Task<bool> HasOpenTicketOnDeviceAsync(string deviceId, string templateId, string orgId);
+        Task<IEnumerable<ServiceTicket>> GetOpenTicketOnDeviceAsync(string deviceId, string templateId, string orgId);
 
         Task<ListResponse<ServiceTicketSummary>> GetTicketsForBoardAsync(string boardId, ListRequest listRequest);
         Task<ListResponse<ServiceTicketSummary>> GetTicketsForOrgAsync(string orgId, ListRequest listRequest);

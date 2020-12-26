@@ -154,6 +154,14 @@ namespace LagoVista.FSLite.CloudRepos
                     && tkt.Device.Id == deviceId)).Any();
         }
 
+        public async Task<IEnumerable<ServiceTicket>> GetOpenTicketOnDeviceAsync(string deviceId, string templateId, string orgId)
+        {
+            return (await QueryAsync(tkt => tkt.OwnerOrganization.Id == orgId
+                    && tkt.Template != null && tkt.Template.Id == templateId
+                    && tkt.IsClosed == false
+                    && tkt.Device.Id == deviceId));
+        }
+
         public async Task<List<ServiceTicketSummary>> FindTicketsForNotificationRemindersAsync()
         {
             var tickets = await GetServiceTickets(tkt => !tkt.IsClosed && tkt.NextNotification.CompareTo(DateTime.UtcNow.ToJSONString()) < 1, new ListRequest() { PageSize = 999 });
