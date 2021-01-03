@@ -800,6 +800,16 @@ namespace LagoVista.FSLite.Admin.Managers
                         if (deviceErrorCode.SendEmail)
                         {
                             var body = $"The error code [{deviceErrorCode.Key}] was detected on the device {device.Name}<br>{deviceErrorCode.Description}<br>{exception.Details}";
+                            if(exception.AdditionalDetails.Any())
+                            {
+                                body += "<br>";
+                                body += "<b>Additional Details:<br /><b>";
+                                body += "<ul>";
+                                foreach (var detail in exception.AdditionalDetails)
+                                    body += $"<li>{detail}</li>";
+
+                                body += "</ul>";
+                            }
                             await _emailSender.SendAsync(appUser.Email, subject, body);
                         }
 
