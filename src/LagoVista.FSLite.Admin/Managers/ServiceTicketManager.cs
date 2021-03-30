@@ -102,24 +102,40 @@ namespace LagoVista.FSLite.Admin.Managers
             if (repo == null) throw new InvalidOperationException($"Could not find repository for id {createServiceTicketRequest.RepoId}");
             if (org != null && template.OwnerOrganization != org) throw new InvalidOperationException("Template, org mismatch.");
 
+            Console.WriteLine("+++1");
+
             Device device = null;
             if (!String.IsNullOrEmpty(createServiceTicketRequest.DeviceId))
             {
                 device = await _deviceManager.GetDeviceByDeviceIdAsync(repo, createServiceTicketRequest.DeviceId, template.OwnerOrganization, user ?? template.DefaultContact);
+                if (device == null)
+                {
+                    device = await _deviceManager.GetDeviceByIdAsync(repo, createServiceTicketRequest.DeviceId, template.OwnerOrganization, user ?? template.DefaultContact);
+                    if (device == null) // still null
+                    {
+                        throw new ArgumentNullException($"Could not find device with device id {createServiceTicketRequest.DeviceId}.");
+                    }
+                }
             }
             else if (!String.IsNullOrEmpty(createServiceTicketRequest.DeviceUniqueId))
             {
                 device = await _deviceManager.GetDeviceByIdAsync(repo, createServiceTicketRequest.DeviceUniqueId, template.OwnerOrganization, user ?? template.DefaultContact);
+                if (device == null)
+                {
+                    throw new ArgumentNullException($"Could not find device with device id {createServiceTicketRequest.DeviceUniqueId}.");
+                }
             }
             else
             {
                 throw new ArgumentNullException("Must supply either DeviceId or DeviceUniqueId to create a service ticket.");
             }
-
+           
             if (org != null && device.OwnerOrganization != org)
             {
                 throw new InvalidOperationException("Device, org mismatch.");
             }
+
+            Console.WriteLine("+++2");
 
             var stateSet = await _ticketStatusRepo.GetTicketStatusDefinitionAsync(template.StatusType.Id);
             var defaultState = stateSet.Items.Where(st => st.IsDefault).First();
@@ -138,6 +154,8 @@ namespace LagoVista.FSLite.Admin.Managers
             var currentTimeStamp = DateTime.UtcNow.ToJSONString();
 
             EntityHeader<ServiceBoard> boardEH = null;
+
+            Console.WriteLine("+++3");
 
             var ticketId = Guid.NewGuid().ToString();
 
@@ -161,6 +179,8 @@ namespace LagoVista.FSLite.Admin.Managers
                 var ticketNumber = await _serviceBoardRepo.GetNextTicketNumber(repo.ServiceBoard.Id);
                 ticketId = $"{board.BoardAbbreviation}-{ticketNumber}";
             }
+
+            Console.WriteLine("+++4");
 
             string dueDate = null;
 
@@ -195,6 +215,8 @@ namespace LagoVista.FSLite.Admin.Managers
 
                 statusDueDate = DateTime.UtcNow.Add(ts).ToJSONString();
             }
+
+            Console.WriteLine("+++5");
 
             var ticket = new ServiceTicket()
             {
@@ -242,6 +264,8 @@ namespace LagoVista.FSLite.Admin.Managers
                 Note = $"Created service ticket with {defaultState.Name} status."
             });
 
+            Console.WriteLine("+++6");
+
             ticket.Notes.Add(new ServiceTicketNote()
             {
                 AddedBy = user,
@@ -260,10 +284,16 @@ namespace LagoVista.FSLite.Admin.Managers
                 });
             }
 
+            Console.WriteLine("+++7");
+
 
             await _repo.AddServiceTicketAsync(ticket);
 
+            Console.WriteLine("+++8");
+
             await SendTicketNotificationAsync(ticket);
+
+            Console.WriteLine("+++9");
 
             return InvokeResult<string>.Create(ticket.TicketId);
         }
