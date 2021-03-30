@@ -23,7 +23,7 @@ namespace LagoVista.FSLite.Models
             ToolsLabel = FSResources.TemplateCategory_Tools_Default;
             PartsKitsLabel = FSResources.TemplateCategory_PartsKit_Default;
             UrgencyLabel = FSResources.TemplateCategory_Urgency_Default;
-            SkillLevelLabel = FSResources.TemplateCategory_TicketLabel_Default;
+            SkillLevelLabel = FSResources.TemplateCategory_SkillLevel_Default;
             TicketLabel = FSResources.TemplateCategory_TicketLabel_Default;
             SubjectLabel = FSResources.TemplateCategory_Subject_Default;
             IsViewedLabel = FSResources.TemplateCategory_IsViewed_Default;
