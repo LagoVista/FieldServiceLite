@@ -41,6 +41,11 @@ namespace LagoVista.FSLite.CloudRepos
             return base.GetDocumentAsync(id);
         }
 
+        public async Task<ServiceTicketTemplate> GetServiceTicketTemplateByKeyAsync(string orggId, string ticketKey)
+        {
+            return (await QueryAsync(qry => qry.OwnerOrganization.Id == orggId && qry.Key == ticketKey)).FirstOrDefault();
+        }
+
         public async Task<ListResponse<ServiceTicketTemplateSummary>> GetServiceTicketTemplateSummariesForOrgAsync(string orgId, ListRequest listRequest)
         {
             var response = await base.QueryAsync(attr => (attr.OwnerOrganization.Id == orgId || attr.IsPublic == true), listRequest);

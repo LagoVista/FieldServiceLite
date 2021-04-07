@@ -89,9 +89,30 @@ namespace LagoVista.FSLite.Admin.Managers
             if (String.IsNullOrEmpty(createServiceTicketRequest.RepoId)) throw new ArgumentNullException(createServiceTicketRequest.RepoId);
             if (String.IsNullOrEmpty(createServiceTicketRequest.DeviceId) &&
                 String.IsNullOrEmpty(createServiceTicketRequest.DeviceUniqueId)) throw new ArgumentNullException(nameof(createServiceTicketRequest.DeviceId) + " and " + nameof(createServiceTicketRequest.DeviceUniqueId));
-            if (String.IsNullOrEmpty(createServiceTicketRequest.TemplateId)) throw new ArgumentNullException(nameof(createServiceTicketRequest.TemplateId));
+            if (String.IsNullOrEmpty(createServiceTicketRequest.TemplateId) && 
+                String.IsNullOrEmpty(createServiceTicketRequest.TemplateKey)) throw new ArgumentNullException(nameof(createServiceTicketRequest.TemplateId) + " and " + nameof(createServiceTicketRequest.TemplateKey));
 
-            var template = await _templateRepo.GetServiceTicketTemplateAsync(createServiceTicketRequest.TemplateId);
+            ServiceTicketTemplate template;
+
+            if (String.IsNullOrEmpty(createServiceTicketRequest.TemplateKey))
+            {
+                template = await _templateRepo.GetServiceTicketTemplateAsync(createServiceTicketRequest.TemplateId);
+                if (template == null)
+                {
+                    throw new NullReferenceException($"Could not load ticket template for {createServiceTicketRequest.TemplateId}");
+                }
+            }
+            else
+            {
+                template = await _templateRepo.GetServiceTicketTemplateByKeyAsync(org.Id, createServiceTicketRequest.TemplateKey);
+                if (template == null)
+                {
+                    throw new NullReferenceException($"Could not load ticket template for {createServiceTicketRequest.TemplateKey}");
+                }
+            }
+
+            
+
             org = org ?? template.OwnerOrganization;
             user = user ?? template.DefaultContact ?? template.CreatedBy;
 
