@@ -10,8 +10,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using LagoVista.Core;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LagoVista.FSLite.REST
@@ -19,7 +17,7 @@ namespace LagoVista.FSLite.REST
     [Authorize]
     public class TicketStatusController : LagoVistaBaseController
     {
-        ITicketStatusManager _mgr;
+        readonly ITicketStatusManager _mgr;
 
         public TicketStatusController(ITicketStatusManager ticketStatusMgr, UserManager<AppUser> userManager, IAdminLogger logger)
             : base(userManager, logger)
@@ -86,10 +84,9 @@ namespace LagoVista.FSLite.REST
         /// <summary>
         /// FS Lite - Create an empty ticket status items.
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("/api/fslite/ticketstatusdefinition/factory")]
-        public DetailResponse<TicketStatusDefinition> Createticketstatusdefinition(string id)
+        public DetailResponse<TicketStatusDefinition> Createticketstatusdefinition()
         {
             var status = DetailResponse<TicketStatusDefinition>.Create();
             status.Model.Id = Guid.NewGuid().ToId();
@@ -101,7 +98,6 @@ namespace LagoVista.FSLite.REST
         /// <summary>
         /// FS Lite - Create an empty ticket status items.
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("/api/fslite/ticketstatusdefinition/item/factory")]
         public DetailResponse<TicketStatus> Createticketstatusitem()

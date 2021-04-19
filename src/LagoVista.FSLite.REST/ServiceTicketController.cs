@@ -20,7 +20,7 @@ namespace LagoVista.FSLite.REST
     public class ServiceTicketController : LagoVistaBaseController
     {
 
-        IServiceTicketManager _mgr;
+        readonly IServiceTicketManager _mgr;
 
         public ServiceTicketController(IServiceTicketManager mgr, UserManager<AppUser> userManager, IAdminLogger logger) : base(userManager, logger)
         {
@@ -162,6 +162,7 @@ namespace LagoVista.FSLite.REST
         /// FS Lite - Set View Status on a Ticket
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="viewed" />
         /// <returns></returns>
         [HttpGet("/api/fslite/ticket/{id}/viewed/{viewed}")]
         public Task<InvokeResult<ServiceTicket>> MarkAsViewedAsync(string id, bool viewed)
@@ -173,6 +174,7 @@ namespace LagoVista.FSLite.REST
         /// FS Lite - Set Closed Status on a Ticket
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="closed" />
         /// <returns></returns>
         [HttpGet("/api/fslite/ticket/{id}/closed/{closed}")]
         public Task<InvokeResult<ServiceTicket>> SetClosedStatusAsync(string id, bool closed)
@@ -195,6 +197,7 @@ namespace LagoVista.FSLite.REST
         /// FS Lite - Assign a new user to ticket.
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="assignedUser" />
         /// <returns></returns>
         [HttpPost("/api/fslite/ticket/{id}/assignedto")]
         public Task<InvokeResult<ServiceTicket>> AssignToUserAsync(string id, [FromBody] EntityHeader assignedUser)
@@ -214,10 +217,8 @@ namespace LagoVista.FSLite.REST
         }
 
         /// <summary>
-        /// FS Lite - Create an empty note..
+        /// FS Lite - Create an empty note.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="note"></param>
         /// <returns></returns>
         [HttpPost("/api/fslite/ticket/note/factory")]
         public DetailResponse<ServiceTicketNote> CreateTicketNote()
@@ -245,7 +246,7 @@ namespace LagoVista.FSLite.REST
         /// FS Lite - Set Ticket Status
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="status"></param>
+        /// <param name="newStatus" />
         /// <returns></returns>
         [HttpPost("/api/fslite/ticket/{id}/status")]
         public Task<InvokeResult<ServiceTicket>> SetTicketStatusAsync(string id, [FromBody] EntityHeader newStatus)

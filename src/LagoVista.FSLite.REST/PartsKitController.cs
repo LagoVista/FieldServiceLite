@@ -17,7 +17,7 @@ namespace LagoVista.FSLite.REST
     [Authorize]
     public class PartsKitController : LagoVistaBaseController
     {
-        IPartsKitManager _mgr;
+        readonly IPartsKitManager _mgr;
 
         public PartsKitController(IPartsKitManager mgr, UserManager<AppUser> userManager, IAdminLogger logger)
             : base(userManager, logger)
@@ -28,7 +28,7 @@ namespace LagoVista.FSLite.REST
         /// <summary>
         /// FS Lite - Add a parts kit.
         /// </summary>
-        /// <param name="board"></param>
+        /// <param name="category" />
         /// <returns></returns>
         [HttpPost("/api/fslite/partskit")]
         public Task<InvokeResult> AddPartsKitAsync([FromBody] PartsKit category)
@@ -39,7 +39,7 @@ namespace LagoVista.FSLite.REST
         /// <summary>
         /// FS Lite - Update the parts kit.
         /// </summary>
-        /// <param name="board"></param>
+        /// <param name="category" />
         /// <returns></returns>
         [HttpPut("/api/fslite/partskit")]
         public Task<InvokeResult> UpdatePartsKitAsync([FromBody] PartsKit category)
@@ -84,10 +84,9 @@ namespace LagoVista.FSLite.REST
         /// <summary>
         /// FS Lite - Create the parts kit.
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("/api/fslite/partskit/factory")]
-        public DetailResponse<PartsKit> CreatePartsKit(string id)
+        public DetailResponse<PartsKit> CreatePartsKit()
         {
             var board = DetailResponse<PartsKit>.Create();
             board.Model.Id = Guid.NewGuid().ToId();

@@ -17,7 +17,7 @@ namespace LagoVista.FSLite.REST
     [Authorize]
     public class TemplateCategoryController : LagoVistaBaseController
     {
-        ITemplateCategoryManager _mgr;
+        readonly ITemplateCategoryManager _mgr;
 
         public TemplateCategoryController(ITemplateCategoryManager mgr, UserManager<AppUser> userManager, IAdminLogger logger) 
             : base(userManager, logger)
@@ -28,7 +28,7 @@ namespace LagoVista.FSLite.REST
         /// <summary>
         /// FS Lite - Add a template category.
         /// </summary>
-        /// <param name="board"></param>
+        /// <param name="category"></param>
         /// <returns></returns>
         [HttpPost("/api/fslite/templatecategory")]
         public Task<InvokeResult> AddTemplateCategoryAsync([FromBody] TemplateCategory category)
@@ -39,7 +39,7 @@ namespace LagoVista.FSLite.REST
         /// <summary>
         /// FS Lite - Update a template category.
         /// </summary>
-        /// <param name="board"></param>
+        /// <param name="category"></param>
         /// <returns></returns>
         [HttpPut("/api/fslite/templatecategory")]
         public Task<InvokeResult> UpdateTemplateCategoriesAsync([FromBody] TemplateCategory category)
@@ -72,10 +72,9 @@ namespace LagoVista.FSLite.REST
         /// <summary>
         /// FS Lite - Create the template category.
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("/api/fslite/templatecategory/factory")]
-        public DetailResponse<TemplateCategory> CreateTemplateCategory(string id)
+        public DetailResponse<TemplateCategory> CreateTemplateCategory()
         {
             var board = DetailResponse<TemplateCategory>.Create();
             board.Model.Id = Guid.NewGuid().ToId();

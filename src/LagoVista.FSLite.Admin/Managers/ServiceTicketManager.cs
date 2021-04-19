@@ -113,8 +113,8 @@ namespace LagoVista.FSLite.Admin.Managers
 
             
 
-            org = org ?? template.OwnerOrganization;
-            user = user ?? template.DefaultContact ?? template.CreatedBy;
+            org ??= template.OwnerOrganization;
+            user ??= template.DefaultContact ?? template.CreatedBy;
 
             if (org == null) throw new NullReferenceException(nameof(org));
             if (user == null) throw new NullReferenceException(nameof(user));
@@ -210,7 +210,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 template.TimeToCompleteQuantity.HasValue)
             {
 
-                TimeSpan ts;
+                TimeSpan ts = TimeSpan.Zero;
                 switch (template.TimeToCompleteTimeSpan.Value)
                 {
                     case TimeSpanIntervals.Minutes: ts = TimeSpan.FromMinutes(template.TimeToCompleteQuantity.Value); break;
@@ -226,7 +226,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 defaultState.TimeAllowedInStatusTimeSpan.Value != TimeSpanIntervals.NotApplicable &&
                 defaultState.TimeAllowedInStatusQuantity.HasValue)
             {
-                TimeSpan ts;
+                TimeSpan ts = TimeSpan.Zero;
                 switch (defaultState.TimeAllowedInStatusTimeSpan.Value)
                 {
                     case TimeSpanIntervals.Minutes: ts = TimeSpan.FromMinutes(defaultState.TimeAllowedInStatusQuantity.Value); break;
@@ -540,7 +540,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 status.TimeAllowedInStatusTimeSpan.Value != TimeSpanIntervals.NotApplicable &&
                 status.TimeAllowedInStatusQuantity.HasValue)
             {
-                TimeSpan ts;
+                TimeSpan ts = TimeSpan.Zero;
                 switch (status.TimeAllowedInStatusTimeSpan.Value)
                 {
                     case TimeSpanIntervals.Minutes: ts = TimeSpan.FromMinutes(status.TimeAllowedInStatusQuantity.Value); break;
