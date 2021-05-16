@@ -89,7 +89,7 @@ namespace LagoVista.FSLite.Admin.Managers
             if (String.IsNullOrEmpty(createServiceTicketRequest.RepoId)) throw new ArgumentNullException(createServiceTicketRequest.RepoId);
             if (String.IsNullOrEmpty(createServiceTicketRequest.DeviceId) &&
                 String.IsNullOrEmpty(createServiceTicketRequest.DeviceUniqueId)) throw new ArgumentNullException(nameof(createServiceTicketRequest.DeviceId) + " and " + nameof(createServiceTicketRequest.DeviceUniqueId));
-            if (String.IsNullOrEmpty(createServiceTicketRequest.TemplateId) && 
+            if (String.IsNullOrEmpty(createServiceTicketRequest.TemplateId) &&
                 String.IsNullOrEmpty(createServiceTicketRequest.TemplateKey)) throw new ArgumentNullException(nameof(createServiceTicketRequest.TemplateId) + " and " + nameof(createServiceTicketRequest.TemplateKey));
 
             ServiceTicketTemplate template;
@@ -110,8 +110,6 @@ namespace LagoVista.FSLite.Admin.Managers
                     throw new NullReferenceException($"Could not load ticket template for {createServiceTicketRequest.TemplateKey}");
                 }
             }
-
-            
 
             org ??= template.OwnerOrganization;
             user ??= template.DefaultContact ?? template.CreatedBy;
@@ -150,7 +148,7 @@ namespace LagoVista.FSLite.Admin.Managers
             {
                 throw new ArgumentNullException("Must supply either DeviceId or DeviceUniqueId to create a service ticket.");
             }
-           
+
             if (org != null && device.OwnerOrganization != org)
             {
                 throw new InvalidOperationException("Device, org mismatch.");
@@ -836,11 +834,25 @@ namespace LagoVista.FSLite.Admin.Managers
                 Console.WriteLine("No service ticket, skipping.");
             }
 
+            var deviceError = device.Errors.Where(err => err.DeviceErrorCode == exception.ErrorCode).FirstOrDefault();
+            if (deviceError == null)
+            {
+                deviceError = new DeviceError()
+                {
+                    Count = 1,
+                    DeviceErrorCode = exception.ErrorCode,
+                    FirstSeen = DateTime.UtcNow.ToJSONString(),
+                    LastDetails = exception.Details,
+                    Timestamp = DateTime.UtcNow.ToJSONString(),
+                    Expires = deviceErrorCode.AutoexpireTimespan.Value.AddTimeSpan(deviceErrorCode.AutoexpireTimespanQuantity.Value)
+                };
+
+                device.Errors.Add(deviceError);
+            }
+
             if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.DistroList))
             {
-                var deviceError = device.Errors.Where(err => err.DeviceErrorCode == exception.ErrorCode).FirstOrDefault();
-
-                if (String.IsNullOrEmpty(deviceError.NextNotification) || (deviceError.NextNotification.ToDateTime().ToUniversalTime() < DateTime.UtcNow))
+                if (deviceError == null || String.IsNullOrEmpty(deviceError.NextNotification) || (deviceError.NextNotification.ToDateTime().ToUniversalTime() < DateTime.UtcNow))
                 {
                     var result = await _distroManager.GetListAsync(deviceErrorCode.DistroList.Id, org, user);
                     var subject = String.IsNullOrEmpty(deviceErrorCode.EmailSubject) ? deviceErrorCode.Name : deviceErrorCode.EmailSubject.Replace("[DEVICEID]", device.DeviceId).Replace("[DEVICENAME]", device.Name);
@@ -851,7 +863,7 @@ namespace LagoVista.FSLite.Admin.Managers
                         if (deviceErrorCode.SendEmail)
                         {
                             var body = $"The error code [{deviceErrorCode.Key}] was detected on the device {device.Name}<br>{deviceErrorCode.Description}<br>{exception.Details}";
-                            if(exception.AdditionalDetails.Any())
+                            if (exception.AdditionalDetails.Any())
                             {
                                 body += "<br>";
                                 body += "<b>Additional Details:<br /><b>";
