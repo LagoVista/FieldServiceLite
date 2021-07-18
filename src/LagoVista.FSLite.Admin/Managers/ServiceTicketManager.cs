@@ -733,7 +733,7 @@ namespace LagoVista.FSLite.Admin.Managers
             if (user == null) throw new ArgumentNullException(nameof(user));
 
             var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(exception.DeviceRepositoryId, org, user);
-            var device = await _deviceManager.GetDeviceByIdAsync(repo, exception.DeviceId, org, user);
+            var device = await _deviceManager.GetDeviceByIdAsync(repo, exception.DeviceUniqueId, org, user);
             var deviceConfig = await _deviceConfigManager.GetDeviceConfigurationAsync(device.DeviceConfiguration.Id, org, user);
 
             var deviceErrorCode = deviceConfig.ErrorCodes.FirstOrDefault(err => err.Key == exception.ErrorCode);
@@ -804,7 +804,7 @@ namespace LagoVista.FSLite.Admin.Managers
             Console.WriteLine("Handling Device Exception.");
 
             var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(exception.DeviceRepositoryId, org, user);
-            var device = await _deviceManager.GetDeviceByDeviceIdAsync(repo, exception.DeviceId, org, user);
+            var device = await _deviceManager.GetDeviceByDeviceIdAsync(repo, exception.DeviceUniqueId, org, user);
             var deviceConfig = await _deviceConfigManager.GetDeviceConfigurationAsync(device.DeviceConfiguration.Id, org, user);
 
             var deviceErrorCode = deviceConfig.ErrorCodes.FirstOrDefault(err => err.Key == exception.ErrorCode);
