@@ -92,6 +92,15 @@ namespace LagoVista.FSLite.Admin.Managers
             if (String.IsNullOrEmpty(createServiceTicketRequest.TemplateId) &&
                 String.IsNullOrEmpty(createServiceTicketRequest.TemplateKey)) throw new ArgumentNullException(nameof(createServiceTicketRequest.TemplateId) + " and " + nameof(createServiceTicketRequest.TemplateKey));
 
+            if (!createServiceTicketRequest.DontCreateIfOpenForDevice)
+            {
+                var tickets = await _repo.GetOpenTicketOnDeviceAsync(createServiceTicketRequest.DeviceId, createServiceTicketRequest.TemplateId, org.Id);
+                if(tickets.Any())
+                {
+                    return InvokeResult<string>.Create(tickets.First().TicketId);
+                }
+            }
+
             ServiceTicketTemplate template;
 
             if (String.IsNullOrEmpty(createServiceTicketRequest.TemplateKey))
@@ -121,7 +130,6 @@ namespace LagoVista.FSLite.Admin.Managers
             if (repo == null) throw new InvalidOperationException($"Could not find repository for id {createServiceTicketRequest.RepoId}");
             if (org != null && template.OwnerOrganization != org) throw new InvalidOperationException("Template, org mismatch.");
 
-            Console.WriteLine("+++1");
 
             Device device = null;
             if (!String.IsNullOrEmpty(createServiceTicketRequest.DeviceId))
@@ -154,7 +162,6 @@ namespace LagoVista.FSLite.Admin.Managers
                 throw new InvalidOperationException("Device, org mismatch.");
             }
 
-            Console.WriteLine("+++2");
 
             var stateSet = await _ticketStatusRepo.GetTicketStatusDefinitionAsync(template.StatusType.Id);
             var defaultState = stateSet.Items.Where(st => st.IsDefault).First();
@@ -173,8 +180,6 @@ namespace LagoVista.FSLite.Admin.Managers
             var currentTimeStamp = DateTime.UtcNow.ToJSONString();
 
             EntityHeader<ServiceBoard> boardEH = null;
-
-            Console.WriteLine("+++3");
 
             var ticketId = Guid.NewGuid().ToString();
 
@@ -303,16 +308,11 @@ namespace LagoVista.FSLite.Admin.Managers
                 });
             }
 
-            Console.WriteLine("+++7");
-
-
             await _repo.AddServiceTicketAsync(ticket);
 
-            Console.WriteLine("+++8");
 
             await SendTicketNotificationAsync(ticket);
 
-            Console.WriteLine("+++9");
 
             return InvokeResult<string>.Create(ticket.TicketId);
         }
@@ -794,14 +794,73 @@ namespace LagoVista.FSLite.Admin.Managers
             return InvokeResult.Success;
         }
 
+        private async Task SendNotification(DeviceErrorCode deviceErrorCode, DeviceError deviceError, Device device, DeviceException exception, EntityHeader org, EntityHeader user)
+        {
+            if (deviceError == null || String.IsNullOrEmpty(deviceError.NextNotification) || (deviceError.NextNotification.ToDateTime().ToUniversalTime() < DateTime.UtcNow))
+            {
+                var result = await _distroManager.GetListAsync(deviceErrorCode.DistroList.Id, org, user);
+                var subject = String.IsNullOrEmpty(deviceErrorCode.EmailSubject) ? deviceErrorCode.Name : deviceErrorCode.EmailSubject.Replace("[DEVICEID]", device.DeviceId).Replace("[DEVICENAME]", device.Name);
+
+                foreach (var notificationUser in result.AppUsers)
+                {
+                    var appUser = await _userManager.FindByIdAsync(notificationUser.Id);
+                    if (deviceErrorCode.SendEmail)
+                    {
+                        var body = $"The error code [{deviceErrorCode.Key}] was detected on the device {device.Name}<br>{deviceErrorCode.Description}<br>{exception.Details}";
+                        if (exception.AdditionalDetails.Any())
+                        {
+                            body += "<br>";
+                            body += "<b>Additional Details:<br /><b>";
+                            body += "<ul>";
+                            foreach (var detail in exception.AdditionalDetails)
+                                body += $"<li>{detail}</li>";
+
+                            body += "</ul>";
+                        }
+                        await _emailSender.SendAsync(appUser.Email, subject, body);
+                    }
+
+                    if (deviceErrorCode.SendSMS)
+                    {
+                        var body = $"Device {device.Name} generated error code [${deviceErrorCode.Key}] {deviceErrorCode.Description} {exception.Details}";
+                        await _smsSender.SendAsync(appUser.PhoneNumber, body);
+                    }
+                }
+
+                if (EntityHeader.IsNullOrEmpty(deviceErrorCode.NotificationIntervalTimeSpan))
+                {
+                    deviceError.NextNotification = null;
+                }
+                else if (deviceErrorCode.NotificationIntervalQuantity.HasValue && deviceErrorCode.NotificationIntervalTimeSpan.Value != TimeSpanIntervals.NotApplicable)
+                {
+
+                    deviceError.NextNotification = deviceErrorCode.NotificationIntervalTimeSpan.Value.AddTimeSpan(deviceErrorCode.NotificationIntervalQuantity.Value);
+                }
+                else
+                {
+                    deviceError.NextNotification = null;
+                    Logger.AddCustomEvent(Core.PlatformSupport.LogLevel.Error, "ServiceTicketManager__HandleDeviceExceptionAsync", "Invalid quantity on NotificationIntervalQuantity", device.DeviceId.ToKVP("deviceId"), exception.ErrorCode.ToKVP("errorCode"));
+                }
+            }
+            else
+            {
+                if (String.IsNullOrEmpty(deviceError.NextNotification))
+                {
+                    Console.WriteLine("Next Notification is null....");
+                }
+                else
+                {
+                    Console.WriteLine("When to send next notification: " + deviceError.NextNotification);
+                }
+            }
+
+        }
+
         public async Task<InvokeResult> HandleDeviceExceptionAsync(DeviceException exception, EntityHeader org, EntityHeader user)
         {
             if (exception == null) throw new ArgumentNullException(nameof(exception));
             if (org == null) throw new ArgumentNullException(nameof(org));
             if (user == null) throw new ArgumentNullException(nameof(user));
-
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("Handling Device Exception.");
 
             var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(exception.DeviceRepositoryId, org, user);
             var device = await _deviceManager.GetDeviceByDeviceIdAsync(repo, exception.DeviceUniqueId, org, user);
@@ -815,7 +874,7 @@ namespace LagoVista.FSLite.Admin.Managers
 
             if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.ServiceTicketTemplate))
             {
-                Console.WriteLine("Generating service ticket (every occurence.");
+                Console.WriteLine("Generating service ticket (every occurrence.");
                 var request = new CreateServiceTicketRequest()
                 {
                     TemplateId = deviceErrorCode.ServiceTicketTemplate.Id,
@@ -844,76 +903,24 @@ namespace LagoVista.FSLite.Admin.Managers
                     FirstSeen = DateTime.UtcNow.ToJSONString(),
                     LastDetails = exception.Details,
                     Timestamp = DateTime.UtcNow.ToJSONString(),
-                    Expires = deviceErrorCode.AutoexpireTimespan.Value.AddTimeSpan(deviceErrorCode.AutoexpireTimespanQuantity.Value)
                 };
 
+                if (deviceErrorCode.AutoexpireTimespanQuantity.HasValue)
+                {
+                    deviceError.Expires = deviceErrorCode.AutoexpireTimespan.Value.AddTimeSpan(deviceErrorCode.AutoexpireTimespanQuantity.Value);
+                }
+
                 device.Errors.Add(deviceError);
+            }
+            else
+            {
+                deviceError.Count++;
+                deviceError.Timestamp = DateTime.UtcNow.ToJSONString();
             }
 
             if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.DistroList))
             {
-                if (deviceError == null || String.IsNullOrEmpty(deviceError.NextNotification) || (deviceError.NextNotification.ToDateTime().ToUniversalTime() < DateTime.UtcNow))
-                {
-                    var result = await _distroManager.GetListAsync(deviceErrorCode.DistroList.Id, org, user);
-                    var subject = String.IsNullOrEmpty(deviceErrorCode.EmailSubject) ? deviceErrorCode.Name : deviceErrorCode.EmailSubject.Replace("[DEVICEID]", device.DeviceId).Replace("[DEVICENAME]", device.Name);
-
-                    foreach (var notificationUser in result.AppUsers)
-                    {
-                        var appUser = await _userManager.FindByIdAsync(notificationUser.Id);
-                        if (deviceErrorCode.SendEmail)
-                        {
-                            var body = $"The error code [{deviceErrorCode.Key}] was detected on the device {device.Name}<br>{deviceErrorCode.Description}<br>{exception.Details}";
-                            if (exception.AdditionalDetails.Any())
-                            {
-                                body += "<br>";
-                                body += "<b>Additional Details:<br /><b>";
-                                body += "<ul>";
-                                foreach (var detail in exception.AdditionalDetails)
-                                    body += $"<li>{detail}</li>";
-
-                                body += "</ul>";
-                            }
-                            await _emailSender.SendAsync(appUser.Email, subject, body);
-                        }
-
-                        if (deviceErrorCode.SendSMS)
-                        {
-                            var body = $"Device {device.Name} generated error code [${deviceErrorCode.Key}] {deviceErrorCode.Description} {exception.Details}";
-                            await _smsSender.SendAsync(appUser.PhoneNumber, body);
-                        }
-                    }
-
-                    if (EntityHeader.IsNullOrEmpty(deviceErrorCode.NotificationIntervalTimeSpan))
-                    {
-                        deviceError.NextNotification = null;
-                    }
-                    else if (deviceErrorCode.NotificationIntervalQuantity.HasValue && deviceErrorCode.NotificationIntervalTimeSpan.Value != TimeSpanIntervals.NotApplicable)
-                    {
-
-                        deviceError.NextNotification = deviceErrorCode.NotificationIntervalTimeSpan.Value.AddTimeSpan(deviceErrorCode.NotificationIntervalQuantity.Value);
-                    }
-                    else
-                    {
-                        deviceError.NextNotification = null;
-                        Logger.AddCustomEvent(Core.PlatformSupport.LogLevel.Error, "ServiceTicketManager__HandleDeviceExceptionAsync", "Invalid quantity on NotificationIntervalQuantity", device.DeviceId.ToKVP("deviceId"), exception.ErrorCode.ToKVP("errorCode"));
-                    }
-                }
-                else
-                {
-                    if (String.IsNullOrEmpty(deviceError.NextNotification))
-                    {
-                        Console.WriteLine("NExt Notification is null....");
-                    }
-                    else
-                    {
-                        Console.WriteLine("When to send next notification: " + deviceError.NextNotification);
-                    }
-                }
-            }
-            else
-            {
-
-                Console.WriteLine("No distro, skipping.");
+                await SendNotification(deviceErrorCode, deviceError, device, exception, org, user);
             }
 
             Console.ResetColor();
