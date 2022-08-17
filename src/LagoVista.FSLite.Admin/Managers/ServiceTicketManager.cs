@@ -863,14 +863,38 @@ namespace LagoVista.FSLite.Admin.Managers
             if (user == null) throw new ArgumentNullException(nameof(user));
 
             var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(exception.DeviceRepositoryId, org, user);
+            if (repo == null)
+            {
+                return InvokeResult.FromError($"FSLite - Handle Device Exception - Could not find repo for: {exception.DeviceUniqueId}");
+            }
+
+            Console.Write($"FSLite - Handle Device Exception, Repo: {repo.Name} - {repo.OwnerOrganization.Text}");
+
+
             var device = await _deviceManager.GetDeviceByDeviceIdAsync(repo, exception.DeviceUniqueId, org, user);
+            if(device == null)
+            {
+                return InvokeResult.FromError($"FSLite - Handle Device Exception - Could not find device for: {exception.DeviceUniqueId}");
+            }
+
+            Console.Write($"FSLite - Handle Device Exception, Device: {device.Name} - {device.OwnerOrganization.Text}");
+
             var deviceConfig = await _deviceConfigManager.GetDeviceConfigurationAsync(device.DeviceConfiguration.Id, org, user);
+
+            if(deviceConfig == null)
+            {
+                return InvokeResult.FromError($"FSLite - Handle Device Exception - Could not find device configuration: {device.DeviceConfiguration.Text}");
+            }
+
+            Console.Write($"FSLite - Handle Device Exception, Device Configuration: {deviceConfig.Name} - {deviceConfig.OwnerOrganization.Text}");
 
             var deviceErrorCode = deviceConfig.ErrorCodes.FirstOrDefault(err => err.Key == exception.ErrorCode);
             if (deviceErrorCode == null)
             {
-                return InvokeResult.FromError($"Could not find error code [{exception.ErrorCode}] on device configuration [{deviceConfig.Name}] for device [{device.Name}]");
+                return InvokeResult.FromError($"FSLite - Could not find error code [{exception.ErrorCode}] on device configuration [{deviceConfig.Name}] for device [{device.Name}]");
             }
+
+            Console.Write($"FSLite - Handle Device Exception, Device Error Code: {deviceErrorCode.Name}");
 
             if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.ServiceTicketTemplate))
             {
@@ -890,7 +914,7 @@ namespace LagoVista.FSLite.Admin.Managers
             else
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("No service ticket, skipping.");
+                Console.WriteLine($"FSLite - No Service Ticket Template - will not genreate ticket .");
             }
 
             var deviceError = device.Errors.Where(err => err.DeviceErrorCode == exception.ErrorCode).FirstOrDefault();
@@ -911,11 +935,15 @@ namespace LagoVista.FSLite.Admin.Managers
                 }
 
                 device.Errors.Add(deviceError);
+
+                Console.Write($"FSLite - Has error code {deviceError.DeviceErrorCode}, creating in device errors");
             }
             else
             {
                 deviceError.Count++;
                 deviceError.Timestamp = DateTime.UtcNow.ToJSONString();
+
+                Console.Write($"FSLite - Has error code {deviceError.DeviceErrorCode}, adding to device errors, count - {deviceError.Count}.");
             }
 
             if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.DistroList))
@@ -926,6 +954,8 @@ namespace LagoVista.FSLite.Admin.Managers
             Console.ResetColor();
 
             await _deviceManager.UpdateDeviceAsync(repo, device, org, user);
+
+            Console.WriteLine($"FSLite - end error code processing.");
 
             return InvokeResult.Success;
         }
