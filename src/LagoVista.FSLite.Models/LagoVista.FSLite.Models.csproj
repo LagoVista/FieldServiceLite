@@ -4,14 +4,14 @@
     <TargetFramework>netstandard1.2</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LagoVista.Core" Version="3.0.1963.1135" />
-    <PackageReference Include="LagoVista.Core.Authentication" Version="3.0.1963.1135" />
-    <PackageReference Include="LagoVista.IoT.Logging" Version="3.0.1963.1135" />
-    <PackageReference Include="LagoVista.IoT.DeviceAdmin.Models" Version="3.0.1963.1135" />    
-    <PackageReference Include="LagoVista.IoT.Deployment.Models" Version="3.0.1963.1135" />
-    <PackageReference Include="LagoVista.IoT.DeviceManagement.Models" Version="3.0.1963.1135" />
-    <PackageReference Include="LagoVista.MediaServices.Models" Version="3.0.1963.1135" />
-    <PackageReference Include="LagoVista.UserAdmin" Version="3.0.1963.1135" />
+    <PackageReference Include="LagoVista.Core" Version="3.0.1963.1145" />
+    <PackageReference Include="LagoVista.Core.Authentication" Version="3.0.1963.1145" />
+    <PackageReference Include="LagoVista.IoT.Logging" Version="3.0.1963.1145" />
+    <PackageReference Include="LagoVista.IoT.DeviceAdmin.Models" Version="3.0.1963.1145" />    
+    <PackageReference Include="LagoVista.IoT.Deployment.Models" Version="3.0.1963.1145" />
+    <PackageReference Include="LagoVista.IoT.DeviceManagement.Models" Version="3.0.1963.1145" />
+    <PackageReference Include="LagoVista.MediaServices.Models" Version="3.0.1963.1145" />
+    <PackageReference Include="LagoVista.UserAdmin" Version="3.0.1963.1145" />
   </ItemGroup>
   <ItemGroup>
     <None Update="T4ResourceGenerator.tt">
