@@ -8,9 +8,7 @@
     <ProjectReference Include="..\LagoVista.FSLite.Admin\LagoVista.FSLite.Admin.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="LagoVista.CloudStorage" Version="3.0.1960.0700" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.30.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="LagoVista.CloudStorage" Version="3.0.1963.1135" />
   </ItemGroup>
 
 </Project>

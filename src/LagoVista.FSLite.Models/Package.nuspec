@@ -1,22 +1,36 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
     <id>LagoVista.FSLite.Models</id>
-    <version>3.0.1960.0700</version>
+    <version>3.0.1963.1135</version>
     <authors>Software Logistics, LLC</authors>
     <owners>Software Logistics, LLC</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <projectUrl>https://github.com/LagoVista/IoTEngine</projectUrl>
+    <projectUrl>https://www.nuviot.com</projectUrl>
     <iconUrl>http://bytemaster.blob.core.windows.net/icons/LagoVistaIcon.png</iconUrl>
     <description>Very simple field service implementation to create service tickets.  Primarily used to integrate with other systems.</description>
-    <releaseNotes>Initial and Unstable Release</releaseNotes>
-    <copyright>Copyright 2019</copyright>
+    <copyright>Copyright Software Logistics - 2022</copyright>
     <tags>HomeAutomation IoT FieldService</tags>
+    <icon>LagoVistaIcon.png</icon>
+    <releaseNotes>Build Date: 10/1/2022 3:35:02 PM UTC</releaseNotes>
+    <repository url="https://www.github.com/lagovista" type="git" branch="master"></repository>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="13.0.1" />
+      <group targetFramework="netstandard1.2">
+        <dependency id="LagoVista.Core" version="3.0.1963.1135" />
+        <dependency id="LagoVista.Core.Authentication" version="3.0.1963.1135" />
+        <dependency id="LagoVista.IoT.Logging" version="3.0.1963.1135" />
+        <dependency id="LagoVista.IoT.DeviceAdmin.Models" version="3.0.1963.1135" />
+        <dependency id="LagoVista.IoT.Deployment.Models" version="3.0.1963.1135" />
+        <dependency id="LagoVista.IoT.DeviceManagement.Models" version="3.0.1963.1135" />
+        <dependency id="LagoVista.MediaServices.Models" version="3.0.1963.1135" />
+        <dependency id="LagoVista.UserAdmin" version="3.0.1963.1135" />
+        <dependency id="Newtonsoft.Json" version="13.0.1" />
+      </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\release\netstandard1.2\*.dll" target="lib\netstandard1.2" />
+    <file src="LagoVistaIcon.png" target="LagoVistaIcon.png" />
+    <file src="bin\release\netstandard1.2\LagoVista.FSLite.Models.dll" target="lib\netstandard1.2\LagoVista.FSLite.Models.dll" />
+    <file src="bin\release\netstandard1.2\LagoVista.FSLite.Models.pdb" target="lib\netstandard1.2\LagoVista.FSLite.Models.pdb" />
   </files>
 </package>
