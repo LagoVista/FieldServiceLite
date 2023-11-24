@@ -9,14 +9,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using LagoVista.CloudStorage;
+using LagoVista.Core.Interfaces;
 
 namespace LagoVista.FSLite.CloudRepos
 {
     public class TicketStatusRepo : DocumentDBRepoBase<TicketStatusDefinition>, ITicketStatusRepo
     {
         private bool _shouldConsolidateCollections;
-        public TicketStatusRepo(IFieldServiceLiteRepoSettings repoSettings, IAdminLogger logger, ICacheProvider cacheProvider)
-            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, logger, cacheProvider)
+        public TicketStatusRepo(IFieldServiceLiteRepoSettings repoSettings, IAdminLogger logger, ICacheProvider cacheProvider, IDependencyManager dependencyManager)
+            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, logger, cacheProvider, dependencyManager)
         {
             _shouldConsolidateCollections = repoSettings.ShouldConsolidateCollections;
         }
