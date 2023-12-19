@@ -1,4 +1,5 @@
 ﻿using LagoVista.Core.Attributes;
+using LagoVista.Core.Interfaces;
 using LagoVista.Core.Models;
 using LagoVista.Core.Validation;
 using LagoVista.FSLite.Models.Resources;
@@ -32,8 +33,10 @@ namespace LagoVista.FSLite.Models
     }
 
     [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.ServiceTicketTemplate_Title, FSResources.Names.ServiceTicketTemplate_Help,
-        FSResources.Names.ServiceTicketTemplate_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources))]
-    public class ServiceTicketTemplate : FSModelBase
+        FSResources.Names.ServiceTicketTemplate_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
+        SaveUrl: "/api/fslite/tickets/template", GetListUrl: "/api/fslite/tickets/templates", GetUrl: "/api/fslite/tickets/template/{id}",
+        FactoryUrl: "/api/fslite/tickets/template/factory", DeleteUrl: "/api/fslite/tickets/template/{id}")]
+    public class ServiceTicketTemplate : FSModelBase, ISummaryFactory
     {
         public const string ServiceTicketTemplate_Urgency_CriticalSafety = "criticalsafety";
         public const string ServiceTicketTemplate_Urgency_Important = "important";
@@ -149,7 +152,17 @@ namespace LagoVista.FSLite.Models
                 Name = Name
             };
         }
+
+        Core.Interfaces.ISummaryData ISummaryFactory.CreateSummary()
+        {
+            return CreateSummary();
+        }
     }
+
+    [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.ServiceTicketTemplates_Title, FSResources.Names.ServiceTicketTemplate_Help,
+    FSResources.Names.ServiceTicketTemplate_Description, EntityDescriptionAttribute.EntityTypes.Summary, typeof(FSResources),
+    SaveUrl: "/api/fslite/tickets/template", GetListUrl: "/api/fslite/tickets/templates", GetUrl: "/api/fslite/tickets/template/{id}",
+    FactoryUrl: "/api/fslite/tickets/template/factory", DeleteUrl: "/api/fslite/tickets/template/{id}")]
 
     public class ServiceTicketTemplateSummary : SummaryData
     {

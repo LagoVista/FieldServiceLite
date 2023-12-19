@@ -67,15 +67,11 @@ namespace LagoVista.FSLite.REST
         [HttpGet("/api/fslite/ticket/factory")]
         public DetailResponse<ServiceTicket> CreateServiceTicketAsync()
         {
-            var ticket = new ServiceTicket()
-            {
-                Id = Guid.NewGuid().ToId(),
-            };
+            var ticket = DetailResponse<ServiceTicket>.Create();
+            SetAuditProperties(ticket.Model);
+            SetOwnedProperties(ticket.Model);
+            return ticket;
 
-            SetAuditProperties(ticket);
-            SetOwnedProperties(ticket);
-
-            return DetailResponse<ServiceTicket>.Create(ticket);
         }
 
         /// <summary>

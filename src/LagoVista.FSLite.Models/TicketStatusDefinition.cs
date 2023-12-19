@@ -8,19 +8,23 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using LagoVista.IoT.Deployment.Models;
+using LagoVista.Core.Interfaces;
 
 namespace LagoVista.FSLite.Models
 {
-
     [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.Status_Name, FSResources.Names.Status_Help,
-     FSResources.Names.Status_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources))]
-    public class TicketStatusDefinition : FSModelBase
+     FSResources.Names.Status_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
+        FactoryUrl: "/api/fslite/ticketstatusdefinition/factory", GetListUrl: "/api/fslite/ticketstatusdefinition", GetUrl: "/api/fslite/ticketstatusdefinition/{id}",
+        DeleteUrl: "/api/fslite/ticketstatusdefinition/{id}", SaveUrl: "/api/fslite/ticketstatusdefinition")]
+    public class TicketStatusDefinition : FSModelBase, ISummaryFactory, IFormDescriptor
     {
         public TicketStatusDefinition()
         {
             Items = new List<TicketStatus>();
         }
 
+
+        [FormField(LabelResource: FSResources.Names.Status_Options, FieldType: FieldTypes.ChildListInline, FactoryUrl: "/api/fslite/ticketstatusdefinition/item/factory", ResourceType: typeof(FSResources))]
         public List<TicketStatus> Items { get; set; }
 
         public TicketStatusDefinitionSummary CreateSummary()
@@ -32,6 +36,17 @@ namespace LagoVista.FSLite.Models
                 IsPublic = IsPublic,
                 Key = Key,
                 Name = Name,
+            };
+        }
+
+        public List<string> GetFormFields()
+        {
+            return new List<string>()
+            {
+                nameof(Name),
+                nameof(Key),
+                nameof(Description),
+                nameof(Items),
             };
         }
 
@@ -52,17 +67,26 @@ namespace LagoVista.FSLite.Models
                 result.AddUserError("Can only have one item that is set as the default status.");
             }
         }
+
+        ISummaryData ISummaryFactory.CreateSummary()
+        {
+            return CreateSummary();
+        }
     }
 
+    [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.Status_Name, FSResources.Names.Status_Help,
+     FSResources.Names.Status_Description, EntityDescriptionAttribute.EntityTypes.Summary, typeof(FSResources),
+        FactoryUrl: "/api/fslite/ticketstatusdefinition/factory", GetListUrl: "/api/fslite/ticketstatusdefinition", GetUrl: "/api/fslite/ticketstatusdefinition/{id}",
+        DeleteUrl: "/api/fslite/ticketstatusdefinition/{id}", SaveUrl: "/api/fslite/ticketstatusdefinition")]
     public class TicketStatusDefinitionSummary : SummaryData
     {
 
     }
 
     [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.Status_Name, FSResources.Names.Status_Help,
-         FSResources.Names.Status_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources))]
+         FSResources.Names.Status_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources), FactoryUrl: "/api/fslite/ticketstatusdefinition/item/factory")]
 
-    public class TicketStatus
+    public class TicketStatus: IFormDescriptor
     {
         public TicketStatus()
         {
@@ -95,6 +119,21 @@ namespace LagoVista.FSLite.Models
 
         [FormField(LabelResource: FSResources.Names.Status_Code, HelpResource: FSResources.Names.Status_Code_Help, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: false, IsUserEditable: true)]
         public string Code { get; set; }
+
+        public List<string> GetFormFields()
+        {
+            return new List<string>()
+            {
+                  nameof(Name),
+                  nameof(Key),
+                  nameof(Code),
+                  nameof(IsDefault),
+                  nameof(IsDefault),
+                  nameof(TimeAllowedInStatusTimeSpan),
+                  nameof(TimeAllowedInStatusQuantity),
+                  nameof(Description)
+            };
+        }
 
         [CustomValidator]
         public void Validate(ValidationResult result)

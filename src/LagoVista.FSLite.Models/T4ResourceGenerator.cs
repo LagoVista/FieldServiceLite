@@ -1,4 +1,4 @@
-﻿/*6/16/2020 10:27:37*/
+﻿/*12/19/2023 6:26:50 AM*/
 using System.Globalization;
 using System.Reflection;
 
@@ -198,6 +198,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:PartKit_Name
 
 		public static string PartKit_Name { get { return GetResourceString("PartKit_Name"); } }
+//Resources:FSResources:PartKits_Title
+
+		public static string PartKits_Title { get { return GetResourceString("PartKits_Title"); } }
 //Resources:FSResources:PartsKit
 
 		public static string PartsKit { get { return GetResourceString("PartsKit"); } }
@@ -234,6 +237,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceBoard_Title
 
 		public static string ServiceBoard_Title { get { return GetResourceString("ServiceBoard_Title"); } }
+//Resources:FSResources:ServiceBoards_Title
+
+		public static string ServiceBoards_Title { get { return GetResourceString("ServiceBoards_Title"); } }
 //Resources:FSResources:ServiceTicekt_SilenceNotifications
 
 		public static string ServiceTicekt_SilenceNotifications { get { return GetResourceString("ServiceTicekt_SilenceNotifications"); } }
@@ -339,6 +345,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketNote_Title
 
 		public static string ServiceTicketNote_Title { get { return GetResourceString("ServiceTicketNote_Title"); } }
+//Resources:FSResources:ServiceTickets_Title
+
+		public static string ServiceTickets_Title { get { return GetResourceString("ServiceTickets_Title"); } }
 //Resources:FSResources:ServiceTicketStatusHistory_AddedBy
 
 		public static string ServiceTicketStatusHistory_AddedBy { get { return GetResourceString("ServiceTicketStatusHistory_AddedBy"); } }
@@ -498,6 +507,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceTicketTemplateDefault_Assigned_Help
 
 		public static string ServiceTicketTemplateDefault_Assigned_Help { get { return GetResourceString("ServiceTicketTemplateDefault_Assigned_Help"); } }
+//Resources:FSResources:ServiceTicketTemplates_Title
+
+		public static string ServiceTicketTemplates_Title { get { return GetResourceString("ServiceTicketTemplates_Title"); } }
 //Resources:FSResources:SP_Name_Show
 
 		public static string SP_Name_Show { get { return GetResourceString("SP_Name_Show"); } }
@@ -528,6 +540,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:Status_Name
 
 		public static string Status_Name { get { return GetResourceString("Status_Name"); } }
+//Resources:FSResources:Status_Options
+
+		public static string Status_Options { get { return GetResourceString("Status_Options"); } }
 //Resources:FSResources:Status_TimeAllowedInStatus
 
 		public static string Status_TimeAllowedInStatus { get { return GetResourceString("Status_TimeAllowedInStatus"); } }
@@ -543,6 +558,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:StatusItems_Name
 
 		public static string StatusItems_Name { get { return GetResourceString("StatusItems_Name"); } }
+//Resources:FSResources:Template_Categories
+
+		public static string Template_Categories { get { return GetResourceString("Template_Categories"); } }
 //Resources:FSResources:Template_Category
 
 		public static string Template_Category { get { return GetResourceString("Template_Category"); } }
@@ -990,6 +1008,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string PartKit_Help = "PartKit_Help";
 			public const string PartKit_KitNumber = "PartKit_KitNumber";
 			public const string PartKit_Name = "PartKit_Name";
+			public const string PartKits_Title = "PartKits_Title";
 			public const string PartsKit = "PartsKit";
 			public const string PartsKit_Parts = "PartsKit_Parts";
 			public const string ServiceBoard_Abbreviation = "ServiceBoard_Abbreviation";
@@ -1002,6 +1021,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceBoard_SequenceNumber = "ServiceBoard_SequenceNumber";
 			public const string ServiceBoard_SequenceNumber_Help = "ServiceBoard_SequenceNumber_Help";
 			public const string ServiceBoard_Title = "ServiceBoard_Title";
+			public const string ServiceBoards_Title = "ServiceBoards_Title";
 			public const string ServiceTicekt_SilenceNotifications = "ServiceTicekt_SilenceNotifications";
 			public const string ServiceTicket_Address = "ServiceTicket_Address";
 			public const string ServiceTicket_AssignedTo = "ServiceTicket_AssignedTo";
@@ -1037,6 +1057,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketNote_Help = "ServiceTicketNote_Help";
 			public const string ServiceTicketNote_Note = "ServiceTicketNote_Note";
 			public const string ServiceTicketNote_Title = "ServiceTicketNote_Title";
+			public const string ServiceTickets_Title = "ServiceTickets_Title";
 			public const string ServiceTicketStatusHistory_AddedBy = "ServiceTicketStatusHistory_AddedBy";
 			public const string ServiceTicketStatusHistory_DateStamp = "ServiceTicketStatusHistory_DateStamp";
 			public const string ServiceTicketStatusHistory_Description = "ServiceTicketStatusHistory_Description";
@@ -1090,6 +1111,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceTicketTemplate_Urgency_Normal = "ServiceTicketTemplate_Urgency_Normal";
 			public const string ServiceTicketTemplate_Urgency_Select = "ServiceTicketTemplate_Urgency_Select";
 			public const string ServiceTicketTemplateDefault_Assigned_Help = "ServiceTicketTemplateDefault_Assigned_Help";
+			public const string ServiceTicketTemplates_Title = "ServiceTicketTemplates_Title";
 			public const string SP_Name_Show = "SP_Name_Show";
 			public const string Status_Code = "Status_Code";
 			public const string Status_Code_Help = "Status_Code_Help";
@@ -1100,11 +1122,13 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string Status_IsDefault = "Status_IsDefault";
 			public const string Status_IsDefault_Help = "Status_IsDefault_Help";
 			public const string Status_Name = "Status_Name";
+			public const string Status_Options = "Status_Options";
 			public const string Status_TimeAllowedInStatus = "Status_TimeAllowedInStatus";
 			public const string Status_TimeAllowedInStatus_Help = "Status_TimeAllowedInStatus_Help";
 			public const string Status_TimeAllowedInStatus_Quantity = "Status_TimeAllowedInStatus_Quantity";
 			public const string StatusItems_Description = "StatusItems_Description";
 			public const string StatusItems_Name = "StatusItems_Name";
+			public const string Template_Categories = "Template_Categories";
 			public const string Template_Category = "Template_Category";
 			public const string Template_Category_Help = "Template_Category_Help";
 			public const string Template_Cateogry_Description = "Template_Cateogry_Description";

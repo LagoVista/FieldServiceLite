@@ -1,4 +1,6 @@
-﻿using LagoVista.Core.Attributes;
+﻿using LagoVista.Core;
+using LagoVista.Core.Attributes;
+using LagoVista.Core.Interfaces;
 using LagoVista.Core.Models;
 using LagoVista.FSLite.Models.Resources;
 using LagoVista.IoT.Deployment.Admin.Models;
@@ -11,11 +13,13 @@ using System.Collections.Generic;
 namespace LagoVista.FSLite.Models
 {
     [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.ServiceTicket_Title, FSResources.Names.ServiceTicket_Help,
-     FSResources.Names.ServiceTicket_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources))]
-    public class ServiceTicket : FSModelBase
+     FSResources.Names.ServiceTicket_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
+        GetListUrl: "/api/fslite/ticket/open", GetUrl: "/api/fslite/ticket/{id}", SaveUrl: "/api/fslite/ticket", FactoryUrl: "/api/fslite/ticket/factory", DeleteUrl: "/api/fslite/ticket/{id}")]
+    public class ServiceTicket : FSModelBase, ISummaryFactory
     {
         public ServiceTicket()
         {
+            Id = Guid.NewGuid().ToId();
             Notes = new List<ServiceTicketNote>();
             Resources = new List<MediaResourceSummary>();
             History = new List<ServiceTicketStatusHistory>();
@@ -34,7 +38,7 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Device, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public EntityHeader<Device> Device { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_AssignedTo, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_AssignedTo, FieldType: FieldTypes.UserPicker, ResourceType: typeof(FSResources))]
         public EntityHeader AssignedTo { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_Status, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
@@ -91,7 +95,7 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicket_StatusDueDate, HelpResource: FSResources.Names.ServiceTicket_StatusDueDate_Help, FieldType: FieldTypes.DateTime, ResourceType: typeof(FSResources), IsUserEditable: true)]
         public string StatusDueDate { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_Notes, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_Notes, FieldType: FieldTypes.ChildList, FactoryUrl: "/api/fslite/ticket/note/factory", ResourceType: typeof(FSResources))]
         public List<ServiceTicketNote> Notes { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicket_History, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
@@ -155,13 +159,23 @@ namespace LagoVista.FSLite.Models
                 ClosedDate = string.IsNullOrEmpty(ClosedDate) ? "-" : ClosedDate,
                 AssignedTo = AssignedTo != null ? AssignedTo.Text : "-",
                 TicketId = TicketId,
+                Name = TicketId,
+                Key = TicketId
             };
+        }
+
+        Core.Interfaces.ISummaryData ISummaryFactory.CreateSummary()
+        {
+            return CreateSummary();
         }
     }
 
-    public class ServiceTicketSummary
+
+    [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.ServiceTickets_Title, FSResources.Names.ServiceTicket_Help,
+     FSResources.Names.ServiceTicket_Description, EntityDescriptionAttribute.EntityTypes.Summary, typeof(FSResources),
+        GetListUrl: "/api/fslite/ticket/open", GetUrl: "/api/fslite/ticket/{id}", SaveUrl: "/api/fslite/ticket", FactoryUrl: "/api/fslite/ticket/factory", DeleteUrl: "/api/fslite/ticket/{id}")]
+    public class ServiceTicketSummary : SummaryData
     {
-        public string Id { get; set; }
         public string TicketId { get; set; }
         public string Subject { get; set; }
         public string DeviceId { get; set; }

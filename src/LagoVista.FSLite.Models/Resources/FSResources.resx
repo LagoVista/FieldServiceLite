@@ -1002,4 +1002,22 @@
   <data name="ServiceTicket_NextNotification" xml:space="preserve">
     <value>Next Scheduled Notification</value>
   </data>
+  <data name="PartKits_Title" xml:space="preserve">
+    <value>Part Kits</value>
+  </data>
+  <data name="ServiceBoards_Title" xml:space="preserve">
+    <value>Service Boards</value>
+  </data>
+  <data name="ServiceTickets_Title" xml:space="preserve">
+    <value>Service Tickets</value>
+  </data>
+  <data name="ServiceTicketTemplates_Title" xml:space="preserve">
+    <value>Service Ticket Templates</value>
+  </data>
+  <data name="Template_Categories" xml:space="preserve">
+    <value>Template Categories</value>
+  </data>
+  <data name="Status_Options" xml:space="preserve">
+    <value>Status Options</value>
+  </data>
 </root>

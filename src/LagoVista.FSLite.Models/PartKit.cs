@@ -1,4 +1,5 @@
 ﻿using LagoVista.Core.Attributes;
+using LagoVista.Core.Interfaces;
 using LagoVista.Core.Models;
 using LagoVista.FSLite.Models.Resources;
 using LagoVista.IoT.DeviceAdmin.Models;
@@ -7,8 +8,10 @@ using System.Collections.Generic;
 namespace LagoVista.FSLite.Models
 {
     [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.PartsKit, FSResources.Names.PartKit_Help,
-     FSResources.Names.PartKit_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources))]
-    public class PartsKit : FSModelBase
+     FSResources.Names.PartKit_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
+        GetListUrl: "/api/fslite/partskits", GetUrl: "/api/fslite/partskit/{id}", SaveUrl: "/api/fslite/partskit",
+        DeleteUrl: "/api/fslite/partskit/{id}", FactoryUrl: "/api/fslite/partskit/factory")]
+    public class PartsKit : FSModelBase, ISummaryFactory
     {
         public PartsKit()
         {
@@ -32,8 +35,18 @@ namespace LagoVista.FSLite.Models
                 Description = Description,
             };
         }
+
+        Core.Interfaces.ISummaryData ISummaryFactory.CreateSummary()
+        {
+            return CreateSummary();
+        }
     }
 
+
+    [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.PartKits_Title, FSResources.Names.PartKit_Help,
+     FSResources.Names.PartKit_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
+        GetListUrl: "/api/fslite/partskits", GetUrl: "/api/fslite/partskit/{id}", SaveUrl: "/api/fslite/partskit",
+        DeleteUrl: "/api/fslite/partskit/{id}", FactoryUrl: "/api/fslite/partskit/factory")]
     public class PartsKitSummary : SummaryData
     {
 

@@ -1,12 +1,15 @@
 ﻿using LagoVista.Core.Attributes;
+using LagoVista.Core.Interfaces;
 using LagoVista.Core.Models;
 using LagoVista.FSLite.Models.Resources;
 
 namespace LagoVista.FSLite.Models
 {
     [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.Template_Category, FSResources.Names.Template_Category_Help,
-         FSResources.Names.Template_Cateogry_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources))]
-    public class TemplateCategory : FSModelBase
+         FSResources.Names.Template_Cateogry_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
+        SaveUrl: "/api/fslite/templatecategory", GetListUrl: "/api/fslite/templatecategories", GetUrl: "/api/fslite/templatecategory/{id}", DeleteUrl: "/api/fslite/templatecategory/{id}",
+        FactoryUrl: "/api/fslite/templatecategory/factory")]
+    public class TemplateCategory : FSModelBase, ISummaryFactory
     {
         public TemplateCategory()
         {
@@ -61,6 +64,11 @@ namespace LagoVista.FSLite.Models
                 Key = Key,
                 Name = Name,
             };
+        }
+
+        ISummaryData ISummaryFactory.CreateSummary()
+        {
+            return CreateSummary();
         }
 
         [FormField(LabelResource: FSResources.Names.TemplateCategory_TicketLabel, FieldType: FieldTypes.Text, HelpResource: FSResources.Names.TemplateCategory_TicketLabel_Help, ResourceType: typeof(FSResources))]
@@ -170,8 +178,11 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.TemplateCategory_TroubleshootingSteps_Configuration, FieldType: FieldTypes.ChildView, ResourceType: typeof(FSResources))]
         public TroubleshootingConfiguration TroubleshootingConfiguration { get; set; }
     }
-    
 
+    [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.Template_Categories, FSResources.Names.Template_Category_Help,
+         FSResources.Names.Template_Cateogry_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
+        SaveUrl: "/api/fslite/templatecategory", GetListUrl: "/api/fslite/templatecategories", GetUrl: "/api/fslite/templatecategory/{id}", DeleteUrl: "/api/fslite/templatecategory/{id}",
+        FactoryUrl: "/api/fslite/templatecategory/factory")]
     public class TemplateCategorySummary : SummaryData
     {
 
