@@ -36,7 +36,7 @@ namespace LagoVista.FSLite.Models
         FSResources.Names.ServiceTicketTemplate_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
         SaveUrl: "/api/fslite/tickets/template", GetListUrl: "/api/fslite/tickets/templates", GetUrl: "/api/fslite/tickets/template/{id}",
         FactoryUrl: "/api/fslite/tickets/template/factory", DeleteUrl: "/api/fslite/tickets/template/{id}")]
-    public class ServiceTicketTemplate : FSModelBase, ISummaryFactory
+    public class ServiceTicketTemplate : FSModelBase, ISummaryFactory, IFormDescriptor, IFormDescriptorAdvanced, IFormDescriptorAdvancedCol2
     {
         public const string ServiceTicketTemplate_Urgency_CriticalSafety = "criticalsafety";
         public const string ServiceTicketTemplate_Urgency_Important = "important";
@@ -75,7 +75,9 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_DeviceConfig, WaterMark: FSResources.Names.ServiceTicketTemplate_DeviceConfig_Select, HelpResource: FSResources.Names.ServiceTicketTemplate_DeviceConfig_Help, FieldType: FieldTypes.EntityHeaderPicker, ResourceType: typeof(FSResources))]
         public EntityHeader DeviceConfiguration { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Category, WaterMark: FSResources.Names.ServiceTicketTemplate_Categroy_WaterMark, HelpResource: FSResources.Names.ServiceTicketTemplate_Category_Help, FieldType: FieldTypes.EntityHeaderPicker, IsRequired: true, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceTicketTemplate_Category, WaterMark: FSResources.Names.ServiceTicketTemplate_Categroy_WaterMark, 
+            FactoryUrl: "/api/fslite/templatecategory/factory", EntityHeaderPickerUrl: "/api/fslite/templatecategories",
+            HelpResource: FSResources.Names.ServiceTicketTemplate_Category_Help, FieldType: FieldTypes.EntityHeaderPicker, IsRequired: true, ResourceType: typeof(FSResources))]
         public EntityHeader<TemplateCategory> TemplateCategory { get; set; }
 
 
@@ -156,6 +158,55 @@ namespace LagoVista.FSLite.Models
         Core.Interfaces.ISummaryData ISummaryFactory.CreateSummary()
         {
             return CreateSummary();
+        }
+
+        public List<string> GetFormFields()
+        {
+            return new List<string>()
+            {
+                nameof(Name),
+                nameof(Key),
+                nameof(TemplateCategory),
+                nameof(StatusType),
+                nameof(DefaultSubject),
+                nameof(DefaultDescription),
+                nameof(Description),
+            };
+        }
+
+        public List<string> GetAdvancedFields()
+        {
+            return new List<string>()
+            {
+                nameof(Name),
+                nameof(Key),
+                nameof(TemplateCategory),
+                nameof(StatusType),
+                nameof(DefaultSubject),
+                nameof(DeviceType),
+                nameof(DeviceConfiguration),
+                nameof(DefaultDescription),
+                nameof(Instructions),
+                nameof(TroubleshootingSteps),
+                nameof(Description),
+            };
+        }
+
+        public List<string> GetAdvancedFieldsCol2()
+        {
+            return new List<string>()
+            {
+                nameof(HoursEstimate),
+                nameof(CostEstimate),
+                nameof(TimeToCompleteTimeSpan),
+                nameof(TimeToCompleteQuantity),
+                nameof(OpenReminderNotificationTimeSpan),
+                nameof(OpenReminderNotificationQuantity),
+                nameof(ServiceParts),
+                nameof(PartsKits),
+                nameof(Resources),
+                nameof(Tools),
+            };
         }
     }
 
