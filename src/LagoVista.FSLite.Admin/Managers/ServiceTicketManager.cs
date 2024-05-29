@@ -131,11 +131,11 @@ namespace LagoVista.FSLite.Admin.Managers
             if (org != null && template.OwnerOrganization != org) throw new InvalidOperationException("Template, org mismatch.");
 
 
-            Device device = null;
+            InvokeResult<Device> device = null;
             if (!String.IsNullOrEmpty(createServiceTicketRequest.DeviceId))
             {
                 device = await _deviceManager.GetDeviceByDeviceIdAsync(repo, createServiceTicketRequest.DeviceId, template.OwnerOrganization, user ?? template.DefaultContact);
-                if (device == null)
+                if (device == null || !device.Successful)
                 {
                     device = await _deviceManager.GetDeviceByIdAsync(repo, createServiceTicketRequest.DeviceId, template.OwnerOrganization, user ?? template.DefaultContact);
                     if (device == null) // still null
@@ -157,7 +157,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 throw new ArgumentNullException("Must supply either DeviceId or DeviceUniqueId to create a service ticket.");
             }
 
-            if (org != null && device.OwnerOrganization != org)
+            if (org != null && device.Result.OwnerOrganization != org)
             {
                 throw new InvalidOperationException("Device, org mismatch.");
             }
@@ -166,7 +166,7 @@ namespace LagoVista.FSLite.Admin.Managers
             var stateSet = await _ticketStatusRepo.GetTicketStatusDefinitionAsync(template.StatusType.Id);
             var defaultState = stateSet.Items.Where(st => st.IsDefault).First();
 
-            var assignedToUser = device.AssignedUser;
+            var assignedToUser = device.Result.AssignedUser;
             if (assignedToUser == null)
             {
                 assignedToUser = repo.AssignedUser;
@@ -250,15 +250,15 @@ namespace LagoVista.FSLite.Admin.Managers
                 CreationDate = currentTimeStamp,
                 LastUpdatedDate = currentTimeStamp,
                 DueDate = dueDate,
-                Name = $"{template.Name} ({device.DeviceId})",
-                Address = device.Address,
+                Name = $"{template.Name} ({device.Result.DeviceId})",
+                Address = device.Result.Address,
                 IsClosed = false,
                 Description = template.Description,
-                Subject = String.IsNullOrEmpty(createServiceTicketRequest.Subject) ? $"{template.Name} ({device.DeviceId})" : createServiceTicketRequest.Subject,
+                Subject = String.IsNullOrEmpty(createServiceTicketRequest.Subject) ? $"{template.Name} ({device.Result.DeviceId})" : createServiceTicketRequest.Subject,
                 AssignedTo = assignedToUser,
                 Template = new EntityHeader<ServiceTicketTemplate>() { Id = template.Id, Text = template.Name },
                 ServiceBoard = boardEH,
-                Device = new EntityHeader<IoT.DeviceManagement.Core.Models.Device>() { Id = device.Id, Text = device.Name },
+                Device = new EntityHeader<IoT.DeviceManagement.Core.Models.Device>() { Id = device.Result.Id, Text = device.Result.Name },
                 Status = EntityHeader.Create(defaultState.Key, defaultState.Name),
                 StatusDate = DateTime.UtcNow.ToJSONString(),
                 OwnerOrganization = template.OwnerOrganization,
@@ -390,7 +390,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 sw2 = Stopwatch.StartNew();
                 if (!EntityHeader.IsNullOrEmpty(ticket.Device))
                 {
-                    ticket.Device.Value = await _deviceManager.GetDeviceByIdAsync(repo, ticket.Device.Id, org, user, true);
+                    ticket.Device.Value = (await _deviceManager.GetDeviceByIdAsync(repo, ticket.Device.Id, org, user, true)).Result;
                 }
 
                 Console.WriteLine("Device load time: " + sw2.Elapsed.TotalMilliseconds);
@@ -734,12 +734,12 @@ namespace LagoVista.FSLite.Admin.Managers
 
             var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(exception.DeviceRepositoryId, org, user);
             var device = await _deviceManager.GetDeviceByIdAsync(repo, exception.DeviceUniqueId, org, user);
-            var deviceConfig = await _deviceConfigManager.GetDeviceConfigurationAsync(device.DeviceConfiguration.Id, org, user);
+            var deviceConfig = await _deviceConfigManager.GetDeviceConfigurationAsync(device.Result.DeviceConfiguration.Id, org, user);
 
             var deviceErrorCode = deviceConfig.ErrorCodes.FirstOrDefault(err => err.Key == exception.ErrorCode);
             if (deviceErrorCode == null)
             {
-                return InvokeResult.FromError($"Could not find error code [{exception.ErrorCode}] on device configuration [{deviceConfig.Name}] for device [{device.Name}]");
+                return InvokeResult.FromError($"Could not find error code [{exception.ErrorCode}] on device configuration [{deviceConfig.Name}] for device [{device.Result.Name}]");
             }
 
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -747,7 +747,7 @@ namespace LagoVista.FSLite.Admin.Managers
 
             if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.ServiceTicketTemplate))
             {
-                var tickets = await _repo.GetOpenTicketOnDeviceAsync(device.Id, deviceErrorCode.ServiceTicketTemplate.Id, org.Id);
+                var tickets = await _repo.GetOpenTicketOnDeviceAsync(device.Result.Id, deviceErrorCode.ServiceTicketTemplate.Id, org.Id);
                 foreach (var ticket in tickets)
                 {
                     ticket.IsClosed = true;
@@ -765,20 +765,20 @@ namespace LagoVista.FSLite.Admin.Managers
             if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.DistroList))
             {
                 var distroList = await _distroManager.GetListAsync(deviceErrorCode.DistroList.Id, org, user);
-                var subject = "[CLEARED] -" + (String.IsNullOrEmpty(deviceErrorCode.EmailSubject) ? deviceErrorCode.Name : deviceErrorCode.EmailSubject.Replace("[DEVICEID]", device.DeviceId).Replace("[DEVICENAME]", device.Name));
+                var subject = "[CLEARED] -" + (String.IsNullOrEmpty(deviceErrorCode.EmailSubject) ? deviceErrorCode.Name : deviceErrorCode.EmailSubject.Replace("[DEVICEID]", device.Result.DeviceId).Replace("[DEVICENAME]", device.Result.Name));
 
                 foreach (var notificationUser in distroList.AppUsers)
                 {
                     var appUser = await _userManager.FindByIdAsync(notificationUser.Id);
                     if (deviceErrorCode.SendEmail)
                     {
-                        var body = $"The error code [{deviceErrorCode.Key}] was cleared on the device {device.Name}<br>{deviceErrorCode.Description}<br>{exception.Details}";
+                        var body = $"The error code [{deviceErrorCode.Key}] was cleared on the device {device.Result.Name}<br>{deviceErrorCode.Description}<br>{exception.Details}";
                         await _emailSender.SendAsync(appUser.Email, subject, body);
                     }
 
                     if (deviceErrorCode.SendSMS)
                     {
-                        var body = $"Device {device.Name} cleared error code [${deviceErrorCode.Key}] {deviceErrorCode.Description} {exception.Details}";
+                        var body = $"Device {device.Result.Name} cleared error code [${deviceErrorCode.Key}] {deviceErrorCode.Description} {exception.Details}";
                         await _smsSender.SendAsync(appUser.PhoneNumber, body);
                     }
                 }
@@ -877,13 +877,13 @@ namespace LagoVista.FSLite.Admin.Managers
                 return InvokeResult.FromError($"FSLite - Handle Device Exception - Could not find device for: {exception.DeviceUniqueId}");
             }
 
-            Console.Write($"FSLite - Handle Device Exception, Device: {device.Name} - {device.OwnerOrganization.Text}");
+            Console.Write($"FSLite - Handle Device Exception, Device: {device.Result.Name} - {device.Result.OwnerOrganization.Text}");
 
-            var deviceConfig = await _deviceConfigManager.GetDeviceConfigurationAsync(device.DeviceConfiguration.Id, org, user);
+            var deviceConfig = await _deviceConfigManager.GetDeviceConfigurationAsync(device.Result.DeviceConfiguration.Id, org, user);
 
             if(deviceConfig == null)
             {
-                return InvokeResult.FromError($"FSLite - Handle Device Exception - Could not find device configuration: {device.DeviceConfiguration.Text}");
+                return InvokeResult.FromError($"FSLite - Handle Device Exception - Could not find device configuration: {device.Result.DeviceConfiguration.Text}");
             }
 
             Console.Write($"FSLite - Handle Device Exception, Device Configuration: {deviceConfig.Name} - {deviceConfig.OwnerOrganization.Text}");
@@ -891,7 +891,7 @@ namespace LagoVista.FSLite.Admin.Managers
             var deviceErrorCode = deviceConfig.ErrorCodes.FirstOrDefault(err => err.Key == exception.ErrorCode);
             if (deviceErrorCode == null)
             {
-                return InvokeResult.FromError($"FSLite - Could not find error code [{exception.ErrorCode}] on device configuration [{deviceConfig.Name}] for device [{device.Name}]");
+                return InvokeResult.FromError($"FSLite - Could not find error code [{exception.ErrorCode}] on device configuration [{deviceConfig.Name}] for device [{device.Result.Name}]");
             }
 
             Console.Write($"FSLite - Handle Device Exception, Device Error Code: {deviceErrorCode.Name}");
@@ -902,7 +902,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 var request = new CreateServiceTicketRequest()
                 {
                     TemplateId = deviceErrorCode.ServiceTicketTemplate.Id,
-                    DeviceId = device.DeviceId,
+                    DeviceId = device.Result.DeviceId,
                     Details = exception.Details,
                     DontCreateIfOpenForDevice = !deviceErrorCode.TriggerOnEachOccurrence,
                     RepoId = repo.Id
@@ -917,7 +917,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 Console.WriteLine($"FSLite - No Service Ticket Template - will not genreate ticket .");
             }
 
-            var deviceError = device.Errors.Where(err => err.DeviceErrorCode == exception.ErrorCode).FirstOrDefault();
+            var deviceError = device.Result.Errors.Where(err => err.DeviceErrorCode == exception.ErrorCode).FirstOrDefault();
             if (deviceError == null)
             {
                 deviceError = new DeviceError()
@@ -934,7 +934,7 @@ namespace LagoVista.FSLite.Admin.Managers
                     deviceError.Expires = deviceErrorCode.AutoexpireTimespan.Value.AddTimeSpan(deviceErrorCode.AutoexpireTimespanQuantity.Value);
                 }
 
-                device.Errors.Add(deviceError);
+                device.Result.Errors.Add(deviceError);
 
                 Console.Write($"FSLite - Has error code {deviceError.DeviceErrorCode}, creating in device errors");
             }
@@ -948,12 +948,12 @@ namespace LagoVista.FSLite.Admin.Managers
 
             if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.DistroList))
             {
-                await SendNotification(deviceErrorCode, deviceError, device, exception, org, user);
+                await SendNotification(deviceErrorCode, deviceError, device.Result, exception, org, user);
             }
 
             Console.ResetColor();
 
-            await _deviceManager.UpdateDeviceAsync(repo, device, org, user);
+            await _deviceManager.UpdateDeviceAsync(repo, device.Result, org, user);
 
             Console.WriteLine($"FSLite - end error code processing.");
 
