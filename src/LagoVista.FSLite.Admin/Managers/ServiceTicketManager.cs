@@ -38,9 +38,10 @@ namespace LagoVista.FSLite.Admin.Managers
         private readonly ISmsSender _smsSender;
         private readonly IUserManager _userManager;
         private readonly IDistributionManager _distroManager;
+        private readonly IAdminLogger _adminLogger;
 
         public ServiceTicketManager(IServiceTicketRepo repo, IServiceBoardRepo boardRepo, IDeviceRepositoryManager repoManager, IDeviceManager deviceManager, ITemplateCategoryRepo templateCategoryRepo,
-                                    IEmailSender emailSender, ISmsSender smsSender, IAppConfig appConfig, IAdminLogger logger, ITicketStatusRepo ticketStatusRepo, IServiceTicketTemplateRepo templateRepo,
+                                    IAdminLogger adminLogger, IEmailSender emailSender, ISmsSender smsSender, IAppConfig appConfig, IAdminLogger logger, ITicketStatusRepo ticketStatusRepo, IServiceTicketTemplateRepo templateRepo,
                                     IDistributionManager distroManager, IUserManager userManager, IDeviceConfigurationManager deviceConfigManager, IDependencyManager depmanager, ISecurity security)
             : base(logger, appConfig, depmanager, security)
         {
@@ -56,6 +57,7 @@ namespace LagoVista.FSLite.Admin.Managers
             _smsSender = smsSender ?? throw new ArgumentNullException(nameof(smsSender));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _distroManager = distroManager ?? throw new ArgumentNullException(nameof(distroManager));
+            _adminLogger = adminLogger ?? throw new ArgumentNullException(nameof(adminLogger));
         }
 
         public async Task<InvokeResult<string>> AddServiceTicketAsync(ServiceTicket serviceTicket, EntityHeader org, EntityHeader user)
@@ -790,172 +792,6 @@ namespace LagoVista.FSLite.Admin.Managers
 
             Console.ResetColor();
 
-
-            return InvokeResult.Success;
-        }
-
-        private async Task SendNotification(DeviceErrorCode deviceErrorCode, DeviceError deviceError, Device device, DeviceException exception, EntityHeader org, EntityHeader user)
-        {
-            if (deviceError == null || String.IsNullOrEmpty(deviceError.NextNotification) || (deviceError.NextNotification.ToDateTime().ToUniversalTime() < DateTime.UtcNow))
-            {
-                var result = await _distroManager.GetListAsync(deviceErrorCode.DistroList.Id, org, user);
-                var subject = String.IsNullOrEmpty(deviceErrorCode.EmailSubject) ? deviceErrorCode.Name : deviceErrorCode.EmailSubject.Replace("[DEVICEID]", device.DeviceId).Replace("[DEVICENAME]", device.Name);
-
-                foreach (var notificationUser in result.AppUsers)
-                {
-                    var appUser = await _userManager.FindByIdAsync(notificationUser.Id);
-                    if (deviceErrorCode.SendEmail)
-                    {
-                        var body = $"The error code [{deviceErrorCode.Key}] was detected on the device {device.Name}<br>{deviceErrorCode.Description}<br>{exception.Details}";
-                        if (exception.AdditionalDetails.Any())
-                        {
-                            body += "<br>";
-                            body += "<b>Additional Details:<br /><b>";
-                            body += "<ul>";
-                            foreach (var detail in exception.AdditionalDetails)
-                                body += $"<li>{detail}</li>";
-
-                            body += "</ul>";
-                        }
-                        await _emailSender.SendAsync(appUser.Email, subject, body);
-                    }
-
-                    if (deviceErrorCode.SendSMS)
-                    {
-                        var body = $"Device {device.Name} generated error code [${deviceErrorCode.Key}] {deviceErrorCode.Description} {exception.Details}";
-                        await _smsSender.SendAsync(appUser.PhoneNumber, body);
-                    }
-                }
-
-                if (EntityHeader.IsNullOrEmpty(deviceErrorCode.NotificationIntervalTimeSpan))
-                {
-                    deviceError.NextNotification = null;
-                }
-                else if (deviceErrorCode.NotificationIntervalQuantity.HasValue && deviceErrorCode.NotificationIntervalTimeSpan.Value != TimeSpanIntervals.NotApplicable)
-                {
-
-                    deviceError.NextNotification = deviceErrorCode.NotificationIntervalTimeSpan.Value.AddTimeSpan(deviceErrorCode.NotificationIntervalQuantity.Value);
-                }
-                else
-                {
-                    deviceError.NextNotification = null;
-                    Logger.AddCustomEvent(Core.PlatformSupport.LogLevel.Error, "ServiceTicketManager__HandleDeviceExceptionAsync", "Invalid quantity on NotificationIntervalQuantity", device.DeviceId.ToKVP("deviceId"), exception.ErrorCode.ToKVP("errorCode"));
-                }
-            }
-            else
-            {
-                if (String.IsNullOrEmpty(deviceError.NextNotification))
-                {
-                    Console.WriteLine("Next Notification is null....");
-                }
-                else
-                {
-                    Console.WriteLine("When to send next notification: " + deviceError.NextNotification);
-                }
-            }
-
-        }
-
-        public async Task<InvokeResult> HandleDeviceExceptionAsync(DeviceException exception, EntityHeader org, EntityHeader user)
-        {
-            if (exception == null) throw new ArgumentNullException(nameof(exception));
-            if (org == null) throw new ArgumentNullException(nameof(org));
-            if (user == null) throw new ArgumentNullException(nameof(user));
-
-            var repo = await _repoManager.GetDeviceRepositoryWithSecretsAsync(exception.DeviceRepositoryId, org, user);
-            if (repo == null)
-            {
-                return InvokeResult.FromError($"FSLite - Handle Device Exception - Could not find repo for: {exception.DeviceUniqueId}");
-            }
-
-            Console.Write($"FSLite - Handle Device Exception, Repo: {repo.Name} - {repo.OwnerOrganization.Text}");
-
-
-            var device = await _deviceManager.GetDeviceByDeviceIdAsync(repo, exception.DeviceUniqueId, org, user);
-            if(device == null)
-            {
-                return InvokeResult.FromError($"FSLite - Handle Device Exception - Could not find device for: {exception.DeviceUniqueId}");
-            }
-
-            Console.Write($"FSLite - Handle Device Exception, Device: {device.Result.Name} - {device.Result.OwnerOrganization.Text}");
-
-            var deviceConfig = await _deviceConfigManager.GetDeviceConfigurationAsync(device.Result.DeviceConfiguration.Id, org, user);
-
-            if(deviceConfig == null)
-            {
-                return InvokeResult.FromError($"FSLite - Handle Device Exception - Could not find device configuration: {device.Result.DeviceConfiguration.Text}");
-            }
-
-            Console.Write($"FSLite - Handle Device Exception, Device Configuration: {deviceConfig.Name} - {deviceConfig.OwnerOrganization.Text}");
-
-            var deviceErrorCode = deviceConfig.ErrorCodes.FirstOrDefault(err => err.Key == exception.ErrorCode);
-            if (deviceErrorCode == null)
-            {
-                return InvokeResult.FromError($"FSLite - Could not find error code [{exception.ErrorCode}] on device configuration [{deviceConfig.Name}] for device [{device.Result.Name}]");
-            }
-
-            Console.Write($"FSLite - Handle Device Exception, Device Error Code: {deviceErrorCode.Name}");
-
-            if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.ServiceTicketTemplate))
-            {
-                Console.WriteLine("Generating service ticket (every occurrence.");
-                var request = new CreateServiceTicketRequest()
-                {
-                    TemplateId = deviceErrorCode.ServiceTicketTemplate.Id,
-                    DeviceId = device.Result.DeviceId,
-                    Details = exception.Details,
-                    DontCreateIfOpenForDevice = !deviceErrorCode.TriggerOnEachOccurrence,
-                    RepoId = repo.Id
-                };
-
-                var result = await CreateServiceTicketAsync(request, org, user);
-                if (!result.Successful) return result.ToInvokeResult();
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"FSLite - No Service Ticket Template - will not genreate ticket .");
-            }
-
-            var deviceError = device.Result.Errors.Where(err => err.DeviceErrorCode == exception.ErrorCode).FirstOrDefault();
-            if (deviceError == null)
-            {
-                deviceError = new DeviceError()
-                {
-                    Count = 1,
-                    DeviceErrorCode = exception.ErrorCode,
-                    FirstSeen = DateTime.UtcNow.ToJSONString(),
-                    LastDetails = exception.Details,
-                    Timestamp = DateTime.UtcNow.ToJSONString(),
-                };
-
-                if (deviceErrorCode.AutoexpireTimespanQuantity.HasValue)
-                {
-                    deviceError.Expires = deviceErrorCode.AutoexpireTimespan.Value.AddTimeSpan(deviceErrorCode.AutoexpireTimespanQuantity.Value);
-                }
-
-                device.Result.Errors.Add(deviceError);
-
-                Console.Write($"FSLite - Has error code {deviceError.DeviceErrorCode}, creating in device errors");
-            }
-            else
-            {
-                deviceError.Count++;
-                deviceError.Timestamp = DateTime.UtcNow.ToJSONString();
-
-                Console.Write($"FSLite - Has error code {deviceError.DeviceErrorCode}, adding to device errors, count - {deviceError.Count}.");
-            }
-
-            if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.DistroList))
-            {
-                await SendNotification(deviceErrorCode, deviceError, device.Result, exception, org, user);
-            }
-
-            Console.ResetColor();
-
-            await _deviceManager.UpdateDeviceAsync(repo, device.Result, org, user);
-
-            Console.WriteLine($"FSLite - end error code processing.");
 
             return InvokeResult.Success;
         }
