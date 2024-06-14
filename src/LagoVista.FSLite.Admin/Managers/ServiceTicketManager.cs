@@ -745,7 +745,7 @@ namespace LagoVista.FSLite.Admin.Managers
             }
 
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("Clear Device Exception.");
+            _adminLogger.Trace($"[ServiceTicketManager__CleareDeviceExceptionAsync] - Clear Device Exception Device [{device.Result.Name}], Error [{deviceErrorCode.Key}]");
 
             if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.ServiceTicketTemplate))
             {
@@ -757,41 +757,15 @@ namespace LagoVista.FSLite.Admin.Managers
 
                     await _repo.UpdateServiceTicketAsync(ticket);
                 }
+
+                _adminLogger.Trace($"[ServiceTicketManager__CleareDeviceExceptionAsync] - Ticket to Close [{device.Result.Name}], Error [{deviceErrorCode.Key}]");
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
+                _adminLogger.Trace($"[ServiceTicketManager__CleareDeviceExceptionAsync] - No Ticket to Remove [{device.Result.Name}], Error [{deviceErrorCode.Key}]");
                 Console.WriteLine("No service ticket, skipping.");
             }
-
-            if (!EntityHeader.IsNullOrEmpty(deviceErrorCode.DistroList))
-            {
-                var distroList = await _distroManager.GetListAsync(deviceErrorCode.DistroList.Id, org, user);
-                var subject = "[CLEARED] -" + (String.IsNullOrEmpty(deviceErrorCode.EmailSubject) ? deviceErrorCode.Name : deviceErrorCode.EmailSubject.Replace("[DEVICEID]", device.Result.DeviceId).Replace("[DEVICENAME]", device.Result.Name));
-
-                foreach (var notificationUser in distroList.AppUsers)
-                {
-                    var appUser = await _userManager.FindByIdAsync(notificationUser.Id);
-                    if (deviceErrorCode.SendEmail)
-                    {
-                        var body = $"The error code [{deviceErrorCode.Key}] was cleared on the device {device.Result.Name}<br>{deviceErrorCode.Description}<br>{exception.Details}";
-                        await _emailSender.SendAsync(appUser.Email, subject, body);
-                    }
-
-                    if (deviceErrorCode.SendSMS)
-                    {
-                        var body = $"Device {device.Result.Name} cleared error code [${deviceErrorCode.Key}] {deviceErrorCode.Description} {exception.Details}";
-                        await _smsSender.SendAsync(appUser.PhoneNumber, body);
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("No distro, skipping.");
-            }
-
-            Console.ResetColor();
-
 
             return InvokeResult.Success;
         }
