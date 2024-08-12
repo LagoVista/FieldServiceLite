@@ -833,7 +833,7 @@ namespace LagoVista.FSLite.Admin.Managers
             {
                 var user = await _userManager.FindByIdAsync(ticket.AssignedTo.Id);
 
-                await _emailSender.SendAsync(user.Email, $"Service Ticket #{ticket.TicketId}", contents);
+                await _emailSender.SendAsync(user.Email, $"Service Ticket #{ticket.TicketId}", contents, template.OwnerOrganization, user.ToEntityHeader() );
 
                 ticket.NotificationHistory.Insert(0, new TicketNotification()
                 {
