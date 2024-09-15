@@ -34,14 +34,14 @@ namespace LagoVista.FSLite.Admin.Managers
         private readonly ITicketStatusRepo _ticketStatusRepo;
         private readonly ITemplateCategoryRepo _templateCategoryRepo;
         private readonly IDeviceConfigurationManager _deviceConfigManager;
-        private readonly IEmailSender _emailSender;
+        private readonly UserAdmin.Interfaces.Managers.IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly IUserManager _userManager;
         private readonly IDistributionManager _distroManager;
         private readonly IAdminLogger _adminLogger;
 
         public ServiceTicketManager(IServiceTicketRepo repo, IServiceBoardRepo boardRepo, IDeviceRepositoryManager repoManager, IDeviceManager deviceManager, ITemplateCategoryRepo templateCategoryRepo,
-                                    IAdminLogger adminLogger, IEmailSender emailSender, ISmsSender smsSender, IAppConfig appConfig, IAdminLogger logger, ITicketStatusRepo ticketStatusRepo, IServiceTicketTemplateRepo templateRepo,
+                                    IAdminLogger adminLogger, UserAdmin.Interfaces.Managers.IEmailSender emailSender, ISmsSender smsSender, IAppConfig appConfig, IAdminLogger logger, ITicketStatusRepo ticketStatusRepo, IServiceTicketTemplateRepo templateRepo,
                                     IDistributionManager distroManager, IUserManager userManager, IDeviceConfigurationManager deviceConfigManager, IDependencyManager depmanager, ISecurity security)
             : base(logger, appConfig, depmanager, security)
         {
