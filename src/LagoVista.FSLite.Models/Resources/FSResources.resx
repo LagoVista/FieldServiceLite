@@ -1020,4 +1020,7 @@
   <data name="Status_Options" xml:space="preserve">
     <value>Status Options</value>
   </data>
+  <data name="ServiceBoard_Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
 </root>

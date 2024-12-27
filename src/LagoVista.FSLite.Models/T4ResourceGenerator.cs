@@ -1,4 +1,4 @@
-﻿/*12/19/2023 6:26:50 AM*/
+﻿/*12/27/2024 4:32:00 AM*/
 using System.Globalization;
 using System.Reflection;
 
@@ -222,6 +222,9 @@ namespace LagoVista.FSLite.Models.Resources
 //Resources:FSResources:ServiceBoard_BoardOwner_Select
 
 		public static string ServiceBoard_BoardOwner_Select { get { return GetResourceString("ServiceBoard_BoardOwner_Select"); } }
+//Resources:FSResources:ServiceBoard_Customer
+
+		public static string ServiceBoard_Customer { get { return GetResourceString("ServiceBoard_Customer"); } }
 //Resources:FSResources:ServiceBoard_Description
 
 		public static string ServiceBoard_Description { get { return GetResourceString("ServiceBoard_Description"); } }
@@ -1016,6 +1019,7 @@ namespace LagoVista.FSLite.Models.Resources
 			public const string ServiceBoard_BoardOwner = "ServiceBoard_BoardOwner";
 			public const string ServiceBoard_BoardOwner_Help = "ServiceBoard_BoardOwner_Help";
 			public const string ServiceBoard_BoardOwner_Select = "ServiceBoard_BoardOwner_Select";
+			public const string ServiceBoard_Customer = "ServiceBoard_Customer";
 			public const string ServiceBoard_Description = "ServiceBoard_Description";
 			public const string ServiceBoard_Help = "ServiceBoard_Help";
 			public const string ServiceBoard_SequenceNumber = "ServiceBoard_SequenceNumber";

@@ -14,7 +14,7 @@ namespace LagoVista.FSLite.Models
         FSResources.Names.ServiceBoard_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
         SaveUrl: "/api/fslite/serviceboard", DeleteUrl: "/api/fslite/serviceboard/{id}", FactoryUrl: "/api/fslite/serviceboard/factory",
         GetListUrl: "/api/fslite/serviceboards", GetUrl: "/api/fslite/serviceboard/{id}") ]
-    public class ServiceBoard : FSModelBase, ISummaryFactory
+    public class ServiceBoard : FSModelBase, ISummaryFactory, IFormDescriptor
     {
         public ServiceBoard()
         {
@@ -31,6 +31,10 @@ namespace LagoVista.FSLite.Models
         [FormField(LabelResource: FSResources.Names.ServiceBoard_SequenceNumber, HelpResource: FSResources.Names.ServiceBoard_SequenceNumber_Help, FieldType: FieldTypes.Integer, ResourceType: typeof(FSResources))]
         public int TicketSequenceNumber { get; set; }
 
+
+        [FormField(LabelResource: FSResources.Names.ServiceBoard_Customer, HelpResource: FSResources.Names.ServiceBoard_SequenceNumber_Help, FieldType: FieldTypes.Integer, ResourceType: typeof(FSResources))]
+        public EntityHeader Customer { get; set; }
+
         public ServiceBoardSummary CreateSummary()
         {
             return new ServiceBoardSummary()
@@ -40,6 +44,19 @@ namespace LagoVista.FSLite.Models
                 Key = Key,
                 IsPublic = IsPublic,
                 Name = Name,
+            };
+        }
+
+        public List<string> GetFormFields()
+        {
+            return new List<string>()
+            {
+                nameof(Name),
+                nameof(Key),
+                nameof(PrimaryContact),
+                nameof(BoardAbbreviation),
+                nameof(TicketSequenceNumber),
+                nameof(Customer)
             };
         }
 
