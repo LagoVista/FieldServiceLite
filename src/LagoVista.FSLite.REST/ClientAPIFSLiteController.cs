@@ -1,4 +1,8 @@
-﻿using LagoVista.FSLite.Admin.Interfaces;
+// --- BEGIN CODE INDEX META (do not edit) ---
+// ContentHash: ce0f0a70e6a8d51541f4bcdfa902d11762598c578af44a678354a9544360fccc
+// IndexVersion: 2
+// --- END CODE INDEX META ---
+using LagoVista.FSLite.Admin.Interfaces;
 using LagoVista.IoT.Logging.Loggers;
 using LagoVista.IoT.Web.Common.Controllers;
 using LagoVista.UserAdmin.Models.Users;

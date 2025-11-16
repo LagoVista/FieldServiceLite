@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "createdAtUtc": "2025-11-09T11:07:19.0738032Z",
+  "updatedAtUtc": "2025-11-09T16:56:08.7645399Z",
+  "files": {
+    "../../../../../../../fs.FSLite/src/LagoVista.FSLite.Admin/Startup.cs": {
+      "pointIds": [
+        "1f00f9b0-bb26-4ccd-8b9a-ea1ea2a2a678",
+        "6dd24ea6-96d5-4c43-bac1-51c3dc8e8c97",
+        "b618f194-a153-4804-b2fb-9e1aebeca467",
+        "d8a274c5-74d3-42d1-8012-a0973e06f49b",
+        "e0053bf4-2a2d-46c7-91bd-2a0389cdc829"
+      ]
+    }
+  }
+}
