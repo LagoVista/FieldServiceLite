@@ -11,12 +11,9 @@ using System.Text;
 namespace LagoVista.FSLite.Models
 {
     [DomainDescriptor]
-
     public class FSDomain
     {
         public const string FieldServiceLite = "FieldSerivceLite";
-
-
         [DomainDescription(FieldServiceLite)]
         public static DomainDescription StateMachineDomainDescription
         {
@@ -24,7 +21,7 @@ namespace LagoVista.FSLite.Models
             {
                 return new DomainDescription()
                 {
-                    Description = "Very Basic Field Service Ticketing System",
+                    Description = "A streamlined field service ticketing system for managing service tickets, boards, templates, and troubleshooting steps.",
                     DomainType = DomainDescription.DomainTypes.BusinessObject,
                     Name = "Field Service Lite",
                     CurrentVersion = new LagoVista.Core.Models.VersionInfo()
