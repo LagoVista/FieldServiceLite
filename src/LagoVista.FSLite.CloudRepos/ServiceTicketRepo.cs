@@ -3,6 +3,7 @@
 // IndexVersion: 2
 // --- END CODE INDEX META ---
 using LagoVista.CloudStorage.DocumentDB;
+using LagoVista.CloudStorage.Interfaces;
 using LagoVista.Core;
 using LagoVista.Core.Models.UIMetaData;
 using LagoVista.FSLite.Admin.Interfaces;
@@ -19,8 +20,8 @@ namespace LagoVista.FSLite.CloudRepos
     public class ServiceTicketRepo : DocumentDBRepoBase<ServiceTicket>, IServiceTicketRepo
     {
         private bool _shouldConsolidateCollections;
-        public ServiceTicketRepo(IFieldServiceLiteRepoSettings repoSettings, IAdminLogger logger)
-            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, logger)
+        public ServiceTicketRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
+            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
         {
             _shouldConsolidateCollections = repoSettings.ShouldConsolidateCollections;
         }

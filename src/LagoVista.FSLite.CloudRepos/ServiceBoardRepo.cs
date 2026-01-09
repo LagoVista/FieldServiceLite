@@ -12,6 +12,7 @@ using System;
 using LagoVista.Core;
 using System.Threading.Tasks;
 using System.Threading;
+using LagoVista.CloudStorage.Interfaces;
 
 namespace LagoVista.FSLite.CloudRepos
 {
@@ -20,8 +21,8 @@ namespace LagoVista.FSLite.CloudRepos
         static SemaphoreSlim _ticketGenerationLocker = new SemaphoreSlim(1, 1);
 
         private bool _shouldConsolidateCollections;
-        public ServiceBoardRepo(IFieldServiceLiteRepoSettings repoSettings, IAdminLogger logger)
-            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, logger)
+        public ServiceBoardRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
+            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
         {
             _shouldConsolidateCollections = repoSettings.ShouldConsolidateCollections;
         }
