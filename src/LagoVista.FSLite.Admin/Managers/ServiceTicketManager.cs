@@ -183,7 +183,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 assignedToUser = template.DefaultContact;
             }
 
-            var currentTimeStamp = DateTime.UtcNow.ToJSONString();
+            var currentTimeStamp = UtcTimestamp.Now;
 
             EntityHeader<ServiceBoard> boardEH = null;
 
@@ -210,7 +210,6 @@ namespace LagoVista.FSLite.Admin.Managers
                 ticketId = $"{board.BoardAbbreviation}-{ticketNumber}";
             }
 
-            Console.WriteLine("+++4");
 
             string dueDate = null;
 
@@ -246,15 +245,15 @@ namespace LagoVista.FSLite.Admin.Managers
                 statusDueDate = DateTime.UtcNow.Add(ts).ToJSONString();
             }
 
-            Console.WriteLine("+++5");
+            var utcNow = UtcTimestamp.Now;
 
             var ticket = new ServiceTicket()
             {
                 Key = template.Key,
                 TicketId = ticketId,
                 DeviceRepo = EntityHeader.Create(repo.Id, repo.Name),
-                CreationDate = currentTimeStamp,
-                LastUpdatedDate = currentTimeStamp,
+                CreationDate = utcNow,
+                LastUpdatedDate = utcNow,
                 DueDate = dueDate,
                 Name = $"{template.Name} ({device.Result.DeviceId})",
                 Address = device.Result.Address,
@@ -266,7 +265,7 @@ namespace LagoVista.FSLite.Admin.Managers
                 ServiceBoard = boardEH,
                 Device = new EntityHeader<IoT.DeviceManagement.Core.Models.Device>() { Id = device.Result.Id, Text = device.Result.Name },
                 Status = EntityHeader.Create(defaultState.Key, defaultState.Name),
-                StatusDate = DateTime.UtcNow.ToJSONString(),
+                StatusDate = utcNow,
                 OwnerOrganization = template.OwnerOrganization,
                 HoursEstimate = template.HoursEstimate,
                 CostEstimate = template.CostEstimate,
@@ -289,7 +288,7 @@ namespace LagoVista.FSLite.Admin.Managers
             ticket.History.Add(new ServiceTicketStatusHistory()
             {
                 AddedBy = user,
-                DateStamp = DateTime.UtcNow.ToJSONString(),
+                DateStamp = UtcTimestamp.Now,
                 Status = ticket.Status.Text,
                 Note = $"Created service ticket with {defaultState.Name} status."
             });
@@ -310,7 +309,7 @@ namespace LagoVista.FSLite.Admin.Managers
                     Id = Guid.NewGuid().ToString(),
                     Note = createServiceTicketRequest.Details,
                     AddedBy = ticket.CreatedBy,
-                    DateStamp = DateTime.UtcNow.ToJSONString()
+                    DateStamp = UtcTimestamp.Now
                 });
             }
 
@@ -362,7 +361,7 @@ namespace LagoVista.FSLite.Admin.Managers
             var historyItem = new ServiceTicketStatusHistory()
             {
                 AddedBy = user,
-                DateStamp = DateTime.UtcNow.ToJSONString(),
+                DateStamp = UtcTimestamp.Now,
                 Status = ticket.Status.Text,
                 Note = $"Ticket assigned from [{existingAssigned}] to [{newAssigned}]"
             };
@@ -429,7 +428,7 @@ namespace LagoVista.FSLite.Admin.Managers
             {
                 ticket.IsViewed = true;
                 ticket.ViewedBy = user;
-                ticket.ViewedDate = DateTime.UtcNow.ToJSONString();
+                ticket.ViewedDate = UtcTimestamp.Now;
                 var history = new ServiceTicketStatusHistory()
                 {
                     AddedBy = user,
@@ -486,7 +485,7 @@ namespace LagoVista.FSLite.Admin.Managers
             ValidationCheck(serviceTicket, Actions.Update);
 
             serviceTicket.LastUpdatedBy = user;
-            serviceTicket.LastUpdatedDate = DateTime.UtcNow.ToJSONString();
+            serviceTicket.LastUpdatedDate = UtcTimestamp.Now;
 
             await AuthorizeAsync(serviceTicket, AuthorizeResult.AuthorizeActions.Create, user, org);
             await _repo.UpdateServiceTicketAsync(serviceTicket);
@@ -518,7 +517,7 @@ namespace LagoVista.FSLite.Admin.Managers
 
         public async Task<InvokeResult<ServiceTicket>> SetTicketStatusAsync(string id, EntityHeader newStatus, EntityHeader org, EntityHeader user)
         {
-            var date = DateTime.UtcNow.ToJSONString();
+            var date = UtcTimestamp.Now;
 
             var ticket = await _repo.GetServiceTicketAsync(id);
             if (newStatus.Id == ticket.Status.Id)
@@ -572,7 +571,7 @@ namespace LagoVista.FSLite.Admin.Managers
             if (status.IsClosed != ticket.IsClosed)
             {
                 ticket.IsClosed = status.IsClosed;
-                ticket.ClosedDate = ticket.IsClosed ? date : null;
+                ticket.ClosedDate = ticket.IsClosed ? date : (UtcTimestamp?)null;
                 ticket.ClosedBy = user;
 
                 history = new ServiceTicketStatusHistory()
@@ -600,7 +599,7 @@ namespace LagoVista.FSLite.Admin.Managers
         public async Task<InvokeResult<ServiceTicket>> SetTicketViewedStatusAsync(string id, bool viewed, EntityHeader org, EntityHeader user)
         {
             var ticket = await _repo.GetServiceTicketAsync(id);
-            var date = DateTime.UtcNow.ToJSONString();
+            var date = UtcTimestamp.Now;
 
             await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org, "SetViewStatus");
 
@@ -617,7 +616,7 @@ namespace LagoVista.FSLite.Admin.Managers
                     return InvokeResult<ServiceTicket>.FromError($"Assigned to {ticket.AssignedTo.Text} but attempted to be viewed by {user.Text}.  Only the assigned user can mark as viewed.");
                 }
 
-                ticket.ViewedDate = DateTime.UtcNow.ToJSONString();
+                ticket.ViewedDate = UtcTimestamp.Now;
                 ticket.ViewedBy = user;
 
                 var history = new ServiceTicketStatusHistory()
@@ -654,7 +653,7 @@ namespace LagoVista.FSLite.Admin.Managers
         public async Task<InvokeResult<ServiceTicket>> SetTicketClosedStatusAsync(string id, bool isClosed, EntityHeader org, EntityHeader user)
         {
             var ticket = await _repo.GetServiceTicketAsync(id);
-            var date = DateTime.UtcNow.ToJSONString();
+            var date = UtcTimestamp.Now;
 
             await AuthorizeAsync(ticket, AuthorizeResult.AuthorizeActions.Update, user, org, "SetClosedStatus");
 
@@ -666,7 +665,7 @@ namespace LagoVista.FSLite.Admin.Managers
             ticket.IsClosed = isClosed;
             if (isClosed)
             {
-                ticket.ClosedDate = DateTime.UtcNow.ToJSONString();
+                ticket.ClosedDate = date;
                 ticket.ClosedBy = user;
 
                 var history = new ServiceTicketStatusHistory()
@@ -842,10 +841,10 @@ namespace LagoVista.FSLite.Admin.Managers
                 ticket.NotificationHistory.Insert(0, new TicketNotification()
                 {
                     NotifiedUser = ticket.AssignedTo,
-                    Timestamp = DateTime.UtcNow.ToJSONString()
+                    Timestamp = UtcTimestamp.Now
                 });
 
-                ticket.LastNotification = DateTime.UtcNow.ToJSONString();
+                ticket.LastNotification = UtcTimestamp.Now;
                 ticket.LastNotifiedUser = ticket.AssignedTo;
 
                 switch (template.OpenReminderNotificationTimeSpan.Value)

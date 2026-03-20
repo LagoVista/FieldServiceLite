@@ -6,6 +6,7 @@ using LagoVista.Core;
 using LagoVista.Core.Attributes;
 using LagoVista.Core.Interfaces;
 using LagoVista.Core.Models;
+using LagoVista.Core.Validation;
 using LagoVista.FSLite.Models.Resources;
 using LagoVista.IoT.Deployment.Admin.Models;
 using LagoVista.IoT.DeviceAdmin.Models;
@@ -19,7 +20,7 @@ namespace LagoVista.FSLite.Models
     [EntityDescription(FSDomain.FieldServiceLite, FSResources.Names.ServiceTicket_Title, FSResources.Names.ServiceTicket_Help,
      FSResources.Names.ServiceTicket_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
         GetListUrl: "/api/fslite/ticket/open", GetUrl: "/api/fslite/ticket/{id}", SaveUrl: "/api/fslite/ticket", FactoryUrl: "/api/fslite/ticket/factory", DeleteUrl: "/api/fslite/ticket/{id}")]
-    public class ServiceTicket : FSModelBase, ISummaryFactory
+    public class ServiceTicket : EntityBase, ISummaryFactory, IValidateable
     {
         public ServiceTicket()
         {

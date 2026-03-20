@@ -5,6 +5,7 @@
 using LagoVista.Core.Attributes;
 using LagoVista.Core.Interfaces;
 using LagoVista.Core.Models;
+using LagoVista.Core.Validation;
 using LagoVista.FSLite.Models.Resources;
 
 namespace LagoVista.FSLite.Models
@@ -13,7 +14,7 @@ namespace LagoVista.FSLite.Models
          FSResources.Names.Template_Cateogry_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
         SaveUrl: "/api/fslite/templatecategory", GetListUrl: "/api/fslite/templatecategories", GetUrl: "/api/fslite/templatecategory/{id}", DeleteUrl: "/api/fslite/templatecategory/{id}",
         FactoryUrl: "/api/fslite/templatecategory/factory")]
-    public class TemplateCategory : FSModelBase, ISummaryFactory
+    public class TemplateCategory : EntityBase, ISummaryFactory, IValidateable
     {
         public TemplateCategory()
         {

@@ -51,7 +51,7 @@ namespace LagoVista.FSLite.CloudRepos
             {
                 var board = await GetServiceBoardAsync(id);
                 board.TicketSequenceNumber++;
-                board.LastUpdatedDate = DateTime.UtcNow.ToJSONString();
+                board.LastUpdatedDate = UtcTimestamp.Now;
                 await UpdateServiceBoardAsync(board);
                 return board.TicketSequenceNumber;
             }

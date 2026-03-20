@@ -2,22 +2,22 @@
 <package>
   <metadata>
     <id>LagoVista.FSLite.Rest</id>
-    <version>3.0.3099.1426</version>
+    <version>3.0.3228.2100</version>
     <authors>Software Logistics, LLC</authors>
     <owners>Software Logistics, LLC</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://www.nuviot.com</projectUrl>
     <iconUrl>http://bytemaster.blob.core.windows.net/icons/LagoVistaIcon.png</iconUrl>
     <description>Very simple field service implementation to create service tickets.  Primarily used to integrate with other systems.</description>
-    <copyright>Copyright Software Logistics - 2025</copyright>
+    <copyright>Copyright Software Logistics - 2026</copyright>
     <tags>HomeAutomation IoT FieldService</tags>
     <icon>LagoVistaIcon.png</icon>
-    <releaseNotes>Build Date: 11/10/2025 7:26:04 PM UTC</releaseNotes>
+    <releaseNotes>Build Date: 3/20/2026 1:00:12 AM UTC</releaseNotes>
     <repository url="https://www.github.com/lagovista" type="git" branch="master"></repository>
     <dependencies>
       <group targetFramework="net9.0">
-        <dependency id="LagoVista.IoT.Web.Common" version="3.0.3099.1426" />
-        <dependency id="LagoVista.FSLite.Admin" version="3.0.3099.1426" />
+        <dependency id="LagoVista.IoT.Web.Common" version="3.0.3228.2054" />
+        <dependency id="LagoVista.FSLite.Admin" version="3.0.3228.2100" />
       </group>
     </dependencies>
   </metadata>

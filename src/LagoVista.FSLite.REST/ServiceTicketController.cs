@@ -237,7 +237,7 @@ namespace LagoVista.FSLite.REST
         {
             note.Id = Guid.NewGuid().ToId();
             note.AddedBy = UserEntityHeader;
-            note.DateStamp = DateTime.UtcNow.ToJSONString();
+            note.DateStamp = UtcTimestamp.Now;
 
             return _mgr.AddTicketNoteAsync(id, note, OrgEntityHeader, UserEntityHeader);
         }

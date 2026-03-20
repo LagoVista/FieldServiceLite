@@ -6,6 +6,7 @@ using LagoVista.Core;
 using LagoVista.Core.Attributes;
 using LagoVista.Core.Interfaces;
 using LagoVista.Core.Models;
+using LagoVista.Core.Validation;
 using LagoVista.FSLite.Models.Resources;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace LagoVista.FSLite.Models
         FSResources.Names.ServiceBoard_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
         SaveUrl: "/api/fslite/serviceboard", DeleteUrl: "/api/fslite/serviceboard/{id}", FactoryUrl: "/api/fslite/serviceboard/factory",
         GetListUrl: "/api/fslite/serviceboards", GetUrl: "/api/fslite/serviceboard/{id}") ]
-    public class ServiceBoard : FSModelBase, ISummaryFactory, IFormDescriptor
+    public class ServiceBoard : EntityBase, ISummaryFactory, IFormDescriptor, IValidateable
     {
         public ServiceBoard()
         {

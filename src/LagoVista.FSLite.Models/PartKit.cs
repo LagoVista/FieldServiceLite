@@ -5,6 +5,7 @@
 using LagoVista.Core.Attributes;
 using LagoVista.Core.Interfaces;
 using LagoVista.Core.Models;
+using LagoVista.Core.Validation;
 using LagoVista.FSLite.Models.Resources;
 using LagoVista.IoT.DeviceAdmin.Models;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace LagoVista.FSLite.Models
      FSResources.Names.PartKit_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
         GetListUrl: "/api/fslite/partskits", GetUrl: "/api/fslite/partskit/{id}", SaveUrl: "/api/fslite/partskit",
         DeleteUrl: "/api/fslite/partskit/{id}", FactoryUrl: "/api/fslite/partskit/factory")]
-    public class PartsKit : FSModelBase, ISummaryFactory
+    public class PartsKit : EntityBase, ISummaryFactory, IValidateable
     {
         public PartsKit()
         {

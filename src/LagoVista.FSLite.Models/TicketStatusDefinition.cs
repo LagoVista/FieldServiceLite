@@ -20,7 +20,7 @@ namespace LagoVista.FSLite.Models
      FSResources.Names.Status_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
         FactoryUrl: "/api/fslite/ticketstatusdefinition/factory", GetListUrl: "/api/fslite/ticketstatusdefinition", GetUrl: "/api/fslite/ticketstatusdefinition/{id}",
         DeleteUrl: "/api/fslite/ticketstatusdefinition/{id}", SaveUrl: "/api/fslite/ticketstatusdefinition")]
-    public class TicketStatusDefinition : FSModelBase, ISummaryFactory, IFormDescriptor
+    public class TicketStatusDefinition : EntityBase, ISummaryFactory, IFormDescriptor, IValidateable
     {
         public TicketStatusDefinition()
         {

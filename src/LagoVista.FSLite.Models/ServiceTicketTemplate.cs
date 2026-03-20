@@ -40,7 +40,7 @@ namespace LagoVista.FSLite.Models
         FSResources.Names.ServiceTicketTemplate_Description, EntityDescriptionAttribute.EntityTypes.SimpleModel, typeof(FSResources),
         SaveUrl: "/api/fslite/tickets/template", GetListUrl: "/api/fslite/tickets/templates", GetUrl: "/api/fslite/tickets/template/{id}",
         FactoryUrl: "/api/fslite/tickets/template/factory", DeleteUrl: "/api/fslite/tickets/template/{id}")]
-    public class ServiceTicketTemplate : FSModelBase, ISummaryFactory, IFormDescriptor, IFormDescriptorAdvanced, IFormDescriptorAdvancedCol2
+    public class ServiceTicketTemplate : EntityBase, ISummaryFactory, IFormDescriptor, IFormDescriptorAdvanced, IFormDescriptorAdvancedCol2, IValidateable
     {
         public const string ServiceTicketTemplate_Urgency_CriticalSafety = "criticalsafety";
         public const string ServiceTicketTemplate_Urgency_Important = "important";

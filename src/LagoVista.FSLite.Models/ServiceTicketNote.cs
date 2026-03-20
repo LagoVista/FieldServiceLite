@@ -2,6 +2,7 @@
 // ContentHash: db62fa2e6093c3af11a5e52c8dca09656033d9cad48e02e601316556a8e9e4ec
 // IndexVersion: 2
 // --- END CODE INDEX META ---
+using LagoVista.Core;
 using LagoVista.Core.Attributes;
 using LagoVista.Core.Models;
 using LagoVista.Core.Validation;
@@ -19,7 +20,7 @@ namespace LagoVista.FSLite.Models
         public EntityHeader AddedBy { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketNote_DateStamp, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
-        public string DateStamp { get; set; }
+        public UtcTimestamp DateStamp { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceTicketNote_Note, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources), IsRequired: true, IsUserEditable: true)]
         public string Note { get; set; }

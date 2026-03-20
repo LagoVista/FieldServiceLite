@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LagoVista.IoT.Web.Common" Version="3.0.3099.1426" />
+    <PackageReference Include="LagoVista.IoT.Web.Common" Version="3.0.3228.2054" />
   </ItemGroup>
 
   <ItemGroup>
