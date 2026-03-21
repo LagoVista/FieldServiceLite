@@ -18,15 +18,10 @@ namespace LagoVista.FSLite.CloudRepos
 {
     public class PartsKitRepo : DocumentDBRepoBase<PartsKit>, IPartsKitRepo
     {
-        private bool _shouldConsolidateCollections;
         public PartsKitRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
             : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
         {
-            _shouldConsolidateCollections = repoSettings.ShouldConsolidateCollections;
         }
-
-        protected override bool ShouldConsolidateCollections => _shouldConsolidateCollections;
-
 
         public Task AddPartsKitAsync(PartsKit partsKit)
         {

@@ -20,14 +20,10 @@ namespace LagoVista.FSLite.CloudRepos
     {
         static SemaphoreSlim _ticketGenerationLocker = new SemaphoreSlim(1, 1);
 
-        private bool _shouldConsolidateCollections;
         public ServiceBoardRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
             : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
         {
-            _shouldConsolidateCollections = repoSettings.ShouldConsolidateCollections;
         }
-
-        protected override bool ShouldConsolidateCollections => _shouldConsolidateCollections;
 
         public Task AddServiceBoardAsync(ServiceBoard board)
         {

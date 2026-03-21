@@ -6,28 +6,19 @@ using LagoVista.CloudStorage.DocumentDB;
 using LagoVista.Core.Models.UIMetaData;
 using LagoVista.FSLite.Admin.Interfaces;
 using LagoVista.FSLite.Models;
-using LagoVista.IoT.Logging.Loggers;
-using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using LagoVista.CloudStorage;
-using LagoVista.Core.Interfaces;
 using LagoVista.CloudStorage.Interfaces;
 
 namespace LagoVista.FSLite.CloudRepos
 {
     public class TicketStatusRepo : DocumentDBRepoBase<TicketStatusDefinition>, ITicketStatusRepo
     {
-        private bool _shouldConsolidateCollections;
         public TicketStatusRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
             : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
         {
-            _shouldConsolidateCollections = repoSettings.ShouldConsolidateCollections;
-        }
 
-        protected override bool ShouldConsolidateCollections => _shouldConsolidateCollections;
+        }
 
         public Task AddTicketStatusItemsAsync(TicketStatusDefinition ticketStatusItems)
         {

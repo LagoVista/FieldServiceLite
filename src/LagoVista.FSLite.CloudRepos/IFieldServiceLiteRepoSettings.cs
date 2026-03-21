@@ -11,10 +11,8 @@ namespace LagoVista.FSLite.CloudRepos
 {
     public interface IFieldServiceLiteRepoSettings
     {
-        IConnectionSettings FieldServiceLiteDocDbStorage { get; set; }
+        IConnectionSettings FieldServiceLiteDocDbStorage { get; }
 
-        IConnectionSettings FieldServiceLiteTableStorage { get; set; }
-
-        bool ShouldConsolidateCollections { get; }
+        IConnectionSettings FieldServiceLiteTableStorage { get; }
     }
 }

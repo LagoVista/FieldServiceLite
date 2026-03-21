@@ -2,33 +2,22 @@
 // ContentHash: b5ff009b0e04a8092d50ebb87bfbd58ce0eeaa992a2ab3f8a207fd5f97944591
 // IndexVersion: 2
 // --- END CODE INDEX META ---
-using LagoVista.CloudStorage;
 using LagoVista.CloudStorage.DocumentDB;
 using LagoVista.CloudStorage.Interfaces;
-using LagoVista.Core.Interfaces;
-using LagoVista.Core.Models;
 using LagoVista.Core.Models.UIMetaData;
-using LagoVista.Core.Validation;
 using LagoVista.FSLite.Admin.Interfaces;
 using LagoVista.FSLite.Models;
-using LagoVista.IoT.Logging.Loggers;
-using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace LagoVista.FSLite.CloudRepos
 {
     public class TemplateCategoryRepo : DocumentDBRepoBase<TemplateCategory>, ITemplateCategoryRepo
     {
-        private bool _shouldConsolidateCollections;
         public TemplateCategoryRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
             : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
         {
-            _shouldConsolidateCollections = repoSettings.ShouldConsolidateCollections;
         }
-
-        protected override bool ShouldConsolidateCollections => _shouldConsolidateCollections;
 
         public Task AddTemplateCateogrydAsync(TemplateCategory board)
         {

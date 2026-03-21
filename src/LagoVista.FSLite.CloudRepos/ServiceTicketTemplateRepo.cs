@@ -18,14 +18,10 @@ namespace LagoVista.FSLite.CloudRepos
 {
     public class ServiceTicketTemplateRepo : DocumentDBRepoBase<ServiceTicketTemplate>, IServiceTicketTemplateRepo
     {
-        private bool _shouldConsolidateCollections;
         public ServiceTicketTemplateRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
             : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
         {
-            _shouldConsolidateCollections = repoSettings.ShouldConsolidateCollections;
         }
-
-        protected override bool ShouldConsolidateCollections => _shouldConsolidateCollections;
 
         public Task AddServiceTicketTemplateAsync(ServiceTicketTemplate template)
         {

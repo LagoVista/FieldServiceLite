@@ -19,14 +19,10 @@ namespace LagoVista.FSLite.CloudRepos
 {
     public class ServiceTicketRepo : DocumentDBRepoBase<ServiceTicket>, IServiceTicketRepo
     {
-        private bool _shouldConsolidateCollections;
         public ServiceTicketRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
             : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
         {
-            _shouldConsolidateCollections = repoSettings.ShouldConsolidateCollections;
         }
-
-        protected override bool ShouldConsolidateCollections => _shouldConsolidateCollections;
 
         public Task AddServiceTicketAsync(ServiceTicket ticket)
         {
