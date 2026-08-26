@@ -14,8 +14,7 @@ namespace LagoVista.FSLite.CloudRepos
 {
     public class TicketStatusRepo : DocumentDBRepoBase<TicketStatusDefinition>, ITicketStatusRepo
     {
-        public TicketStatusRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
-            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
+        public TicketStatusRepo(IDocumentCloudCachedServices services) : base(services)
         {
 
         }

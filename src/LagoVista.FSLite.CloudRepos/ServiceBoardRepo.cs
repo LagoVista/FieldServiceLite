@@ -20,8 +20,7 @@ namespace LagoVista.FSLite.CloudRepos
     {
         static SemaphoreSlim _ticketGenerationLocker = new SemaphoreSlim(1, 1);
 
-        public ServiceBoardRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
-            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
+        public ServiceBoardRepo(IDocumentCloudCachedServices services) : base(services)
         {
         }
 

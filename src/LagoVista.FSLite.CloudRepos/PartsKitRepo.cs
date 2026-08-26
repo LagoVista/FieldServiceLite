@@ -18,8 +18,7 @@ namespace LagoVista.FSLite.CloudRepos
 {
     public class PartsKitRepo : DocumentDBRepoBase<PartsKit>, IPartsKitRepo
     {
-        public PartsKitRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
-            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
+        public PartsKitRepo(IDocumentCloudCachedServices services) : base(services)
         {
         }
 

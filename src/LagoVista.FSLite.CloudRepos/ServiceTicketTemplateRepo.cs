@@ -18,8 +18,7 @@ namespace LagoVista.FSLite.CloudRepos
 {
     public class ServiceTicketTemplateRepo : DocumentDBRepoBase<ServiceTicketTemplate>, IServiceTicketTemplateRepo
     {
-        public ServiceTicketTemplateRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
-            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
+        public ServiceTicketTemplateRepo(IDocumentCloudCachedServices services) : base(services)
         {
         }
 

@@ -14,8 +14,7 @@ namespace LagoVista.FSLite.CloudRepos
 {
     public class TemplateCategoryRepo : DocumentDBRepoBase<TemplateCategory>, ITemplateCategoryRepo
     {
-        public TemplateCategoryRepo(IFieldServiceLiteRepoSettings repoSettings, IDocumentCloudCachedServices services)
-            : base(repoSettings.FieldServiceLiteDocDbStorage.Uri, repoSettings.FieldServiceLiteDocDbStorage.AccessKey, repoSettings.FieldServiceLiteDocDbStorage.ResourceName, services)
+        public TemplateCategoryRepo(IDocumentCloudCachedServices services) : base(services)
         {
         }
 
