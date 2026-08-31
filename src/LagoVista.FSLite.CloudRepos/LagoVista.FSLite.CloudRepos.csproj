@@ -8,8 +8,8 @@
     <ProjectReference Include="..\LagoVista.FSLite.Admin\LagoVista.FSLite.Admin.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="LagoVista.Core.Configuration" Version="3.0.3387.2047" />
-    <PackageReference Include="LagoVista.CloudStorage" Version="3.0.3387.2047" />
+    <PackageReference Include="LagoVista.Core.Configuration" Version="3.0.3391.0949" />
+    <PackageReference Include="LagoVista.CloudStorage" Version="3.0.3391.0949" />
   </ItemGroup>
 
 </Project>
