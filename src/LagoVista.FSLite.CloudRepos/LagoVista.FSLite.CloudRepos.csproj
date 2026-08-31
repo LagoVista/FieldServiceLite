@@ -1,15 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\LagoVista.FSLite.Admin\LagoVista.FSLite.Admin.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="LagoVista.Core.Configuration" Version="3.0.3391.0949" />
-    <PackageReference Include="LagoVista.CloudStorage" Version="3.0.3391.0949" />
+    <PackageReference Include="LagoVista.Core.Configuration" />
+    <PackageReference Include="LagoVista.CloudStorage" />
   </ItemGroup>
-
 </Project>

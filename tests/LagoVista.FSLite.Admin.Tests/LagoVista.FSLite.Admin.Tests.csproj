@@ -1,13 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="LagoVista.Core.TestBase" Version="3.0.3391.0949" />
+    <PackageReference Include="LagoVista.Core.TestBase" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\LagoVista.FSLite.Admin\LagoVista.FSLite.Admin.csproj" />
   </ItemGroup>

@@ -1,0 +1,23 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="LagoVista.CloudStorage" Version="6.0.2" />
+    <PackageVersion Include="LagoVista.Core" Version="6.0.10" />
+    <PackageVersion Include="LagoVista.Core.Authentication" Version="6.0.10" />
+    <PackageVersion Include="LagoVista.Core.Configuration" Version="6.0.10" />
+    <PackageVersion Include="LagoVista.Core.TestBase" Version="6.0.10" />
+    <PackageVersion Include="LagoVista.IoT.Deployment.Admin" Version="6.0.0" />
+    <PackageVersion Include="LagoVista.IoT.Deployment.Models" Version="6.0.0" />
+    <PackageVersion Include="LagoVista.IoT.DeviceAdmin" Version="6.0.0" />
+    <PackageVersion Include="LagoVista.IoT.DeviceAdmin.Models" Version="6.0.0" />
+    <PackageVersion Include="LagoVista.IoT.DeviceManagement.Core" Version="6.0.0" />
+    <PackageVersion Include="LagoVista.IoT.DeviceManagement.Models" Version="6.0.0" />
+    <PackageVersion Include="LagoVista.IoT.Logging" Version="6.0.3" />
+    <PackageVersion Include="LagoVista.IoT.Web.Common" Version="6.0.1" />
+    <PackageVersion Include="LagoVista.MediaServices.Models" Version="6.0.0" />
+    <PackageVersion Include="LagoVista.PDFServices" Version="6.0.10" />
+    <PackageVersion Include="LagoVista.UserAdmin" Version="6.0.1" />
+  </ItemGroup>
+</Project>
