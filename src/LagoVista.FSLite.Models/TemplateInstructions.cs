@@ -41,10 +41,10 @@ namespace LagoVista.FSLite.Models
         public string Notes { get; set; }
 
 
-        [FormField(LabelResource: FSResources.Names.Common_Resources, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.Common_Resources, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<EquipmentSummary> Tools { get; set; }
 
-        [FormField(LabelResource: FSResources.Names.Common_Resources, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.Common_Resources, FieldType: FieldTypes.ChildList, ResourceType: typeof(FSResources))]
         public List<MediaResourceSummary> Resources { get; set; }
     }
 }

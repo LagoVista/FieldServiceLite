@@ -142,7 +142,7 @@ namespace LagoVista.FSLite.Models
         public List<TicketNotification> NotificationHistory { get; set; }
 
 
-        [FormField(LabelResource: FSResources.Names.ServiceTicket_DeviceRepo, FieldType: FieldTypes.ChildItem, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceTicket_DeviceRepo, FieldType: FieldTypes.EntityHeaderPicker, EntityHeaderPickerUrl: "/api/devicerepos", ResourceType: typeof(FSResources))]
         public EntityHeader DeviceRepo { get; set; }
 
         public ServiceTicketSummary CreateSummary()

@@ -27,7 +27,7 @@ namespace LagoVista.FSLite.Models
             Id = Guid.NewGuid().ToId();
         }
 
-        [FormField(LabelResource: FSResources.Names.ServiceBoard_BoardOwner, WaterMark: FSResources.Names.ServiceBoard_BoardOwner_Select, HelpResource: FSResources.Names.ServiceBoard_BoardOwner_Help, FieldType: FieldTypes.UserPicker, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceBoard_BoardOwner, WaterMark: FSResources.Names.ServiceBoard_BoardOwner_Select, HelpResource: FSResources.Names.ServiceBoard_BoardOwner_Help, FieldType: FieldTypes.ContactPicker, ResourceType: typeof(FSResources))]
         public EntityHeader PrimaryContact { get; set; }
 
         [FormField(LabelResource: FSResources.Names.ServiceBoard_Abbreviation,HelpResource: FSResources.Names.ServiceBoard_Abbreviation_Help, ValidationRegEx: "^[a-zA-Z]{3}$", RegExValidationMessageResource: FSResources.Names.ServiceBoard_Abbreviation_Help, FieldType: FieldTypes.Text, ResourceType: typeof(FSResources))]
@@ -37,7 +37,7 @@ namespace LagoVista.FSLite.Models
         public int TicketSequenceNumber { get; set; }
 
 
-        [FormField(LabelResource: FSResources.Names.ServiceBoard_Customer, HelpResource: FSResources.Names.ServiceBoard_SequenceNumber_Help, FieldType: FieldTypes.Integer, ResourceType: typeof(FSResources))]
+        [FormField(LabelResource: FSResources.Names.ServiceBoard_Customer, HelpResource: FSResources.Names.ServiceBoard_SequenceNumber_Help, FieldType: FieldTypes.CustomerPicker, ResourceType: typeof(FSResources))]
         public EntityHeader Customer { get; set; }
 
         public ServiceBoardSummary CreateSummary()
