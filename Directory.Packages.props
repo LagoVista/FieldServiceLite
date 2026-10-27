@@ -1,23 +1,23 @@
-<Project>
+﻿<?xml version="1.0" encoding="utf-8"?><Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="LagoVista.CloudStorage" Version="7.0.5" />
-    <PackageVersion Include="LagoVista.Core" Version="7.0.4" />
-    <PackageVersion Include="LagoVista.Core.Authentication" Version="7.0.4" />
-    <PackageVersion Include="LagoVista.Core.Configuration" Version="7.0.4" />
-    <PackageVersion Include="LagoVista.Core.TestBase" Version="7.0.4" />
-    <PackageVersion Include="LagoVista.IoT.Deployment.Admin" Version="7.0.3" />
-    <PackageVersion Include="LagoVista.IoT.Deployment.Models" Version="7.0.3" />
-    <PackageVersion Include="LagoVista.IoT.DeviceAdmin" Version="7.0.3" />
-    <PackageVersion Include="LagoVista.IoT.DeviceAdmin.Models" Version="7.0.3" />
-    <PackageVersion Include="LagoVista.IoT.DeviceManagement.Core" Version="7.0.3" />
-    <PackageVersion Include="LagoVista.IoT.DeviceManagement.Models" Version="7.0.3" />
-    <PackageVersion Include="LagoVista.IoT.Logging" Version="7.0.4" />
-    <PackageVersion Include="LagoVista.IoT.Web.Common" Version="7.0.3" />
-    <PackageVersion Include="LagoVista.MediaServices.Models" Version="7.0.4" />
-    <PackageVersion Include="LagoVista.PDFServices" Version="7.0.4" />
-    <PackageVersion Include="LagoVista.UserAdmin" Version="7.0.4" />
+    <PackageVersion Include="LagoVista.CloudStorage" Version="7.0.101" />
+    <PackageVersion Include="LagoVista.Core" Version="7.0.54" />
+    <PackageVersion Include="LagoVista.Core.Authentication" Version="7.0.54" />
+    <PackageVersion Include="LagoVista.Core.Configuration" Version="7.0.54" />
+    <PackageVersion Include="LagoVista.Core.TestBase" Version="7.0.54" />
+    <PackageVersion Include="LagoVista.IoT.Deployment.Admin" Version="7.0.29" />
+    <PackageVersion Include="LagoVista.IoT.Deployment.Models" Version="7.0.29" />
+    <PackageVersion Include="LagoVista.IoT.DeviceAdmin" Version="7.0.7" />
+    <PackageVersion Include="LagoVista.IoT.DeviceAdmin.Models" Version="7.0.7" />
+    <PackageVersion Include="LagoVista.IoT.DeviceManagement.Core" Version="7.0.10" />
+    <PackageVersion Include="LagoVista.IoT.DeviceManagement.Models" Version="7.0.10" />
+    <PackageVersion Include="LagoVista.IoT.Logging" Version="7.0.11" />
+    <PackageVersion Include="LagoVista.IoT.Web.Common" Version="7.0.61" />
+    <PackageVersion Include="LagoVista.MediaServices.Models" Version="7.0.24" />
+    <PackageVersion Include="LagoVista.PDFServices" Version="7.0.54" />
+    <PackageVersion Include="LagoVista.UserAdmin" Version="7.0.27" />
   </ItemGroup>
 </Project>
